@@ -1,72 +1,104 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useTransform,
+  MotionValue,
+} from "framer-motion";
 
 const images = [
-  "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1",
   "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
   "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
   "https://images.unsplash.com/photo-1466611653911-95081537e5b7",
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
 ];
 
-export default function ImageSlider() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const calculatePosition = (progress: number, index: number, total: number) => {
+  const angle = (progress + index / total) * Math.PI * 2;
+  const x = Math.cos(angle) * 400;
+  const y = Math.sin(angle) * 70; // Reduced y-axis movement for oval shape
+  return { x, y };
+};
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+interface ImageProps {
+  src: string;
+  index: number;
+  progress: MotionValue<number>;
+}
 
-    return () => clearInterval(interval);
-  }, []);
+const ImageComponent: React.FC<ImageProps> = ({ src, index, progress }) => {
+  const x = useTransform(
+    progress,
+    (latest) => calculatePosition(latest, index, images.length).x
+  );
+  const y = useTransform(
+    progress,
+    (latest) => calculatePosition(latest, index, images.length).y
+  );
 
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  // Adjusted parallax effect
+  const imageX = useTransform(x, (value) => -value * 0.15);
+  const imageY = useTransform(y, (value) => -value * 0.15);
 
   return (
-    <div className="relative">
-      <div className="w-full h-[30vh] relative overflow-hidden shadow-xl">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className="absolute inset-0 transition-transform duration-1000 ease-in-out"
-            style={{
-              transform: `translateX(${100 * (index - currentIndex)}%)`,
-            }}
-          >
-            <Image
-              src={image}
-              alt={`Sustainable nature ${index + 1}`}
-              fill
-              style={{ objectFit: "cover" }}
-              priority={index === currentIndex}
-            />
+    <motion.div
+      className="absolute w-3/12 h-4/6 rounded-sm overflow-hidden shadow-lg shadow-zinc-700"
+      style={{ x, y }}
+    >
+      <motion.div
+        className="w-[200%] h-[200%] relative left-[-50%] top-[-50%]"
+        style={{ x: imageX, y: imageY }}
+      >
+        <Image
+          src={src}
+          alt={`Sustainable nature ${index + 1}`}
+          fill
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+          priority
+        />
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default function FullCoverageParallaxOvalImageSlider() {
+  const progress = useMotionValue(0);
+  const animationRef = useRef(0);
+
+  useAnimationFrame((time) => {
+    const speed = 0.00001; // Adjust this value to change the rotation speed
+    progress.set((time * speed) % 1);
+  });
+
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="flex justify-center items-center">
+      <div className="w-4/5 m-24 p-4 bg-emerald-700 bg-opacity-20 border-emerald-700 border-opacity-90 border-4 rounded-sm shadow-border shadow-lg">
+        <div className="relative h-[70vh] overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center">
+            {images.map((image, index) => (
+              <ImageComponent
+                key={image}
+                src={image}
+                index={index}
+                progress={progress}
+              />
+            ))}
           </div>
-        ))}
-        <button
-          onClick={goToPrevious}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 z-10"
-          aria-label="Previous image"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button
-          onClick={goToNext}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 z-10"
-          aria-label="Next image"
-        >
-          <ChevronRight size={24} />
-        </button>
+        </div>
       </div>
     </div>
   );

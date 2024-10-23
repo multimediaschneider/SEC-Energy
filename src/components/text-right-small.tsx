@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState, ReactNode } from "react";
 import { Button } from "@headlessui/react";
 
@@ -26,14 +25,12 @@ export default function TextRightSmall({
       },
       {
         threshold: 0.1,
-        rootMargin: "-10% 0px",
+        rootMargin: "0% 0px",
       }
     );
-
     if (ref.current) {
       observer.observe(ref.current);
     }
-
     return () => {
       if (ref.current) {
         observer.unobserve(ref.current);
@@ -42,12 +39,12 @@ export default function TextRightSmall({
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <div className="flex flex-col items-end p-6 w-4/5">
+    <div className="flex justify-end w-4/5">
+      <div className="rounded-xl py-16">
         <div className="flex flex-col items-start pt-4">
           <div
             ref={ref}
-            className={`transition-all duration-1000 ease-out pt-6 border-t pb-6 border-b ${
+            className={`transition-all duration-1000 ease-out pt-6 border-y pb-6 border-zinc-400 ${
               isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
@@ -55,7 +52,7 @@ export default function TextRightSmall({
           >
             {contents.map((content, index) => (
               <div key={index} className="max-w-2xl">
-                <h2 className="text-3xl font-extralight text-white">
+                <h2 className="text-3xl font-extralight text-emerald-700">
                   {content}
                 </h2>
               </div>

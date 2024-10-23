@@ -6,9 +6,9 @@ import { Dot } from "lucide-react";
 export default function Dots() {
   const [activeWindow, setActiveWindow] = useState<number[]>([]);
   const totalDots = 6;
-  const windowSize = 3; // Number of dots lit at once
-  const animationDuration = 120; // ms per step
-  const pauseDuration = 2000; // 2 seconds pause
+  const windowSize = 6; // Number of dots lit at once
+  const animationDuration = 90; // Reduced ms per step for faster animation
+  const pauseDuration = 100; // 2 seconds pause
 
   useEffect(() => {
     const animateDots = () => {
@@ -38,24 +38,30 @@ export default function Dots() {
   }, []);
 
   const getDotColor = (index: number) => {
-    return activeWindow.includes(index) ? "white" : "currentColor";
+    return activeWindow.includes(index) ? "text-white" : "text-emerald-600"; // Set color based on state
   };
 
+  const dotSize = 35; // Change this to any size you want (in pixels)
+
   return (
-    <div className="flex flex-col flex-grow items-center text-transparent pt-12">
+    <div className="flex flex-col items-center">
+      {/* First Row */}
       <div className="flex">
-        <Dot
-          className="transition-colors duration-140"
-          color={getDotColor(0)}
-        />
-        <Dot className="transition-colors duration-90" color={getDotColor(1)} />
-        <Dot className="transition-colors duration-80" color={getDotColor(2)} />
+        <Dot size={dotSize} className={`transition-colors ${getDotColor(0)}`} />
+        <Dot size={dotSize} className={`transition-colors ${getDotColor(1)}`} />
+        <Dot size={dotSize} className={`transition-colors ${getDotColor(2)}`} />
       </div>
-      <div className="flex items-center">
-        <Dot className="transition-colors duration-70" color={getDotColor(3)} />
-        <Dot className="transition-colors duration-60" color={getDotColor(4)} />
+
+      {/* Second Row - Center two dots */}
+      <div className="flex justify-center">
+        <Dot size={dotSize} className={`transition-colors ${getDotColor(3)}`} />
+        <Dot size={dotSize} className={`transition-colors ${getDotColor(4)}`} />
       </div>
-      <Dot className="transition-colors duration-40" color={getDotColor(5)} />
+
+      {/* Third Row - Center the last dot */}
+      <div className="flex justify-center">
+        <Dot size={dotSize} className={`transition-colors ${getDotColor(5)}`} />
+      </div>
     </div>
   );
 }

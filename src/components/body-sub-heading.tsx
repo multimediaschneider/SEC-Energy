@@ -6,7 +6,7 @@ interface BodyHeadingProps {
   children: ReactNode;
 }
 
-export default function BodyHeading({ children }: BodyHeadingProps) {
+export default function BodySubHeading({ children }: BodyHeadingProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -37,20 +37,14 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
   }, [hasAnimated]);
 
   return (
-    <div className="flex justify-center w-full pt-28 pb-12">
-      <div className="w-4/5 rounded-xl border-b-solid border-b pb-8">
-        <div className="flex">
-          <div
-            ref={ref}
-            className={`max-w-2xl transition-all duration-1000 ease-out ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
-          >
-            <h2 className="text-5xl font-bold text-emerald-700">{children}</h2>
-          </div>
-        </div>
+    <div>
+      <div
+        ref={ref}
+        className={`max-w-2xl transition-all duration-1000 ease-out ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
+        <h2 className="text-3xl font-bold text-emerald-700">{children}</h2>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@headlessui/react";
 import Image from "next/image";
@@ -15,7 +14,7 @@ interface ContactMeProps {
   buttonClassName?: string;
 }
 
-export default function ContactMe({
+export default function ImageText({
   title,
   contentOne,
   contentTwo,
@@ -23,7 +22,7 @@ export default function ContactMe({
   imageAlt,
   buttonText,
   buttonAction = () => {},
-  buttonClassName = "px-12 py-2 text-xl font-normal text-zinc-800 bg-slate-100 rounded-sm hover:bg-white focus:outline-dashed focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-opacity-50",
+  buttonClassName = "px-12 py-2 mt-4 text-xl font-normal text-zinc-800 bg-slate-100 rounded-sm hover:bg-white focus:outline-dashed focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-opacity-50",
 }: ContactMeProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -35,14 +34,12 @@ export default function ContactMe({
       },
       {
         threshold: 0.1,
-        rootMargin: "-10% 0px",
+        rootMargin: "0% 0px",
       }
     );
-
     if (ref.current) {
       observer.observe(ref.current);
     }
-
     return () => {
       if (ref.current) {
         observer.unobserve(ref.current);
@@ -51,31 +48,31 @@ export default function ContactMe({
   }, []);
 
   return (
-    <div className="w-full min-h-screen py-48">
-      <div className="">
+    <div className="flex justify-center w-full">
+      <div className="w-4/5 rounded-xl border-b-solid border-b py-24">
         <div
           ref={ref}
-          className={`flex flex-row md:flex-row items-center justify-center transition-all duration-1000 ease-out ${
+          className={`flex flex-col md:flex-row items-center justify-between transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div>
+          <div className="mb-6 md:mb-0">
             <Image
               src={imageSrc}
               alt={imageAlt}
               width={400}
               height={300}
-              className="rounded-lg shadow-xl mb-6 md:mb-0 md:mr-6"
+              className="rounded-lg shadow-lg shadow-zinc-700"
             />
           </div>
-          <div className="max-w-xl md:pl-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-white mb-8">
+          <div className="md:w-2/3 md:pl-12">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-700 mb-4">
               {title}
             </h1>
-            <p className="text-xl md:text-1xl lg:text-2xl font-extralight text-white leading-relaxed mb-6">
+            <p className="text-xl md:text-1xl lg:text-2xl font-extralight text-emerald-700 leading-relaxed mb-6">
               {contentOne}
             </p>
-            <p className="text-xl md:text-1xl lg:text-2xl font-extralight text-white leading-relaxed mb-6">
+            <p className="text-xl md:text-1xl lg:text-2xl font-extralight text-emerald-700 leading-relaxed mb-6">
               {contentTwo}
             </p>
             <Button
