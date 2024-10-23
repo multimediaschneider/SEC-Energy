@@ -41,7 +41,7 @@ export default function Dots() {
     return activeWindow.includes(index) ? "text-white" : "text-emerald-600"; // Set color based on state
   };
 
-  const dotSize = 35; // Change this to any size you want (in pixels)
+  const dotSize = 30; // Change this to any size you want (in pixels)
 
   return (
     <div className="flex flex-col items-center">

@@ -8,6 +8,7 @@ import TextLeft from "../components/text-left";
 import TextRightSmall from "../components/text-right-small";
 import Layout from "../components/layout";
 import ImageText from "../components/image-text";
+import DynamicHero from "@/components/dynamichero";
 
 export default function LandingPage() {
   const handleSchwerpunkteClick = () => {
@@ -22,9 +23,8 @@ export default function LandingPage() {
 
   return (
     <Layout>
-      <Hero />
+      <DynamicHero />
 
-      <ImageSlider />
       <TextLeft>
         Wir begleiten Sie umfassend bei Ihren Überlegungen, Planungen und
         Projekten für eine nachhaltige Wärmeversorgung.
