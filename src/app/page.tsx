@@ -9,7 +9,7 @@ import AboutSection from "@/components/sections/about-section";
 import ProjectSection from "@/components/sections/project-section";
 import FocusSection from "@/components/sections/focus-section";
 import ImageTextTwo from "@/components/content/image-text2";
-import ContactSection from "@/components/sections/contact-section";
+import { ContactSection } from "@/components/sections/contact-section";
 
 export default function LandingPage() {
   const handleSchwerpunkteClick = () => {

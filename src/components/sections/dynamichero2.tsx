@@ -49,11 +49,11 @@ const ImageComponent: React.FC<ImageProps> = ({ src, index, progress }) => {
   const imageX = useTransform(x, (value) => -value * 0.15);
   const imageY = useTransform(y, (value) => -value * 0.15);
 
-  const grayscale = useTransform(
-    x,
-    [-800, -600, -300, 300, 600, 800],
-    [2, 1, 0, 0, 1, 2]
-  );
+  // const grayscale = useTransform(
+  //   x,
+  //   [-800, -600, -300, 300, 600, 800],
+  //   [2, 1, 0, 0, 1, 2]
+  // );
 
   const zIndex = useTransform(y, (value) => {
     if (value < -20) return 10;
@@ -75,7 +75,7 @@ const ImageComponent: React.FC<ImageProps> = ({ src, index, progress }) => {
         style={{
           x: imageX,
           y: imageY,
-          filter: useTransform(grayscale, (value) => `grayscale(${value})`),
+          // filter: useTransform(grayscale, (value) => `grayscale(${value})`),
         }}
       >
         <Image
@@ -143,7 +143,7 @@ export default function DynamicHero2() {
       </div>
 
       {/* Adjusted top spacing and container heights */}
-      <div className="absolute pb-96 top-40 left-1/2 transform -translate-x-1/2 w-4/5">
+      <div className="absolute mb-24 top-40 left-1/2 transform -translate-x-1/2 w-4/5">
         <div className="absolute inset-0 border-t-4 border-l-4 border-r-4 border-emerald-700 border-opacity-90 z-40" />
 
         <div className="">
@@ -181,7 +181,7 @@ export default function DynamicHero2() {
 
         <div className="absolute bottom-0 inset-x-0 border-b-4 border-emerald-700 border-opacity-90 z-20" />
 
-        <div className="absolute bottom-96 left-8 z-50">
+        <div className="absolute bottom-8 left-8 z-50">
           <Dots />
         </div>
       </div>
