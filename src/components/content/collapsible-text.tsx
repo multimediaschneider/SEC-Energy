@@ -44,7 +44,7 @@ export default function CollapsibleText({
 
   return (
     <div className="flex justify-center items-center">
-      <div className="w-4/5 m-2 p-6 rounded-sm bg-gray-50 shadow-lg shadow-zinc-300">
+      <div className="w-4/5 m-2 p-6  bg-gray-50 shadow-lg shadow-zinc-400">
         <div className="">
           <div
             ref={ref}

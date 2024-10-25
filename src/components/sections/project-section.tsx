@@ -1,15 +1,20 @@
 "use client";
+
 import React from "react";
 import BodyHeading from "@/components/body-heading";
-import BodyText from "@/components/body-text";
-import Layout from "@/components/layout";
-import ProjectCard from "@/components/project-card";
-import ExpandableSection from "@/components/expandable-section";
+import BodyText from "@/components/content/body-text";
+import ProjectCard from "@/components/content/project-card";
+import ExpandableSection from "@/components/content/expandable-section";
 import { currentProjects } from "@/lib/project-data";
 import { completedProjects } from "@/lib/project-data-two";
 import BodyImages from "@/components/body-images";
+import ImageTextTwo from "../content/image-text2";
 
-export default function ProjectsPage() {
+const ProjectSection = () => {
+  const handleProjectsClick = () => {
+    console.log("Contact button clicked");
+    // Add your contact button click logic here
+  };
   const images = [
     { src: "/cargarage.jpg", alt: "Abbildung Thermostat" },
     { src: "/sawdust.jpg", alt: "Abbildung Wärmesteuerung" },
@@ -17,8 +22,9 @@ export default function ProjectsPage() {
   ];
 
   return (
-    <Layout>
+    <>
       <BodyHeading>Projekte</BodyHeading>
+
       <BodyText>
         <span className="font-bold">SEC Energieconsulting</span> zeichnet sich
         durch eine umfassende Expertise in der energietechnischen Beratung und
@@ -49,6 +55,8 @@ export default function ProjectsPage() {
           </>
         </ExpandableSection>
       </div>
-    </Layout>
+    </>
   );
-}
+};
+
+export default ProjectSection;

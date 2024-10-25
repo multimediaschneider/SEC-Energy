@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@headlessui/react";
 import Image from "next/image";
+import CustomButton from "../custom-button";
 
 interface ContactMeProps {
   title: string;
@@ -26,14 +27,18 @@ export default function ImageText({
 }: ContactMeProps) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+      ([entry]: IntersectionObserverEntry[]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setIsVisible(true);
+          setHasAnimated(true);
+        }
       },
       {
-        threshold: 0.1,
+        threshold: 0.0,
         rootMargin: "0% 0px",
       }
     );
@@ -45,27 +50,27 @@ export default function ImageText({
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [hasAnimated]);
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="w-4/5 rounded-xl border-b-solid border-b py-24">
+    <div className="flex w-full justify-center">
+      <div className="flex w-4/5 border-b-solid border-b py-24">
         <div
           ref={ref}
-          className={`flex flex-col md:flex-row items-center justify-between transition-all duration-1000 ease-out ${
+          className={`flex md:flex-row items-center transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="mb-6 md:mb-0">
+          <div className="mb-6 mr-12 md:mb-0">
             <Image
               src={imageSrc}
               alt={imageAlt}
-              width={400}
-              height={300}
-              className="rounded-lg shadow-lg shadow-zinc-700"
+              width={500}
+              height={0}
+              className="shadow-lg shadow-zinc-700"
             />
           </div>
-          <div className="md:w-2/3 md:pl-12">
+          <div className="md:w-5/12 md:pl-12 p-12 m-12 bg-emerald-700 bg-opacity-20 shadow-lg shadow-zinc-400">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-700 mb-4">
               {title}
             </h1>
@@ -75,13 +80,7 @@ export default function ImageText({
             <p className="text-xl md:text-1xl lg:text-2xl font-extralight text-emerald-700 leading-relaxed mb-6">
               {contentTwo}
             </p>
-            <Button
-              as="button"
-              className={buttonClassName}
-              onClick={buttonAction}
-            >
-              {buttonText}
-            </Button>
+            <CustomButton name="Kontakt" href="/kontakt" className="" />
           </div>
         </div>
       </div>

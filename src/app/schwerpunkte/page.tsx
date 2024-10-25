@@ -1,7 +1,7 @@
 "use client";
 import Layout from "@/components/layout";
-import CollapsibleText from "@/components/collapsible-text";
-import BodyText from "@/components/body-text";
+import CollapsibleText from "@/components/content/collapsible-text";
+import BodyText from "@/components/content/body-text";
 import BodyHeading from "@/components/body-heading";
 import BodyImages from "@/components/body-images";
 

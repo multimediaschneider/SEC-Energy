@@ -18,7 +18,7 @@ const ExpandableSection = ({
   return (
     <div className={`mt-4 ${className}`}>
       <div className="flex justify-center">
-        <div className="w-4/5 p-6 rounded-sm bg-gray-50 shadow-lg shadow-zinc-300">
+        <div className="w-4/5 p-6 bg-gray-50 shadow-lg shadow-zinc-300">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => setIsExpanded(!isExpanded)}

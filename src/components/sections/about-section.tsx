@@ -1,24 +1,17 @@
 "use client";
 
-import Navbar from "@/components/navbar";
-
-import BodyText from "@/components/body-text";
-import Layout from "@/components/layout";
+import BodyText from "@/components/content/body-text";
 import BodyHeading from "@/components/body-heading";
+import ImageText from "@/components/content/image-text";
 
-import ImageText from "@/components/image-text";
-
-export default function Component() {
-  const handleSchwerpunkteClick = () => {
-    console.log("Schwerpunkte button clicked");
-    // Add your Schwerpunkte button click logic here
-  };
+const AboutSection = () => {
   const handleContactClick = () => {
     console.log("Contact button clicked");
     // Add your contact button click logic here
   };
+
   return (
-    <Layout>
+    <>
       <BodyHeading>Über SEC</BodyHeading>
       <BodyText>
         <span className="font-bold">SEC Energieconsulting</span> ist ein
@@ -42,6 +35,8 @@ export default function Component() {
         buttonAction={handleContactClick}
         buttonClassName="px-12 py-2 text-xl font-normal text-zinc-800 bg-slate-100 rounded-sm hover:bg-white focus:outline-dashed focus-visible:ring-4 focus-visible:ring-black focus-visible:ring-opacity-50"
       />
-    </Layout>
+    </>
   );
-}
+};
+
+export default AboutSection;

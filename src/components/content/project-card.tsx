@@ -72,20 +72,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     },
   }[variant];
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Prevent toggling when clicking on the expandable content itself
+    if (!(e.target as HTMLElement).closest("#expandable-content")) {
+      setIsExpanded(!isExpanded);
+    }
+  };
+
   return (
-    <div className="flex my-8">
+    <div className="flex my-8 p-2 rounded-3xl cursor-pointer hover:bg-emerald-600 hover:bg-opacity-20 transition-colors duration-200">
       <div
         ref={ref}
-        className={`w-full rounded-xl overflow-hidden transition-all duration-1000 ease-out ${
+        className={`w-full overflow-hidden transition-all duration-1000 ease-out ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         } ${variantStyles.container} ${className}`}
       >
-        <div className="pb-6 border-b">
+        <div className="mb-6 border-b " onClick={handleCardClick}>
           <div className="flex justify-between items-start mb-4">
             <div>
               <div className="flex items-center mb-2">
                 <Briefcase className={variantStyles.title} size={22} />
-                <span className={`text-2xl font-light ${variantStyles.title}`}>
+                <span
+                  className={`text-2xl px-1 font-light ${variantStyles.title}`}
+                >
                   {project.type}
                 </span>
               </div>
@@ -97,7 +106,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               )}
             </div>
             <button
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent card click event
+                setIsExpanded(!isExpanded);
+              }}
               className={`${variantStyles.title} hover:text-emerald-800 focus:outline-none transition-colors duration-200`}
               aria-expanded={isExpanded}
               aria-controls="expandable-content"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Dots from "./dotsanimation";
+import Dots from "../dots";
 import {
   motion,
   useAnimationFrame,
@@ -24,9 +24,9 @@ const allImages = [
 
 const calculatePosition = (progress: number, index: number, total: number) => {
   const angle = (progress + index / total) * Math.PI * 2;
-  const x = Math.cos(angle) * 600;
+  const x = Math.cos(angle) * 550;
   // Reduced y-axis movement to keep images more centered
-  const y = Math.sin(angle) * 40;
+  const y = Math.sin(angle) * 100;
   return { x, y };
 };
 
@@ -47,12 +47,12 @@ const ImageComponent: React.FC<ImageProps> = ({ src, index, progress }) => {
   );
 
   const imageX = useTransform(x, (value) => -value * 0.15);
-  const imageY = useTransform(y, (value) => -value * 0.1);
+  const imageY = useTransform(y, (value) => -value * 0.15);
 
   const grayscale = useTransform(
     x,
-    [-600, -500, -400, 400, 500, 600],
-    [1, 1, 0, 0, 1, 1]
+    [-800, -600, -300, 300, 600, 800],
+    [2, 1, 0, 0, 1, 2]
   );
 
   const zIndex = useTransform(y, (value) => {
@@ -63,7 +63,7 @@ const ImageComponent: React.FC<ImageProps> = ({ src, index, progress }) => {
 
   return (
     <motion.div
-      className="absolute w-96 h-96 rounded-sm overflow-hidden shadow-lg shadow-zinc-700"
+      className="absolute w-96 h-96 overflow-hidden shadow-lg shadow-zinc-700"
       style={{
         x,
         y,
@@ -93,12 +93,12 @@ const ImageComponent: React.FC<ImageProps> = ({ src, index, progress }) => {
   );
 };
 
-export default function DynamicHero() {
+export default function DynamicHero2() {
   const progress = useMotionValue(0);
   const [activeImages, setActiveImages] = useState<string[]>([]);
 
   useAnimationFrame((time) => {
-    const speed = 0.00001;
+    const speed = 0.00002;
     progress.set((time * speed) % 1);
   });
 
@@ -143,11 +143,11 @@ export default function DynamicHero() {
       </div>
 
       {/* Adjusted top spacing and container heights */}
-      <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-4/5">
-        <div className="absolute inset-0 border-t-4 border-l-4 border-r-4 border-emerald-700 border-opacity-90 rounded-t-sm z-40" />
+      <div className="absolute pb-96 top-40 left-1/2 transform -translate-x-1/2 w-4/5">
+        <div className="absolute inset-0 border-t-4 border-l-4 border-r-4 border-emerald-700 border-opacity-90 z-40" />
 
         <div className="">
-          <div className="absolute inset-0 bg-emerald-700 bg-opacity-10 rounded-sm z-10" />
+          <div className="absolute inset-0 bg-emerald-700 bg-opacity-10 z-100" />
 
           <div className="">
             <div className="p-4 z-40">
@@ -157,7 +157,7 @@ export default function DynamicHero() {
             </div>
 
             {/* Increased height and adjusted padding for better vertical centering */}
-            <div className="relative h-[70vh] bottom-60 right-56 flex items-center justify-center">
+            <div className="relative h-[70vh] bottom-60 right-48 flex items-center justify-center">
               <AnimatePresence initial={false}>
                 {activeImages.map((image, index) => (
                   <motion.div
@@ -179,9 +179,9 @@ export default function DynamicHero() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 inset-x-0 border-b-4 border-emerald-700 border-opacity-90 rounded-b-sm z-20" />
+        <div className="absolute bottom-0 inset-x-0 border-b-4 border-emerald-700 border-opacity-90 z-20" />
 
-        <div className="absolute bottom-4 left-4 z-50">
+        <div className="absolute bottom-96 left-8 z-50">
           <Dots />
         </div>
       </div>

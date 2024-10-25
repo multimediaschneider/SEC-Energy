@@ -37,7 +37,7 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
   }, [hasAnimated]);
 
   return (
-    <div className="flex justify-center w-full pt-28 pb-12">
+    <div className="flex justify-center w-full pt-12">
       <div className="w-4/5 rounded-xl border-b-solid border-b pb-8">
         <div className="flex">
           <div

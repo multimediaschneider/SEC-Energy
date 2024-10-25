@@ -116,7 +116,7 @@ export default function BodyImages({ images }: BodyImagesProps) {
             ref={(el) => {
               if (el) refs.current[index] = el;
             }}
-            className={`w-80 aspect-video my-6 bg-gray-200 rounded-sm overflow-hidden shadow-lg shadow-zinc-500 transition-all duration-1000 ease-out transform ${
+            className={`w-96 aspect-video my-6 bg-gray-200 overflow-hidden shadow-lg shadow-zinc-500 transition-all duration-1000 ease-out transform ${
               visibleIndices.includes(index)
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import CustomButton from "./custom-button";
+import CustomButtonTwo from "./custom-button2";
 
 export default function Navbar() {
   return (
@@ -19,27 +21,29 @@ export default function Navbar() {
               />
             </div>
           </Link>
-          <ul className="flex space-x-6">
-            <li className="py-3">
+          <ul className="flex space-x-6 items-center">
+            <li className="">
               <Link href="/about" className="hover:underline">
                 Über SEC
               </Link>
             </li>
             {/* <div className="absolute bg-white h-20 w-20 filter blur-2xl transform"></div> */}
-            <li className="py-3">
+            <li className="">
               <Link href="/schwerpunkte" className="hover:underline">
                 Schwerpunkte
               </Link>
             </li>
-            <li className="py-3">
+            <li className="">
               <Link href="/projekte" className="hover:underline">
                 Projekte
               </Link>
             </li>
-            <li className="p-3 bg-blue-500 rounded-md">
-              <Link href="/kontakt" className="hover:underline">
-                Kontakt
-              </Link>
+            <li className="rounded-md">
+              <CustomButtonTwo
+                name="Kontakt"
+                href="/kontakt"
+                className="hover:bg-emerald-800 font-normal text-md"
+              />
             </li>
           </ul>
         </div>

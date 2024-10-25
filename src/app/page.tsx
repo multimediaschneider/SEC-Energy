@@ -1,14 +1,15 @@
 "use client";
 
-import Navbar from "../components/navbar";
-import Hero from "../components/hero";
-import ImageSlider from "../components/image-slider";
-import ContactMe from "../components/image-text";
-import TextLeft from "../components/text-left";
-import TextRightSmall from "../components/text-right-small";
+import TextLeft from "../components/content/text-left";
 import Layout from "../components/layout";
-import ImageText from "../components/image-text";
-import DynamicHero from "@/components/dynamichero";
+import ImageText from "../components/content/image-text";
+import DynamicHero2 from "@/components/sections/dynamichero2";
+import TextBlock from "../components/content/textblock";
+import AboutSection from "@/components/sections/about-section";
+import ProjectSection from "@/components/sections/project-section";
+import FocusSection from "@/components/sections/focus-section";
+import ImageTextTwo from "@/components/content/image-text2";
+import ContactSection from "@/components/sections/contact-section";
 
 export default function LandingPage() {
   const handleSchwerpunkteClick = () => {
@@ -23,36 +24,55 @@ export default function LandingPage() {
 
   return (
     <Layout>
-      <DynamicHero />
+      <div className="pt-6">
+        <DynamicHero2 />
+      </div>
 
-      <TextLeft>
-        Wir begleiten Sie umfassend bei Ihren Überlegungen, Planungen und
-        Projekten für eine nachhaltige Wärmeversorgung.
-      </TextLeft>
+      <div className="bg-gray-200 pt-6">
+        <TextLeft>
+          Wir begleiten Sie umfassend bei Ihren Überlegungen, Planungen und
+          Projekten für eine nachhaltige Wärmeversorgung. Durch unsere
+          Unterstützung mindern Sie Projekt- und Finanzrisiken und sichern sich
+          den Erfolg Ihrer Wärmevorhaben. Sprechen Sie uns an.
+        </TextLeft>
+        <div className="w-4/5 mx-auto my-8">
+          <div className="flex justify-between items-center flex-wrap">
+            <TextBlock
+              contents={[
+                "Technische Gebäudeausrüstung",
+                "Dekarbonisierungsstrategien",
+                "Contractingberatung",
+                "Wirtschaftlichkeitsberechnungen",
+                "Smart Metering und Ablesesysteme",
+              ]}
+              buttonProps={{
+                name: "Schwerpunkte", // name statt text, wie in Ihrem Original
+                href: "/schwerpunkte",
+                variant: "default",
+                className: "",
+                onClick: handleSchwerpunkteClick,
+              }}
+            />
+            <TextBlock
+              contents={[
+                "Zu unseren Kunden zählen Unternehmen aus der Wohnungswirtschaft, Energieversorgung, Contracting und der Industrie. Für sie haben wir zahlreiche Projekte erfolgreich realisiert.",
+              ]}
+              buttonProps={{
+                name: "Projekte", // name statt text, wie in Ihrem Original
+                href: "/projekte",
+                variant: "default",
+                className: "",
+                onClick: handleSchwerpunkteClick,
+              }}
+            />
+          </div>
+        </div>
+      </div>
 
-      <TextRightSmall
-        contents={[
-          "Machbarkeitsstudien",
-          "Dimensionierung",
-          "Technologieauswahl",
-          "Wirtschaftlichkeitsberechnungen",
-          "Contracting",
-        ]}
-        buttonText="Schwerpunkte"
-        buttonAction={handleSchwerpunkteClick}
-        buttonClassName="px-12 py-2 mt-4 text-xl font-normal text-white bg-blue-500 rounded-sm hover:bg-blue-600"
-      />
-
-      <ImageText
-        title="SEC Energy"
-        contentOne="Seit über 30 Jahren spezialisiert im Bereich Wärmecontracting."
-        contentTwo="Durch unsere Unterstützung mindern Sie Projekt- und Finanzrisiken und sichern sich den Erfolg Ihrer Wärmevorhaben. Sprechen Sie uns an."
-        imageSrc="/consulting.jpg"
-        imageAlt="Dierk Schneider"
-        buttonText="Kontakt"
-        buttonAction={handleContactClick}
-        buttonClassName="px-12 py-2 mt-4 text-xl font-normal text-white bg-blue-500 rounded-sm hover:bg-blue-600"
-      />
+      <AboutSection />
+      <FocusSection />
+      <ProjectSection />
+      <ContactSection />
     </Layout>
   );
 }
