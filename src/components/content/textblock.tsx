@@ -14,6 +14,7 @@ export default function TextBlock({ contents, buttonProps }: TextBlockProps) {
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
 
   useEffect(() => {
+    const currentRef = ref.current;
     const observer = new IntersectionObserver(
       ([entry]: IntersectionObserverEntry[]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -26,12 +27,12 @@ export default function TextBlock({ contents, buttonProps }: TextBlockProps) {
         rootMargin: "0% 0px",
       }
     );
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [hasAnimated]);

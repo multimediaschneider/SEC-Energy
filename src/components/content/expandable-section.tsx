@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, ReactNode } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import BodySubHeading from "@/components/body-sub-heading";
@@ -8,17 +10,17 @@ interface ExpandableSectionProps {
   className?: string;
 }
 
-const ExpandableSection = ({
+export default function ExpandableSection({
   title,
   children,
   className = "",
-}: ExpandableSectionProps) => {
+}: ExpandableSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className={`mt-4 ${className}`}>
-      <div className="flex justify-center">
-        <div className="w-4/5 p-6 bg-gray-50 shadow-lg shadow-zinc-300">
+    <div className={`mt-3 ${className}`}>
+      <div className="flex justify-center items-center w-full px-4 sm:px-0 ">
+        <div className="w-full sm:w-4/5 sm:p-6 bg-gray-50 shadow-lg shadow-zinc-400">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => setIsExpanded(!isExpanded)}
@@ -30,13 +32,13 @@ const ExpandableSection = ({
               }
             }}
           >
-            <div className="">
+            <div className="pr-2">
               <BodySubHeading>{title}</BodySubHeading>
             </div>
             {isExpanded ? (
-              <ChevronUp className="w-8 h-8 text-emerald-700 flex-shrink-0" />
+              <ChevronUp className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-700 flex-shrink-0" />
             ) : (
-              <ChevronDown className="w-8 h-8 text-emerald-700 flex-shrink-0" />
+              <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-700 flex-shrink-0" />
             )}
           </div>
           <div
@@ -44,12 +46,12 @@ const ExpandableSection = ({
               isExpanded ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <div className="mt-4">{children}</div>
+            <div className="pt-4 text-sm sm:text-base lg:text-lg font-light text-zinc-800">
+              {children}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default ExpandableSection;
+}

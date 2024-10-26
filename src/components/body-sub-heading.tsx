@@ -12,6 +12,8 @@ export default function BodySubHeading({ children }: BodyHeadingProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const currentRef = ref.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -25,13 +27,13 @@ export default function BodySubHeading({ children }: BodyHeadingProps) {
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [hasAnimated]);
@@ -44,7 +46,9 @@ export default function BodySubHeading({ children }: BodyHeadingProps) {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <h2 className="text-3xl font-bold text-emerald-700">{children}</h2>
+        <h2 className="text-lg sm:text-2xl font-bold text-emerald-700">
+          {children}
+        </h2>
       </div>
     </div>
   );

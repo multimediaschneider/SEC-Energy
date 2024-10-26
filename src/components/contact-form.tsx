@@ -87,16 +87,20 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Vorname</FormLabel>
+                <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
                 <FormControl>
-                  <Input placeholder="Max" {...field} />
+                  <Input
+                    placeholder="Ihr Vorname"
+                    {...field}
+                    className="w-full text-xl"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -107,9 +111,13 @@ export function ContactForm() {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nachname</FormLabel>
+                <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
                 <FormControl>
-                  <Input placeholder="Mustermann" {...field} />
+                  <Input
+                    placeholder="Mustermann"
+                    {...field}
+                    className="w-full text-xl"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,9 +129,13 @@ export function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>E-Mail</FormLabel>
+              <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
               <FormControl>
-                <Input placeholder="max.mustermann@example.com" {...field} />
+                <Input
+                  placeholder="Ihre E-Mail Adresse"
+                  {...field}
+                  className="w-full text-xl"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -134,9 +146,13 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nachricht</FormLabel>
+              <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
               <FormControl>
-                <Textarea placeholder="Ihre Nachricht hier..." {...field} />
+                <Textarea
+                  placeholder="Ihre Nachricht..."
+                  {...field}
+                  className="w-full text-xl min-h-[150px]"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -145,7 +161,7 @@ export function ContactForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-emerald-700 hover:bg-emerald-600"
+          className="w-full bg-emerald-700 text-lg hover:bg-emerald-600"
         >
           {isSubmitting ? "Wird gesendet..." : "Absenden"}
         </Button>

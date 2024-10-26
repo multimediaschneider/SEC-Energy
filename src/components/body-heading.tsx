@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState, ReactNode } from "react";
 
 interface BodyHeadingProps {
@@ -25,20 +24,21 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [hasAnimated]);
 
   return (
-    <div className="flex justify-center w-full pt-12">
-      <div className="w-4/5 rounded-xl border-b-solid border-b pb-8">
+    <div className="flex justify-center w-full pt-8 sm:pt-10 md:pt-12">
+      <div className="w-11/12 sm:w-10/12 md:w-4/5 rounded-xl border-b-solid border-b mb-2 pb-2 sm:pb-8">
         <div className="flex">
           <div
             ref={ref}
@@ -48,7 +48,9 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-5xl font-bold text-emerald-700">{children}</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-emerald-700">
+              {children}
+            </h2>
           </div>
         </div>
       </div>

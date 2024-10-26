@@ -6,7 +6,7 @@ interface BodyTextProps {
 
 export default function BodyText({ children }: BodyTextProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false); // Neuer Zustand, um zu merken, ob die Animation bereits abgespielt wurde
+  const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function BodyText({ children }: BodyTextProps) {
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
           setIsVisible(true);
-          setHasAnimated(true); // Setze den Zustand auf true, sobald die Animation einmal ausgelöst wurde
+          setHasAnimated(true);
         }
       },
       {
@@ -30,11 +30,11 @@ export default function BodyText({ children }: BodyTextProps) {
         observer.unobserve(ref.current);
       }
     };
-  }, [hasAnimated]); // Abhängigkeit auf hasAnimated hinzugefügt
+  }, [hasAnimated]);
 
   return (
     <div className="flex justify-center w-full">
-      <div className="w-4/5 rounded-xl border-b-solid border-b pb-12">
+      <div className="w-11/12 sm:w-10/12 md:w-4/5 rounded-xl border-b-solid border-b pb-8 sm:pb-12">
         <div className="flex">
           <div
             ref={ref}
@@ -44,7 +44,7 @@ export default function BodyText({ children }: BodyTextProps) {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-2xl font-extralight text-emerald-700">
+            <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl font-extralight text-emerald-700">
               {children}
             </h2>
           </div>

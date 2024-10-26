@@ -8,13 +8,8 @@ import ExpandableSection from "@/components/content/expandable-section";
 import { currentProjects } from "@/lib/project-data";
 import { completedProjects } from "@/lib/project-data-two";
 import BodyImages from "@/components/body-images";
-import ImageTextTwo from "../content/image-text2";
 
 const ProjectSection = () => {
-  const handleProjectsClick = () => {
-    console.log("Contact button clicked");
-    // Add your contact button click logic here
-  };
   const images = [
     { src: "/cargarage.jpg", alt: "Abbildung Thermostat" },
     { src: "/sawdust.jpg", alt: "Abbildung Wärmesteuerung" },

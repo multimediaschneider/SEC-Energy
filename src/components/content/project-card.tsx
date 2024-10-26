@@ -1,7 +1,8 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronUp, Briefcase } from "lucide-react";
 
-// Gemeinsames Interface für alle Projektdaten
 interface ProjectDetails {
   scope: string;
   services: string[];
@@ -23,17 +24,18 @@ interface ProjectCardProps {
   className?: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+export default function ProjectCard({
   project,
   variant = "primary",
   className = "",
-}) => {
+}: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const currentRef = ref.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !hasAnimated) {
@@ -47,18 +49,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [hasAnimated]);
 
-  // Styling-Varianten
   const variantStyles = {
     primary: {
       container: "",
@@ -73,88 +74,126 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   }[variant];
 
   const handleCardClick = (e: React.MouseEvent) => {
-    // Prevent toggling when clicking on the expandable content itself
     if (!(e.target as HTMLElement).closest("#expandable-content")) {
       setIsExpanded(!isExpanded);
     }
   };
 
   return (
-    <div className="flex my-8 p-2 rounded-3xl cursor-pointer hover:bg-emerald-600 hover:bg-opacity-20 transition-colors duration-200">
-      <div
-        ref={ref}
-        className={`w-full overflow-hidden transition-all duration-1000 ease-out ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        } ${variantStyles.container} ${className}`}
-      >
-        <div className="mb-6 border-b " onClick={handleCardClick}>
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <div className="flex items-center mb-2">
-                <Briefcase className={variantStyles.title} size={22} />
-                <span
-                  className={`text-2xl px-1 font-light ${variantStyles.title}`}
+    <div className="flex justify-center items-center w-full sm:px-0">
+      <div className="w-full sm:w-11/12 sm:p-2 rounded-3xl cursor-pointer hover:bg-emerald-600 hover:bg-opacity-20 transition-colors duration-200">
+        <div
+          ref={ref}
+          className={`w-full overflow-hidden transition-all duration-1000 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          } ${variantStyles.container} ${className}`}
+        >
+          <div className=" pb-2 border-b" onClick={handleCardClick}>
+            <div className="flex justify-between items-start">
+              <div>
+                <div className="flex items-center mb-2">
+                  <div className="hidden sm:block">
+                    <Briefcase className={variantStyles.title} size={22} />
+                  </div>
+                  <span
+                    className={`text-lg sm:text-2xl px-1 font-light ${variantStyles.title}`}
+                  >
+                    {project.type}
+                  </span>
+                </div>
+                <h3
+                  className={`text-xl sm:text-2xl font-bold ${variantStyles.title}`}
                 >
-                  {project.type}
-                </span>
+                  {project.title}
+                </h3>
+                {project.location && (
+                  <p className="text-xs sm:text-sm text-zinc-600 mt-1">
+                    {project.location}
+                  </p>
+                )}
               </div>
-              <h3 className={`text-2xl font-bold ${variantStyles.title}`}>
-                {project.title}
-              </h3>
-              {project.location && (
-                <p className="text-sm text-zinc-600 mt-1">{project.location}</p>
-              )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsExpanded(!isExpanded);
+                }}
+                className={`${variantStyles.title} hover:text-emerald-800 focus:outline-none transition-colors duration-200`}
+                aria-expanded={isExpanded}
+                aria-controls="expandable-content"
+              >
+                {isExpanded ? (
+                  <ChevronUp className="w-6 h-6 sm:w-8 sm:h-8" />
+                ) : (
+                  <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8" />
+                )}
+              </button>
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent card click event
-                setIsExpanded(!isExpanded);
-              }}
-              className={`${variantStyles.title} hover:text-emerald-800 focus:outline-none transition-colors duration-200`}
-              aria-expanded={isExpanded}
-              aria-controls="expandable-content"
+            <p
+              className={`${variantStyles.text} text-sm sm:text-base lg:text-lg mt-3 leading-relaxed`}
             >
-              {isExpanded ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-            </button>
-          </div>
-          <p className={`${variantStyles.text} mt-3 leading-relaxed`}>
-            {project.summary}
-          </p>
+              {project.summary}
+            </p>
 
-          <div
-            id="expandable-content"
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-            }`}
-          >
-            <div className="mt-6 space-y-4">
-              <div>
-                <strong className={variantStyles.title}>Umfang:</strong>
-                <p className={`${variantStyles.text} mt-1`}>
-                  {project.details.scope}
-                </p>
-              </div>
-              <div>
-                <strong className={variantStyles.title}>Leistungen:</strong>
-                <ul className="list-disc list-inside pl-4 mt-1 space-y-1">
-                  {project.details.services.map((service, index) => (
-                    <li key={index} className={variantStyles.text}>
-                      {service}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <strong className={variantStyles.title}>Ergebnisse:</strong>
-                <p className={`${variantStyles.text} mt-1`}>
-                  {project.details.results}
-                </p>
-              </div>
-              <div>
-                <strong className={variantStyles.title}>Auswirkungen:</strong>
-                <p className={`${variantStyles.text} mt-1`}>
-                  {project.details.impact}
-                </p>
+            <div
+              id="expandable-content"
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="mt-6 space-y-4">
+                <div>
+                  <strong
+                    className={`${variantStyles.title} text-sm sm:text-base`}
+                  >
+                    Umfang:
+                  </strong>
+                  <p
+                    className={`${variantStyles.text} text-sm sm:text-base mt-1`}
+                  >
+                    {project.details.scope}
+                  </p>
+                </div>
+                <div>
+                  <strong
+                    className={`${variantStyles.title} text-sm sm:text-base`}
+                  >
+                    Leistungen:
+                  </strong>
+                  <ul className="list-disc list-inside pl-4 mt-1 space-y-1">
+                    {project.details.services.map((service, index) => (
+                      <li
+                        key={index}
+                        className={`${variantStyles.text} text-sm sm:text-base`}
+                      >
+                        {service}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <strong
+                    className={`${variantStyles.title} text-sm sm:text-base`}
+                  >
+                    Ergebnisse:
+                  </strong>
+                  <p
+                    className={`${variantStyles.text} text-sm sm:text-base mt-1`}
+                  >
+                    {project.details.results}
+                  </p>
+                </div>
+                <div>
+                  <strong
+                    className={`${variantStyles.title} text-sm sm:text-base`}
+                  >
+                    Auswirkungen:
+                  </strong>
+                  <p
+                    className={`${variantStyles.text} text-sm sm:text-base mt-1`}
+                  >
+                    {project.details.impact}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -162,6 +201,4 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
     </div>
   );
-};
-
-export default ProjectCard;
+}
