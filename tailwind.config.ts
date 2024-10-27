@@ -15,7 +15,6 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        // Hier ist die Änderung: Wir nutzen die CSS-Variable statt direktem Font-Namen
         sans: ["var(--font-inter)", "sans-serif"],
       },
       borderRadius: {

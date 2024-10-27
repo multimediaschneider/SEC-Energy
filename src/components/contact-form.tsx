@@ -114,7 +114,7 @@ export function ContactForm() {
                 <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Mustermann"
+                    placeholder="Ihr Nachname"
                     {...field}
                     className="w-full text-xl"
                   />

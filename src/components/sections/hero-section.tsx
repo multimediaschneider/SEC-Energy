@@ -74,7 +74,7 @@ export default function DynamicHero() {
             transition={{ duration: 1, ease: "easeInOut" }}
             className="border-b-4 border-emerald-700 text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-center mb-4"
           >
-            SEC Energieconsulting
+            SEC Consulting GmbH
           </motion.h1>
           <motion.h2
             initial={{ color: "#047857" }}
