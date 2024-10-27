@@ -2,25 +2,34 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-4 bg-green-900 text-white">
+    <footer className="bg-emerald-800 text-white py-8">
       <div className="container mx-auto px-4">
-        <ul className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-4 md:space-x-6 justify-center items-center text-center">
-          <li className="w-full sm:w-auto">
-            <Link href="/" className="block p-2 hover:underline">
-              2024 SEC Energieconsulting. All rights reserved.
-            </Link>
-          </li>
-          <li className="w-full sm:w-auto">
-            <Link href="/Datenschutz" className="block p-2 hover:underline">
-              Datenschutzrichtlinien
-            </Link>
-          </li>
-          <li className="w-full sm:w-auto">
-            <Link href="/impressum" className="block p-2 hover:underline">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-4 md:mb-0">
+            <h2 className="text-2xl font-bold">SEC Consulting GmbH</h2>
+            <p className="mt-2">Schneider Engineering Consulting</p>
+          </div>
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+            <Link
+              href="/impressum"
+              className="hover:underline transition-colors duration-300"
+            >
               Impressum
             </Link>
-          </li>
-        </ul>
+            <Link
+              href="/datenschutz"
+              className="hover:underline transition-colors duration-300"
+            >
+              Datenschutz
+            </Link>
+          </div>
+        </div>
+        <div className="mt-8 text-center text-sm">
+          <p>
+            &copy; {new Date().getFullYear()} SEC Consulting GmbH. Alle Rechte
+            vorbehalten.
+          </p>
+        </div>
       </div>
     </footer>
   );

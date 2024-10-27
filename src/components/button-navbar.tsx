@@ -13,7 +13,7 @@ export interface CustomButtonTwoProps {
     | "ghost"
     | "link";
   className?: string;
-  onClick?: () => void; // Neue Prop für Click-Handler
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => Promise<void> | void;
 }
 
 const CustomButtonTwo: React.FC<CustomButtonTwoProps> = ({
@@ -28,9 +28,10 @@ const CustomButtonTwo: React.FC<CustomButtonTwoProps> = ({
       asChild
       variant={variant}
       className={`bg-emerald-600 hover:bg-emerald-700 ${className}`}
-      onClick={onClick} // Click-Handler hinzugefügt
     >
-      <Link href={href}>{name}</Link>
+      <Link href={href} onClick={onClick}>
+        {name}
+      </Link>
     </Button>
   );
 };
