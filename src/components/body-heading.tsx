@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef, useState, ReactNode } from "react";
 
 interface BodyHeadingProps {

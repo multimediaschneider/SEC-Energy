@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import CustomButton, { CustomButtonProps } from "../custom-button";
 

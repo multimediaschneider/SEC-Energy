@@ -1,5 +1,3 @@
-"use client";
-
 import { focusAreas } from "@/lib/focus-data";
 import CollapsibleText from "@/components/content/collapsible-text";
 import BodyText from "@/components/content/body-text";

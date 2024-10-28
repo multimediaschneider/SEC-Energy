@@ -1,5 +1,3 @@
-"use client";
-
 import BodyText from "@/components/content/body-text";
 import BodyHeading from "@/components/body-heading";
 import ImageText from "@/components/content/image-text-component/image-text-component";

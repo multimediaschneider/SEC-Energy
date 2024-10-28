@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import CustomButton from "../../custom-button";
 import { ChevronDown, ChevronUp } from "lucide-react";

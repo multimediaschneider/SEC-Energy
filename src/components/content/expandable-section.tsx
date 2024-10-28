@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, ReactNode } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import BodySubHeading from "@/components/body-sub-heading";

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import BodyHeading from "@/components/body-heading";
 import BodyText from "@/components/content/body-text";
