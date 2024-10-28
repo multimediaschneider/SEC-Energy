@@ -45,7 +45,7 @@ export default function MainContent({ content }: MainContentProps) {
         {content}
       </h2>
       <div className="flex justify-center">
-        <CustomButton name="Kontakt" href="/kontakt" />
+        <CustomButton name="Kontakt" href="#kontakt" />
       </div>
     </div>
   );

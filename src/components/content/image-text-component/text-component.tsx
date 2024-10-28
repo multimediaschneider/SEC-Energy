@@ -80,12 +80,12 @@ export function TextComponent({
 
       {/* Button for mobile view */}
       <div className="md:hidden absolute bottom-6 left-6 right-6">
-        <CustomButton name="Kontakt" href="/kontakt" className="w-full" />
+        <CustomButton name="Kontakt" href="#kontakt" className="w-full" />
       </div>
 
       {/* Button for larger screens */}
       <div className={`mt-6 ${!isExpanded && "md:block hidden"}`}>
-        <CustomButton name="Kontakt" href="/kontakt" />
+        <CustomButton name="Kontakt" href="#kontakt" />
       </div>
     </div>
   );
