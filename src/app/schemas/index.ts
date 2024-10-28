@@ -1,4 +1,5 @@
 // schemas/index.ts
-import infoSection from "./infoSection";
+import { hero } from "./hero";
+import { infoSection } from "./info-section";
 
-export const schemaTypes = [infoSection];
+export const schemaTypes = [hero, infoSection];

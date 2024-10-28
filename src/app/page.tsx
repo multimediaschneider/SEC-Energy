@@ -103,32 +103,13 @@ export default function LandingPage() {
       <DynamicHero2 />
       <section id="info">
         <InfoSection
-          mainContent="Wir begleiten Sie umfassend bei Ihren Überlegungen, Planungen und Projekten für eine nachhaltige Wärmeversorgung. Durch unsere Unterstützung mindern Sie Projekt- und Finanzrisiken und sichern sich den Erfolg Ihrer Wärmevorhaben. Sprechen Sie uns an."
-          leftContents={[
-            "Technische Gebäudeausrüstung",
-            "Dekarbonisierungsstrategien",
-            "Contractingberatung",
-            "Wirtschaftlichkeitsberechnungen",
-            "Smart Metering und Ablesesysteme",
-          ]}
-          rightContents={[
-            "Zu unseren Kunden zählen Unternehmen aus der Wohnungswirtschaft, Energieversorgung, Contracting und der Industrie. Für sie haben wir zahlreiche Projekte erfolgreich realisiert.",
-          ]}
-          leftButtonProps={{
-            name: "Schwerpunkte",
-            href: "#schwerpunkte",
-            onClick: () => smoothScroll("#schwerpunkte"),
-          }}
-          rightButtonProps={{
-            name: "Projekte",
-            href: "#projekte",
-            onClick: () => smoothScroll("#projekte"),
-          }}
-        />{" "}
+          onSchwerpunkteClick={() => smoothScroll("#schwerpunkte")}
+          onProjekteClick={() => smoothScroll("#projekte")}
+        />
       </section>
 
       <section id="about">
-        <AboutSection />
+        <AboutSection onContactClick={() => smoothScroll("#kontakt")} />
       </section>
       <section id="schwerpunkte">
         <FocusSection />

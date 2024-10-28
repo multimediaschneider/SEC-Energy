@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CustomButton from "../../custom-button";
+import CustomButton from "../../ui/custom-button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface TextComponentProps {

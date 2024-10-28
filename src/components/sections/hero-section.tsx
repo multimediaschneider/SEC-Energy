@@ -1,3 +1,4 @@
+import { client } from "@/sanity/client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -11,9 +12,27 @@ const allImages = [
   "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
 ];
 
+async function getHeroData() {
+  const query = `*[_type == "hero"][0]{
+    title,
+    subtitle
+  }`;
+  const data = await client.fetch(query);
+  return data;
+}
+
 export default function DynamicHero() {
+  const [heroData, setHeroData] = useState({ title: "", subtitle: "" });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isImageVisible, setIsImageVisible] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getHeroData();
+      setHeroData(data);
+    }
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +91,7 @@ export default function DynamicHero() {
             transition={{ duration: 1, ease: "easeInOut" }}
             className="border-b-4 border-emerald-700 text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-center mb-4"
           >
-            SEC Consulting GmbH
+            {heroData.title || "SEC Consulting GmbH"}
           </motion.h1>
           <motion.h2
             initial={{ color: "#047857" }}
@@ -80,7 +99,7 @@ export default function DynamicHero() {
             transition={{ duration: 1.5, ease: "easeInOut" }}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-light text-center mb-4"
           >
-            Schneider Engineering Consulting
+            {heroData.subtitle || "Schneider Engineering Consulting"}
           </motion.h2>
         </div>
 

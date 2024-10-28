@@ -1,31 +1,23 @@
-import { focusAreas } from "@/lib/focus-data";
+import { FOCUS_SECTION_CONTENT } from "@/app/constants/focus-section-content";
 import CollapsibleText from "@/components/content/collapsible-text";
 import BodyText from "@/components/content/body-text";
-import BodyHeading from "@/components/body-heading";
-import BodyImages from "@/components/body-images";
+import BodyHeading from "@/components/content/body-heading";
+import BodyImages from "@/components/content/body-images";
 
 const FocusSection = () => {
-  const images = [
-    { src: "/thermostat.jpg", alt: "Abbildung Thermostat" },
-    { src: "/tablet.jpg", alt: "Abbildung Wärmesteuerung" },
-    { src: "/pipes.jpg", alt: "Abbildung Heizsystem" },
-  ];
+  const { heading, introduction, images, focusAreas } = FOCUS_SECTION_CONTENT;
 
   return (
     <div className="bg-emerald-700 bg-opacity-20 pb-6">
-      <BodyHeading>Tätigkeitsschwerpunkte</BodyHeading>
+      <BodyHeading>{heading}</BodyHeading>
+
       <BodyText>
-        <span className="font-bold">
-          Klimaschutz ist für uns von zentraler Bedeutung.
-        </span>{" "}
-        Wir konzentrieren uns auf die technische Umsetzung klimafreundlicher,
-        idealerweise klimaneutraler Lösungen. Dabei gewährleisten wir durch eine
-        vorausschauende wirtschaftliche Analyse die langfristige Rentabilität
-        dieser Maßnahmen. Präzise Emissionsberechnungen belegen zudem die
-        Relevanz unserer Ansätze und deren positiven Einfluss auf eine
-        nachhaltige Zukunft.
+        <span className="font-bold">{introduction.highlightedText}</span>{" "}
+        {introduction.mainText}
       </BodyText>
+
       <BodyImages images={images} />
+
       <div className="mb-12">
         {focusAreas.map((area, index) => (
           <CollapsibleText

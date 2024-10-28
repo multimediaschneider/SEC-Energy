@@ -1,20 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronUp, Briefcase } from "lucide-react";
-
-interface ProjectDetails {
-  scope: string;
-  services: string[];
-  results: string;
-  impact: string;
-}
-
-interface Project {
-  type: string;
-  title: string;
-  location?: string;
-  summary: string;
-  details: ProjectDetails;
-}
+import type { Project } from "@/app/constants/project-section-content/interfaces";
 
 interface ProjectCardProps {
   project: Project;
@@ -86,7 +72,7 @@ export default function ProjectCard({
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           } ${variantStyles.container} ${className}`}
         >
-          <div className=" pb-2 border-b" onClick={handleCardClick}>
+          <div className="pb-2 border-b" onClick={handleCardClick}>
             <div className="flex justify-between items-start">
               <div>
                 <div className="flex items-center mb-2">

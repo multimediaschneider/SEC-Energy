@@ -44,7 +44,7 @@ export default function BodyText({ children }: BodyTextProps) {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl font-extralight text-emerald-700">
+            <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-extralight text-emerald-700">
               {children}
             </h2>
           </div>

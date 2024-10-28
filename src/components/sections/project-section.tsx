@@ -1,48 +1,37 @@
 import React from "react";
-import BodyHeading from "@/components/body-heading";
+import BodyHeading from "@/components/content/body-heading";
 import BodyText from "@/components/content/body-text";
 import ProjectCard from "@/components/content/project-card";
 import ExpandableSection from "@/components/content/expandable-section";
-import { currentProjects } from "@/lib/project-data";
-import { completedProjects } from "@/lib/project-data-two";
-import BodyImages from "@/components/body-images";
+import { PROJECT_SECTION_CONTENT } from "@/app/constants/project-section-content/body-content";
+import BodyImages from "@/components/content/body-images";
 
 const ProjectSection = () => {
-  const images = [
-    { src: "/cargarage.jpg", alt: "Abbildung Thermostat" },
-    { src: "/sawdust.jpg", alt: "Abbildung Wärmesteuerung" },
-    { src: "/solarpanels.jpg", alt: "Abbildung Heizsystem" },
-  ];
+  const { heading, introduction, images, sections } = PROJECT_SECTION_CONTENT;
 
   return (
     <>
-      <BodyHeading>Projekte</BodyHeading>
+      <BodyHeading>{heading}</BodyHeading>
 
       <BodyText>
-        <span className="font-bold">SEC Energieconsulting</span> zeichnet sich
-        durch eine umfassende Expertise in der energietechnischen Beratung und
-        Projektierung aus, mit einem besonderen Fokus auf nachhaltige
-        Energieversorgungslösungen wie Blockheizkraftwerke, Holzfeuerungsanlagen
-        und erneuerbare Energien. Wir übernehmen dabei die komplette
-        Projektverantwortung von der initialen Wirtschaftlichkeitsberechnung
-        über die technische Planung bis hin zur Vertragsgestaltung und
-        Betriebsführung. Mit der erfolgreichen Realisierung zahlreicher
-        Projekte, hat sich SEC Energieconsulting als verlässlicher Partner für
-        komplexe energietechnische Lösungen etabliert.
+        <span className="font-bold">{introduction.companyName}</span>
+        {introduction.text}
       </BodyText>
+
       <BodyImages images={images} />
 
       <div className="mb-12">
-        <ExpandableSection title="Aktuelle Projekte">
+        <ExpandableSection title={sections.currentProjects.title}>
           <>
-            {currentProjects.map((project, index) => (
+            {sections.currentProjects.projects.map((project, index) => (
               <ProjectCard key={index} project={project} variant="primary" />
             ))}
           </>
         </ExpandableSection>
-        <ExpandableSection title="Weitere ausgewählte Projekte">
+
+        <ExpandableSection title={sections.completedProjects.title}>
           <>
-            {completedProjects.map((project, index) => (
+            {sections.completedProjects.projects.map((project, index) => (
               <ProjectCard key={index} project={project} variant="secondary" />
             ))}
           </>

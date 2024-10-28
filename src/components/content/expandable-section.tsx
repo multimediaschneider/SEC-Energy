@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import BodySubHeading from "@/components/body-sub-heading";
+import BodySubHeading from "@/components/content/body-sub-heading";
 
 interface ExpandableSectionProps {
   title: string;

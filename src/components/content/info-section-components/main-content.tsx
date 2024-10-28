@@ -1,6 +1,5 @@
-// MainContent.tsx
 import React, { useEffect, useRef, useState } from "react";
-import CustomButton from "../../custom-button";
+import CustomButton from "../../ui/custom-button";
 
 interface MainContentProps {
   content: string;

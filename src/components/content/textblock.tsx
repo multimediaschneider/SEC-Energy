@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import CustomButton, { CustomButtonProps } from "../custom-button";
+import CustomButton, { CustomButtonProps } from "../ui/custom-button";
 
 export interface TextBlockProps {
   contents: string[];
@@ -46,7 +46,7 @@ export default function TextBlock({ contents, buttonProps }: TextBlockProps) {
         <div className="flex-grow overflow">
           {contents.map((content, index) => (
             <div key={index} className="mb-4">
-              <h2 className="text-3sxl font-extralight text-emerald-700">
+              <h2 className="text-3xl font-extralight text-emerald-700">
                 {content}
               </h2>
             </div>

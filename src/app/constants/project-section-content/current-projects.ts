@@ -1,19 +1,4 @@
-// src/lib/project-data.ts
-
-export interface ProjectDetails {
-  scope: string;
-  services: string[];
-  results: string;
-  impact: string;
-}
-
-export interface Project {
-  type: string;
-  title: string;
-  location?: string;
-  summary: string;
-  details: ProjectDetails;
-}
+import { Project } from "./interfaces";
 
 export const currentProjects: Project[] = [
   {

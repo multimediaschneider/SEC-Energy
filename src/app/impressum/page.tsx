@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/ui/navbar";
 import Layout from "@/components/layout";
-import BodyHeading from "@/components/body-heading";
+import BodyHeading from "@/components/content/body-heading";
 
 export default function Impressum() {
   return (

@@ -1,7 +1,6 @@
-// app/studio/[[...index]]/layout.tsx
 export const metadata = {
-  title: "Wärmecontracting CMS",
-  description: "Inhaltsverwaltung für die Wärmecontracting Website",
+  title: "SEC-CONSULTING CMS",
+  description: "Content management for SEC-CONSULTING website",
 };
 
 export default function RootLayout({
@@ -10,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );
