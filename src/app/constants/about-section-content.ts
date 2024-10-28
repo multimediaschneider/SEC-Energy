@@ -12,7 +12,4 @@ export const ABOUT_SECTION_CONTENT = {
     description:
       "Dierk Schneider, Diplom-Ingenieur der Versorgungstechnik, verfügt über mehr als 30 Jahre Erfahrung in der Energiebranche. Seit Mai 2020 ist er Geschäftsführer von SEC Consulting GmbH und hat zuvor leitende Positionen in Unternehmen wie hanova SERVICES GmbH und GETEC AG innegehabt. Seine Expertise liegt in der Konzeption und Planung energieeffizienter Anlagen sowie der Beratung im Wärmecontracting. Zudem ist er als Gastdozent an Hochschulen tätig und Autor zahlreicher Fachpublikationen.",
   },
-  button: {
-    text: "Kontakt",
-  },
 };

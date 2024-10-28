@@ -53,14 +53,14 @@ export default function ImageText({
 
   return (
     <div className="flex justify-center w-full pt-6">
-      <div className="w-11/12 sm:w-10/12 md:w-4/5 rounded-xl border-b-solid border-b pb-8 sm:pb-12">
+      <div className="w-11/12 bg-gray-200 rounded-sm mb-24 pt-12 px-12 sm:w-10/12 md:w-4/5 border-b-solid border-b pb-8 sm:pb-12 shadow-md shadow-zinc-400">
         <div
           ref={ref}
-          className={`flex flex-col lg:flex-row items-center gap-8 transition-all duration-1000 ease-out ${
+          className={`flex flex-col pr-6 lg:flex-row items-center gap-8 transition-all duration-1000 ease-out  ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="w-full lg:w-1/3 max-w-md mx-auto lg:max-w-[400px] relative overflow-hidden shadow-md shadow-zinc-400">
+          <div className="w-full lg:w-1/3 max-w-md mx-auto lg:max-w-[400px] relative overflow-hidden shadow-md shadow-zinc-600">
             <div className="aspect-[3/5] relative">
               <Image
                 src={imageSrc}

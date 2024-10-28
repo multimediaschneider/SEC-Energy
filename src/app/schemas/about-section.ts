@@ -11,15 +11,8 @@ export const aboutSection = defineType({
       type: "object",
       fields: [
         { name: "heading", title: "Heading", type: "string" },
-        {
-          name: "text",
-          title: "Text",
-          type: "object",
-          fields: [
-            { name: "companyName", title: "Company Name", type: "string" },
-            { name: "description", title: "Description", type: "text" },
-          ],
-        },
+        { name: "companyName", title: "Company Name", type: "string" },
+        { name: "text", title: "Description", type: "text" },
       ],
     }),
     defineField({
@@ -31,23 +24,5 @@ export const aboutSection = defineType({
         { name: "description", title: "Description", type: "text" },
       ],
     }),
-    defineField({
-      name: "button",
-      title: "Button",
-      type: "object",
-      fields: [{ name: "text", title: "Button Text", type: "string" }],
-    }),
   ],
-  preview: {
-    select: {
-      title: "companyInfo.heading",
-      subtitle: "management.heading",
-    },
-    prepare({ title, subtitle }: { title: string; subtitle: string }) {
-      return {
-        title: title || "About Section",
-        subtitle: subtitle || "Management",
-      };
-    },
-  },
 });

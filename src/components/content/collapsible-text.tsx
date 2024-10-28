@@ -43,7 +43,7 @@ export default function CollapsibleText({
 
   return (
     <div className="flex justify-center items-center w-full px-2 sm:px-0">
-      <div className="w-full sm:w-4/5 m-2 p-3 sm:p-6 bg-gray-50 shadow-lg shadow-zinc-400">
+      <div className="w-full sm:w-4/5  rounded-sm m-2 p-3 sm:p-6 bg-gray-50 shadow-lg shadow-zinc-400">
         <div
           ref={ref}
           className={`transition-all duration-1000 ease-out ${

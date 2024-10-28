@@ -27,7 +27,7 @@ export const CONTACT_SECTION_CONTENT = {
   styles: {
     container: "flex justify-center w-full bg-gray-200",
     innerContainer: "w-11/12 sm:w-10/12 md:w-4/5",
-    card: "p-6 sm:p-8 lg:p-12 my-24 bg-emerald-700 bg-opacity-25 shadow-lg",
+    card: "p-6 sm:p-8 lg:p-12 rounded-sm my-24 bg-emerald-700 bg-opacity-25 shadow-lg",
     contentWrapper: "flex flex-col lg:flex-row w-full gap-8 lg:gap-12",
     leftSection: "flex flex-col justify-center lg:w-1/2",
     rightSection:

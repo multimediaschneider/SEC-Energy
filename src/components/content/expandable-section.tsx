@@ -18,7 +18,7 @@ export default function ExpandableSection({
   return (
     <div className={`mt-3 ${className}`}>
       <div className="flex justify-center items-center w-full px-4 sm:px-0 ">
-        <div className="w-full p-3 sm:w-4/5 sm:p-6 bg-gray-50 shadow-lg shadow-zinc-400">
+        <div className="w-full  rounded-sm p-3 sm:w-4/5 sm:p-6 bg-gray-50 shadow-lg shadow-zinc-400">
           <div
             className="flex items-center justify-between cursor-pointer"
             onClick={() => setIsExpanded(!isExpanded)}

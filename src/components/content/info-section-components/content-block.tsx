@@ -54,7 +54,7 @@ export default function ContentBlock({
   };
 
   return (
-    <div ref={ref} className="w-full h-full">
+    <div ref={ref} className="w-full rounded-sm h-full">
       <div className="h-full bg-emerald-700 bg-opacity-20 flex flex-col items-start p-2 sm:p-6 md:p-8 shadow-md shadow-zinc-400">
         <div className="flex-grow space-y-3 sm:space-y-4 w-full">
           {contents.map((content, index) => (

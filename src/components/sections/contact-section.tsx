@@ -49,7 +49,7 @@ export default function ContactSection() {
         >
           <div className={styles.contentWrapper}>
             <div className={styles.leftSection}>
-              <CardHeader className="p-0 mb-6">
+              <CardHeader className="p-0  mb-6">
                 <CardTitle className={styles.title}>{title}</CardTitle>
                 <CardDescription className={styles.companyName}>
                   {companyName}
