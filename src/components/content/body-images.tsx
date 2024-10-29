@@ -22,19 +22,23 @@ export default function BodyImages({ images }: BodyImagesProps) {
   }, [images.length]);
 
   return (
-    <div className="relative w-full h-64 md:h-96 mb-12 overflow-hidden">
-      {images.map((image, index) => (
-        <Image
-          key={index}
-          src={image.src}
-          alt={image.alt}
-          layout="fill"
-          objectFit="cover"
-          className={`absolute top-0 left-0 transition-opacity duration-1000 ${
-            index === currentIndex ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+    <div className="flex justify-center w-full">
+      <div className="w-11/12 sm:w-10/12 md:w-4/5 rounded-sm pb-8 sm:pb-12">
+        <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden rounded-sm shadow-lg shadow-zinc-500">
+          {images.map((image, index) => (
+            <Image
+              key={index}
+              src={image.src}
+              alt={image.alt}
+              layout="fill"
+              objectFit="cover"
+              className={`absolute top-0 left-0 transition-opacity duration-1000 ${
+                index === currentIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+// components/sections/focus-section.tsx
 import { useEffect, useState } from "react";
 import CollapsibleText from "@/components/content/collapsible-text";
 import BodyText from "@/components/content/body-text";
@@ -18,6 +19,33 @@ interface FocusSectionData {
   };
   focusAreas: FocusArea[];
 }
+
+// Definiere die möglichen Icon-Typen
+type IconType =
+  | "organization"
+  | "billing"
+  | "energy"
+  | "legal"
+  | "planning"
+  | "concept"
+  | "engineeringServices"
+  | "technicalEquipment";
+
+// Aktualisiere die getIconType Funktion mit dem korrekten Rückgabetyp
+const getIconType = (title: string): IconType | undefined => {
+  if (title.includes("Ingenieurleistungen der technischen Gebäudeausrüstung")) {
+    return "engineeringServices";
+  }
+  if (title.includes("Technische Gebäudeausrüstung im Einzelnen")) {
+    return "technicalEquipment";
+  }
+  if (title.includes("Organisation")) return "organization";
+  if (title.includes("Abrechnung")) return "billing";
+  if (title.includes("Energieeinkauf")) return "energy";
+  if (title.includes("Vertragswesen")) return "legal";
+  if (title.includes("Konzeption")) return "planning";
+  return undefined;
+};
 
 const FocusSection = () => {
   const [focusData, setFocusData] = useState<FocusSectionData | null>(null);
@@ -47,7 +75,6 @@ const FocusSection = () => {
     return <div>Loading...</div>;
   }
 
-  // Static images since we're not handling them in Sanity
   const images = [
     { src: "/thermostat.jpg", alt: "Abbildung Thermostat" },
     { src: "/tablet.jpg", alt: "Abbildung Wärmesteuerung" },
@@ -71,6 +98,7 @@ const FocusSection = () => {
         {focusData.focusAreas.map((area, index) => (
           <CollapsibleText
             key={index}
+            iconType={getIconType(area.title)}
             collapsibleContent={
               <ul className="list-disc space-y-2">
                 {area.items.map((item, itemIndex) => (

@@ -60,7 +60,7 @@ export default function ImageText({
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="w-full lg:w-1/3 max-w-md mx-auto lg:max-w-[400px] relative overflow-hidden shadow-md shadow-zinc-600">
+          <div className="w-full lg:w-1/3 rounded-sm max-w-md mx-auto lg:max-w-[400px] relative overflow-hidden shadow-md shadow-zinc-600">
             <div className="aspect-[3/5] relative">
               <Image
                 src={imageSrc}
@@ -78,7 +78,7 @@ export default function ImageText({
             buttonText={buttonText}
             buttonAction={buttonAction}
             buttonClassName={buttonClassName}
-            className="w-full lg:w-2/3 md:w-full bg-emerald-700 shadow-md shadow-zinc-400 p-6 sm:p-8"
+            className="w-full lg:w-2/3 md:w-full rounded-sm bg-emerald-700 shadow-md shadow-zinc-400 p-6 sm:p-8"
           />
         </div>
       </div>
