@@ -39,7 +39,7 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
 
   return (
     <div className="flex justify-center w-full pt-8 sm:pt-10 md:pt-12">
-      <div className="flex flex-col w-11/12 sm:w-10/12 md:w-4/5 border-y-2 pt-8 border-gray-400 mb-8 pb-2 sm:pb-8">
+      <div className="flex flex-col w-11/12 sm:w-10/12 md:w-4/5 border-y-2 pt-10 border-gray-400 mb-8 pb-2 sm:pb-8">
         <div className="">
           <div
             ref={ref}
