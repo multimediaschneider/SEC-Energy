@@ -41,11 +41,11 @@ export function TextComponent({
       className={`w-full md:w-1/2 p-6 sm:p-8 md:p-6 bg-emerald-700 bg-opacity-20 ${className} relative`}
     >
       {title && (
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-emerald-700 mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4">
           {title}
         </h1>
       )}
-      <div className="text-lg sm:text-xl md:text-1xl lg:text-2xl font-extralight text-emerald-700 leading-relaxed pb-20 md:pb-0">
+      <div className="text-lg sm:text-xl md:text-1xl lg:text-2xl font-extralight text-primary leading-relaxed pb-20 md:pb-0">
         <p className="text-xl sm:text-2xl md:text-3xl lg:text-3xl font-semibold pb-3">
           {firstPart}
         </p>
@@ -60,7 +60,7 @@ export function TextComponent({
 
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-2 text-emerald-700 mt-4 md:hidden"
+          className="flex items-center gap-2 text-primary mt-4 md:hidden"
         >
           {isExpanded ? (
             <>

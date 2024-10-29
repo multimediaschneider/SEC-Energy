@@ -95,12 +95,12 @@ export default function Navbar() {
 
   return (
     <div className="">
-      <nav className="fixed shadow-lg w-full bg-emerald-700 py-2 z-50 border-b-solid border-b border-opacity-60">
-        <div className="container mx-auto px-4 flex justify-between items-center text-white">
+      <nav className="fixed shadow-lg w-full bg-primary py-2 z-50 border-b-solid border-b border-opacity-60">
+        <div className="container mx-auto px-4 flex justify-between items-center text-primary-foreground">
           <Link href="/" onClick={handleLogoClick} className="text-2xl">
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center ">
               <div
-                className="w-[60px] h-[60px] bg-white hover:bg-slate-300 transition-colors duration-300"
+                className="w-[60px] h-[60px] bg-background dark:bg-white hover:bg-secondary-dark transition-colors duration-300"
                 style={{
                   maskImage: 'url("/logo-sec.png")',
                   maskSize: "cover",
@@ -112,7 +112,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-6 items-center">
+          <ul className="hidden md:flex space-x-6 text-lg font-extralight items-center">
             <li>
               <Link
                 href={isHomePage ? "#about" : "/#about"}
@@ -153,7 +153,7 @@ export default function Navbar() {
               <CustomButtonTwo
                 name="Kontakt"
                 href={isHomePage ? "#kontakt" : "/#kontakt"}
-                className="hover:bg-emerald-800 font-normal text-md"
+                className="hover:bg-primary-dark font-normal text-md"
                 onClick={(e) =>
                   handleNavClick(e, isHomePage ? "#kontakt" : "/#kontakt")
                 }
@@ -172,12 +172,12 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden">
-            <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <li>
+          <div className="md:hidden flex justify-end">
+            <ul className="px-4 pt-2 pb-3 space-y-1 sm:px-6">
+              <li className="pl-2">
                 <Link
                   href={isHomePage ? "#about" : "/#about"}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
+                  className="block px-3 py-2 max-w-36 text-primary-foreground border- min-w-40 text-xl font-extralight hover:bg-primary-dark transition-colors duration-300"
                   onClick={(e) =>
                     handleNavClick(e, isHomePage ? "#about" : "/#about")
                   }
@@ -185,10 +185,10 @@ export default function Navbar() {
                   Über SEC
                 </Link>
               </li>
-              <li>
+              <li className="pl-2">
                 <Link
                   href={isHomePage ? "#schwerpunkte" : "/#schwerpunkte"}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
+                  className="block px-3 py-2 max-w-36 text-primary-foreground border-t min-w-40 text-xl  font-extralight hover:bg-primary-dark transition-colors duration-300"
                   onClick={(e) =>
                     handleNavClick(
                       e,
@@ -199,10 +199,10 @@ export default function Navbar() {
                   Schwerpunkte
                 </Link>
               </li>
-              <li>
+              <li className="pl-2">
                 <Link
                   href={isHomePage ? "#projekte" : "/#projekte"}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
+                  className="block px-3 py-2 max-w-36 text-primary-foreground border-t min-w-40 text-xl  font-extralight hover:bg-primary-dark transition-colors duration-300"
                   onClick={(e) =>
                     handleNavClick(e, isHomePage ? "#projekte" : "/#projekte")
                   }
@@ -210,10 +210,10 @@ export default function Navbar() {
                   Projekte
                 </Link>
               </li>
-              <li>
+              <li className="pl-2">
                 <Link
                   href={isHomePage ? "#kontakt" : "/#kontakt"}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
+                  className="block px-3 py-2 max-w-36 text-primary-foreground border-t min-w-40 text-xl  font-extralight hover:bg-primary-dark transition-colors duration-300"
                   onClick={(e) =>
                     handleNavClick(e, isHomePage ? "#kontakt" : "/#kontakt")
                   }

@@ -34,9 +34,9 @@ export default function ExpandableSection({
               <BodySubHeading>{title}</BodySubHeading>
             </div>
             {isExpanded ? (
-              <ChevronUp className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-700 flex-shrink-0" />
+              <ChevronUp className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
             ) : (
-              <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-700 flex-shrink-0" />
+              <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
             )}
           </div>
           <div

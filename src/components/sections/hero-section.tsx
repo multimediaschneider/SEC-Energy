@@ -76,7 +76,7 @@ export default function DynamicHero() {
 
       {/* White background when no image is visible */}
       <motion.div
-        className="absolute inset-0 bg-white"
+        className="absolute inset-0 bg-background dark:bg-background"
         initial={{ opacity: 0 }}
         animate={{ opacity: isImageVisible ? 0 : 1 }}
         transition={{ duration: 1.5, ease: "easeInOut" }}

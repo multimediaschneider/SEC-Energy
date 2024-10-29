@@ -53,7 +53,7 @@ export default function InfoSection({
   }
 
   return (
-    <section className="bg-gray-200 py-6 sm:py-8 md:py-12 overflow-hidden">
+    <section className="bg-secondary-dark dark:bg-secondary-dark py-6 sm:py-8 md:py-12 overflow-hidden">
       <div className="w-11/12 sm:w-10/12 md:w-4/5  mx-auto my-4 sm:my-6 md:my-8">
         <MainContent content={content.mainContent} />
 

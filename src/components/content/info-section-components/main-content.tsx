@@ -40,7 +40,7 @@ export default function MainContent({ content }: MainContentProps) {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
     >
-      <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight text-emerald-700 text-center px-4">
+      <h2 className="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extralight text-primary text-center px-4">
         {content}
       </h2>
       <div className="flex justify-center">

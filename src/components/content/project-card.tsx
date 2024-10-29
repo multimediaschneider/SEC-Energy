@@ -47,12 +47,12 @@ export default function ProjectCard({
   const variantStyles = {
     primary: {
       container: "",
-      title: "text-emerald-700",
+      title: "text-primary",
       text: "text-zinc-700",
     },
     secondary: {
       container: "",
-      title: "text-emerald-700",
+      title: "text-primary",
       text: "text-zinc-700",
     },
   }[variant];

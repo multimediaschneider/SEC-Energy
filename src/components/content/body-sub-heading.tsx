@@ -44,7 +44,7 @@ export default function BodySubHeading({ children }: BodyHeadingProps) {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold text-emerald-700">
+        <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold text-primary-light">
           {children}
         </h2>
       </div>
