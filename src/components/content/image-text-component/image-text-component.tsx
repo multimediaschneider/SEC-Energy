@@ -52,11 +52,11 @@ export default function ImageText({
   }, [hasAnimated]);
 
   return (
-    <div className="flex justify-center w-full pt-6">
-      <div className="w-11/12 bg-gray-200 rounded-sm mb-24 pt-12 px-12 sm:w-10/12 md:w-4/5 border-b-solid border-b pb-8 sm:pb-12 shadow-md shadow-zinc-400">
+    <div className="flex items-center justify-center min-h-screen w-full ">
+      <div className="w-11/12 sm:w-10/12 md:w-4/5 max-w-7xl mx-auto ">
         <div
           ref={ref}
-          className={`flex flex-col pr-6 lg:flex-row items-center gap-8 transition-all duration-1000 ease-out  ${
+          className={`flex flex-grow flex-col lg:flex-row items-center justify-center gap-8 transition-all duration-1000 ease-out pb-12 md:bg-gray-200 md:p-12 md:shadow-md md:border-b${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
@@ -65,9 +65,9 @@ export default function ImageText({
               <Image
                 src={imageSrc}
                 alt={imageAlt}
-                layout="fill"
+                layout="fill" // bg-gray-200 px-12 shadow-md border-b
                 objectFit="cover"
-                className="transition-transform duration-300  hover:scale-105"
+                className="transition-transform duration-300 hover:scale-105"
               />
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function ImageText({
             buttonText={buttonText}
             buttonAction={buttonAction}
             buttonClassName={buttonClassName}
-            className="w-full lg:w-2/3 md:w-full rounded-sm bg-emerald-700 shadow-md shadow-zinc-400 p-6 sm:p-8"
+            className="w-full lg:w-2/3 rounded-sm bg-emerald-700 shadow-md shadow-zinc-400 p-6 sm:p-8"
           />
         </div>
       </div>

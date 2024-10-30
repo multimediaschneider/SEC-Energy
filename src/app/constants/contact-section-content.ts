@@ -32,9 +32,9 @@ export const CONTACT_SECTION_CONTENT = {
     leftSection: "flex flex-col justify-center lg:w-1/2",
     rightSection:
       "lg:w-1/2 lg:border-l lg:border-emerald-700 lg:border-opacity-20 lg:pl-12",
-    title: "text-2xl sm:text-3xl font-bold text-primary mb-2",
-    companyName: "text-xl sm:text-2xl font-light text-primary",
-    contactName: "pb-4 text-lg sm:text-xl font-bold text-primary",
-    contactDetails: "text-primary text-base sm:text-lg",
+    title: "text-2xl sm:text-3xl font-bold text-emerald-700 mb-2",
+    companyName: "text-xl sm:text-2xl font-light text-emerald-700",
+    contactName: "pb-4 text-lg sm:text-xl font-bold text-emerald-700",
+    contactDetails: "text-emerald-700 text-base sm:text-lg",
   },
 };

@@ -4,6 +4,7 @@ import { focusSection } from "./focus-section";
 import { hero } from "./hero";
 import { infoSection } from "./info-section";
 import { aboutSection } from "./about-section";
+import { heroSection } from "./hero-section-schema";
 
 export const schemaTypes = [
   hero,
@@ -11,5 +12,6 @@ export const schemaTypes = [
   aboutSection,
   focusSection,
   project, // Add the project schema first
-  projectSection, // Then the project section schema
+  projectSection,
+  heroSection, // Then the project section schema
 ];

@@ -2,12 +2,14 @@
 
 import { useEffect } from "react";
 import Layout from "../components/layout";
-import DynamicHero2 from "@/components/sections/hero-section";
+import DynamicHero from "@/components/sections/hero-section";
 import InfoSection from "@/components/sections/info-section";
 import AboutSection from "@/components/sections/about-section";
 import ProjectSection from "@/components/sections/project-section";
 import FocusSection from "@/components/sections/focus-section";
 import ContactSection from "@/components/sections/contact-section";
+import WaermecontractingPage from "./wärmecontracting/page";
+import CaseStudySection from "@/components/casestudies";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -100,7 +102,7 @@ export default function LandingPage() {
 
   return (
     <Layout>
-      <DynamicHero2 />
+      <DynamicHero />
       <section id="info">
         <InfoSection
           onSchwerpunkteClick={() => smoothScroll("#schwerpunkte")}
@@ -119,6 +121,12 @@ export default function LandingPage() {
       </section>
       <section id="kontakt">
         <ContactSection />
+      </section>
+      <section id="waerme">
+        <WaermecontractingPage />
+      </section>
+      <section id="fallbeospiele">
+        <CaseStudySection />
       </section>
     </Layout>
   );

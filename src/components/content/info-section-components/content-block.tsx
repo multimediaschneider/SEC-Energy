@@ -74,8 +74,8 @@ export default function ContentBlock({
                   />
                 </div>
               )}
-              <div className="flex sm:text-xl md:text-xl text-primary break-words">
-                <div className="font-semibold text-2xl pb-2">
+              <div className="flex sm:text-xl md:text-xl text-emerald-700 break-words">
+                <div className="font-semibold text-xl sm:text-2xl pb-2">
                   {content.heading}
                 </div>
                 <div className="pb-1">{content.text}</div>

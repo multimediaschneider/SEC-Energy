@@ -8,7 +8,7 @@ interface InfoSectionContent {
 
 export const INFO_SECTION_CONTENT: InfoSectionContent = {
   mainContent:
-    "Wir begleiten Sie umfassend bei Ihren Überlegungen, Planungen und Projekten für eine nachhaltige Wärmeversorgung. Durch unsere Unterstützung mindern Sie Projekt- und Finanzrisiken und sichern sich den Erfolg Ihrer Wärmevorhaben. Sprechen Sie uns an.",
+    "Als führender Experte für Energiecontracting verbinde ich technische Innovation mit wirtschaftlicher Effizienz. Mit über zwei Jahrzehnten Erfahrung und mehr als 50 erfolgreichen Großprojekten stehe ich für nachhaltige Energielösungen.",
   leftContents: [
     {
       heading:

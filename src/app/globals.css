@@ -4,97 +4,48 @@
 
 @layer base {
   :root {
-    /* Base colors */
-    --background: 0 0% 100%; /* bg-background -> white */
-    --foreground: 0 0% 3.9%; /* text-foreground -> near black */
-
-    /* Card colors */
-    --card: 0 0% 100%; /* bg-card -> white */
-    --card-foreground: 0 0% 3.9%; /* text-card-foreground -> near black */
-
-    /* Popover colors */
-    --popover: 0 0% 100%; /* bg-popover -> white */
-    --popover-foreground: 0 0% 3.9%; /* text-popover-foreground -> near black */
-
-    /* Primary brand colors (emerald) */
-    --primary: 167 68% 23%; /* bg-primary -> emerald-700 */
-    --primary-light: 167 68% 28%; /* bg-primary-light -> emerald-600 */
-    --primary-dark: 167 68% 18%; /* bg-primary-dark -> emerald-800 */
-    --primary-foreground: 0 0% 98%; /* text-primary-foreground -> white */
-
-    /* Secondary colors (gray) */
-    --secondary: 0 0% 96.1%; /* bg-secondary -> gray-50 */
-    --secondary-dark: 0 0% 89%; /* bg-secondary-dark -> gray-200 */
-    --secondary-foreground: 0 0% 9%; /* text-secondary-foreground -> near black */
-
-    /* Muted colors (zinc) */
-    --muted: 0 0% 96.1%; /* bg-muted -> zinc-400 */
-    --muted-foreground: 240 3.8% 46.1%; /* text-muted-foreground -> zinc-600 */
-
-    /* Accent colors */
-    --accent: 0 0% 96.1%; /* bg-accent -> gray-50 */
-    --accent-foreground: 0 0% 9%; /* text-accent-foreground -> near black */
-
-    /* Destructive colors */
-    --destructive: 0 84.2% 60.2%; /* bg-destructive -> red-500 */
-    --destructive-foreground: 0 0% 98%; /* text-destructive-foreground -> white */
-
-    /* Border & Input colors */
-    --border: 240 5.9% 90%; /* border-border -> zinc-400 */
-    --input: 240 5.9% 90%; /* border-input -> zinc-400 */
-    --ring: 167 68% 23%; /* ring -> emerald-700 */
-
-    /* Shadow colors */
-    --shadow-color: 240 5.9% 90%; /* shadow-zinc-400 */
-    --shadow-color-light: 240 5.9% 95%; /* shadow-zinc-200 */
-
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Base colors */
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
-
-    /* Card colors */
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
-
-    /* Popover colors */
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-
-    /* Primary brand colors (emerald) */
-    --primary: 167 68% 30%; /* Lighter emerald for dark mode */
-    --primary-light: 167 68% 35%;
-    --primary-dark: 167 68% 25%;
-    --primary-foreground: 0 0% 98%;
-
-    /* Secondary colors */
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
     --secondary: 0 0% 14.9%;
-    --secondary-dark: 0 0% 18%;
     --secondary-foreground: 0 0% 98%;
-
-    /* Muted colors */
     --muted: 0 0% 14.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    /* Accent colors */
+    --muted-foreground: 0 0% 63.9%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-
-    /* Destructive colors */
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
-    /* Border & Input colors */
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 167 68% 30%;
-
-    /* Shadow colors */
-    --shadow-color: 0 0% 0%;
-    --shadow-color-light: 0 0% 10%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
   }
 }
 
@@ -107,31 +58,8 @@
   }
 }
 
-/* Common utility classes mapping */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-
-  .menu-slide-in {
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .menu-slide-in.open {
-    transform: translateX(0);
-  }
-
-  /* Shadow utilities */
-  .shadow-primary {
-    --tw-shadow-color: hsl(var(--shadow-color));
-    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color);
-    box-shadow: var(--tw-shadow);
-  }
-
-  .shadow-primary-light {
-    --tw-shadow-color: hsl(var(--shadow-color-light));
-    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color);
-    box-shadow: var(--tw-shadow);
   }
 }

@@ -39,7 +39,7 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
 
   return (
     <div className="flex justify-center w-full pt-8 sm:pt-10 md:pt-12">
-      <div className="flex flex-col w-11/12 sm:w-10/12 md:w-4/5 border-y-2 pt-3 md:pt-10 border-gray-400 mb-8 pb-2 sm:pb-8">
+      <div className="flex flex-col w-11/12 sm:w-10/12 md:w-4/5 border-y-2 pt-2 sm:pt-10 border-gray-400 mb-8 pb-2 sm:pb-8">
         <div className="">
           <div
             ref={ref}
@@ -49,7 +49,7 @@ export default function BodyHeading({ children }: BodyHeadingProps) {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-primary">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-emerald-700">
               {children}
             </h2>
           </div>

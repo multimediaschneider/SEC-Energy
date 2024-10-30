@@ -146,18 +146,18 @@ export default function CollapsibleText({
           >
             <div className="flex items-center gap-4">
               {iconType && icons[iconType] && (
-                <div className="text-primary w-8 h-8">
+                <div className="text-emerald-700 w-8 h-8">
                   {icons[iconType]("w-full h-full")}
                 </div>
               )}
-              <h2 className="text-lg sm:text-2xl font-bold text-primary pr-2">
+              <h2 className="text-base sm:text-2xl font-bold text-emerald-700 pr-2">
                 {children}
               </h2>
             </div>
             {isOpen ? (
-              <ChevronUp className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
+              <ChevronUp className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-700 flex-shrink-0" />
             ) : (
-              <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
+              <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-700 flex-shrink-0" />
             )}
           </div>
           <div

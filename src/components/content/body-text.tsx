@@ -34,7 +34,7 @@ export default function BodyText({ children }: BodyTextProps) {
 
   return (
     <div className="flex justify-center w-full">
-      <div className="w-11/12 sm:w-10/12 md:w-4/5 rounded-xl border-b-solid pb-8 sm:pb-12">
+      <div className="w-11/12 sm:w-10/12 md:w-4/5 rounded-xl border-b-solid border-b pb-8 sm:pb-12">
         <div className="flex">
           <div
             ref={ref}
@@ -44,7 +44,7 @@ export default function BodyText({ children }: BodyTextProps) {
                 : "opacity-0 translate-y-10"
             }`}
           >
-            <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-extralight text-primary">
+            <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-extralight text-emerald-700">
               {children}
             </h2>
           </div>
