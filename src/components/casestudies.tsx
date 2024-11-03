@@ -1,6 +1,17 @@
+"use client";
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Building, CloudLightning, Factory } from "lucide-react";
+import {
+  ChevronRight,
+  Building,
+  CloudLightning,
+  Factory,
+  ArrowRight,
+  ExternalLink,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 type ProjectType = {
   title: string;
@@ -32,113 +43,148 @@ const CaseStudySection = () => {
       technicalData: {
         type: "BHKW mit Kälteversorgung",
         electricalPower: "495 kW elektrisch",
-        additionalInfo: "Integrierte Kälteversorgung",
+        additionalInfo:
+          "Integrierte Kälteversorgung für optimale Gebäudeklimatisierung",
       },
     },
     expo: {
       title: "Expo-Projekt Kronsberg",
       description: "Wärmeversorgungsgebiet mit innovativem Energiekonzept",
       technicalData: {
-        type: "BHKW",
+        type: "BHKW mit Nahwärmenetz",
         electricalPower: "220 kW elektrisch",
-        additionalInfo: "Nahwärmekonzept",
+        additionalInfo: "Integriertes Quartiersversorgungskonzept",
       },
     },
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-3xl font-bold text-emerald-700 mb-8">
-        Referenzprojekte
-      </h2>
-
-      <div className="flex space-x-4 mb-8">
-        {Object.keys(projects).map((key) => (
-          <button
-            key={key}
-            onClick={() => setActiveProject(key)}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              activeProject === key
-                ? "bg-emerald-700 text-white"
-                : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-            }`}
-          >
-            {projects[key].title.split(",")[0]}
-          </button>
-        ))}
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white rounded-lg shadow-lg p-6"
-      >
-        <div className="grid md:grid-cols-2 gap-8">
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left Column - Project Details */}
           <div>
-            <h3 className="text-2xl font-semibold text-emerald-800 mb-4">
-              {projects[activeProject].title}
-            </h3>
+            <h2 className="text-3xl font-bold text-emerald-700 mb-8">
+              Referenzprojekte
+            </h2>
 
-            <div className="flex items-center gap-2 text-emerald-600 mb-4">
-              <Building size={20} />
-              <span>{projects[activeProject].description}</span>
+            <div className="flex flex-wrap gap-3 mb-6">
+              {Object.keys(projects).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveProject(key)}
+                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                    activeProject === key
+                      ? "bg-emerald-700 text-white"
+                      : "bg-white text-emerald-700 hover:bg-emerald-50"
+                  }`}
+                >
+                  {projects[key].title.split(",")[0]}
+                </button>
+              ))}
             </div>
 
-            <div className="space-y-4 mt-6">
-              <div className="p-4 bg-emerald-50 rounded-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <CloudLightning className="w-6 h-6 text-emerald-500" />
-                  <span className="font-semibold">Elektrische Leistung</span>
-                </div>
-                <div className="text-gray-600">
-                  {projects[activeProject].technicalData.electricalPower}
-                </div>
+            <motion.div
+              key={activeProject}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-lg shadow-lg p-4 max-w-xl"
+            >
+              <div className="aspect-video w-full rounded-lg mb-4 relative overflow-hidden">
+                <Image
+                  src="/pipes.jpg"
+                  alt="Industrial HVAC system and pipes"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
+                />
               </div>
 
-              <div className="p-4 bg-emerald-50 rounded-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <Factory className="w-6 h-6 text-emerald-500" />
-                  <span className="font-semibold">Anlagentyp</span>
-                </div>
-                <div className="text-gray-600">
-                  {projects[activeProject].technicalData.type}
-                </div>
+              <h3 className="text-xl font-semibold text-emerald-800 mb-3">
+                {projects[activeProject].title}
+              </h3>
+
+              <div className="flex items-center gap-2 text-emerald-600 mb-4 text-sm">
+                <Building size={16} />
+                <span>{projects[activeProject].description}</span>
               </div>
 
-              {projects[activeProject].technicalData.additionalInfo && (
-                <div className="p-4 bg-emerald-50 rounded-lg">
-                  <div className="text-gray-600">
-                    {projects[activeProject].technicalData.additionalInfo}
+              <div className="space-y-3">
+                <div className="p-3 bg-emerald-50 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <CloudLightning className="w-5 h-5 text-emerald-500" />
+                    <span className="font-semibold text-sm">
+                      Elektrische Leistung
+                    </span>
+                  </div>
+                  <div className="text-gray-600 text-sm">
+                    {projects[activeProject].technicalData.electricalPower}
                   </div>
                 </div>
-              )}
+
+                <div className="p-3 bg-emerald-50 rounded-lg">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Factory className="w-5 h-5 text-emerald-500" />
+                    <span className="font-semibold text-sm">Anlagentyp</span>
+                  </div>
+                  <div className="text-gray-600 text-sm">
+                    {projects[activeProject].technicalData.type}
+                  </div>
+                </div>
+
+                {projects[activeProject].technicalData.additionalInfo && (
+                  <div className="p-3 bg-emerald-50 rounded-lg">
+                    <div className="text-gray-600 text-sm">
+                      {projects[activeProject].technicalData.additionalInfo}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column - Global Introduction */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-6 lg:mt-24"
+          >
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              Bewährte Expertise in verschiedensten Energieprojekten
+            </h3>
+            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+              SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche
+              Projektrealisierung im Energiesektor. Von Blockheizkraftwerken
+              über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten
+              - unsere Referenzprojekte zeigen die ganze Bandbreite unserer
+              technischen Expertise und Planungskompetenz. Wir haben zahlreiche
+              maßgeschneiderte Energielösungen für Kliniken, Verwaltungsgebäude
+              und Wohnquartiere entwickelt und umgesetzt.
+            </p>
+
+            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+              Unsere Projekte zeichnen sich durch höchste Effizienz,
+              Nachhaltigkeit und Wirtschaftlichkeit aus. Jedes Projekt wird
+              individuell auf die spezifischen Anforderungen unserer Kunden
+              zugeschnitten und mit modernster Technik realisiert.
+            </p>
+
+            <div className="mt-8">
+              <Link
+                href="/kontakt"
+                className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors group"
+              >
+                <span>Detaillierte Projektinformationen</span>
+                <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
-          </div>
-
-          <div className="relative bg-emerald-50 rounded-lg p-4">
-            <h4 className="text-lg font-semibold text-emerald-800 mb-4">
-              Weitere Projekte:
-            </h4>
-            <ul className="list-disc list-inside space-y-2 text-gray-600">
-              <li>
-                6 Energieholzfeuerungen mit 2.230 kW Grundlast-Gesamtleistung
-              </li>
-              <li>Biomethan BHKW Gronostraße (140 kW el.)</li>
-              <li>Biomethan BHKW Erlenstieg (110 kW el.)</li>
-              <li>
-                30 weitere BHKW-Anlagen im Stadtgebiet Hannover (5,5 - 50 kW)
-              </li>
-            </ul>
-          </div>
+          </motion.div>
         </div>
-
-        <button className="mt-6 flex items-center text-emerald-700 hover:text-emerald-800 transition-colors">
-          <span>Weitere Informationen anfordern</span>
-          <ChevronRight className="ml-2 w-4 h-4" />
-        </button>
-      </motion.div>
-    </div>
+      </div>
+    </section>
   );
 };
 

@@ -3,13 +3,13 @@
 import { useEffect } from "react";
 import Layout from "../components/layout";
 import DynamicHero from "@/components/sections/hero-section";
-import InfoSection from "@/components/sections/info-section";
-import AboutSection from "@/components/sections/about-section";
-import ProjectSection from "@/components/sections/project-section";
-import FocusSection from "@/components/sections/focus-section";
-import ContactSection from "@/components/sections/contact-section";
-import WaermecontractingPage from "./wärmecontracting/page";
+
 import CaseStudySection from "@/components/casestudies";
+import ExpertiseShowcase from "@/components/sections/expertise-section";
+import CompetenceFieldsGrid from "@/components/sections/competence-fields";
+import ServicesSection from "@/components/sections/services-section";
+import AboutSection from "@/components/sections/about-section-neu";
+import ExpertiseCompetenceSection from "@/components/sections/expertise-competence";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -103,31 +103,12 @@ export default function LandingPage() {
   return (
     <Layout>
       <DynamicHero />
-      <section id="info">
-        <InfoSection
-          onSchwerpunkteClick={() => smoothScroll("#schwerpunkte")}
-          onProjekteClick={() => smoothScroll("#projekte")}
-        />
-      </section>
-
-      <section id="about">
-        <AboutSection onContactClick={() => smoothScroll("#kontakt")} />
-      </section>
-      <section id="schwerpunkte">
-        <FocusSection />
-      </section>
-      <section id="projekte">
-        <ProjectSection />
-      </section>
-      <section id="kontakt">
-        <ContactSection />
-      </section>
-      <section id="waerme">
-        <WaermecontractingPage />
-      </section>
-      <section id="fallbeospiele">
-        <CaseStudySection />
-      </section>
+      <ExpertiseCompetenceSection />
+      {/* <ExpertiseShowcase />
+      <CompetenceFieldsGrid /> */}
+      <ServicesSection />
+      <CaseStudySection />
+      <AboutSection />
     </Layout>
   );
 }

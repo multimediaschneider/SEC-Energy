@@ -1,50 +1,41 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, Leaf, Calculator, Clock, LucideIcon } from "lucide-react";
 import { client } from "@/sanity/client";
-
-type IconName = "shield" | "leaf" | "calculator" | "clock";
-
-interface IconComponentProps {
-  name: IconName;
-  className?: string;
-}
-
-const icons: Record<IconName, LucideIcon> = {
-  shield: Shield,
-  leaf: Leaf,
-  calculator: Calculator,
-  clock: Clock,
-};
-
-const IconComponent: React.FC<IconComponentProps> = ({ name, ...props }) => {
-  const Icon = icons[name] || Shield;
-  return <Icon {...props} />;
-};
 
 interface HeroImage {
   src: string;
   alt: string;
 }
 
-interface HeroBenefit {
-  icon: IconName;
-  title: string;
-  description: string;
+interface TrustIndicators {
+  emissions: string;
+  projects: string;
+  savings: string;
 }
 
 interface HeroData {
   title: string;
   subtitle: string;
+  headline: string;
+  subheadline: string;
+  trustIndicators: TrustIndicators;
   images: HeroImage[];
-  benefits?: HeroBenefit[];
 }
 
-// Fallback-Werte mit originalen Bildern
 const fallbackData: HeroData = {
   title: "SEC Consulting GmbH",
   subtitle: "Schneider Engineering Consulting",
+  headline: "Nachhaltige Energielösungen durch Expertise im Contracting",
+  subheadline:
+    "20+ Jahre Erfahrung in der Entwicklung wirtschaftlicher Energiekonzepte",
+  trustIndicators: {
+    emissions: "25%",
+    projects: "50+",
+    savings: "30%",
+  },
   images: [
     {
       src: "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
@@ -69,29 +60,6 @@ const fallbackData: HeroData = {
   ],
 };
 
-const fallbackBenefits: HeroBenefit[] = [
-  {
-    icon: "shield",
-    title: "Keine Investitionskosten",
-    description: "Modernste Technik ohne eigene Investition",
-  },
-  {
-    icon: "calculator",
-    title: "Garantierte Einsparung",
-    description: "Transparente und planbare Betriebskosten",
-  },
-  {
-    icon: "leaf",
-    title: "Klimaschutz",
-    description: "Effiziente und nachhaltige Energieversorgung",
-  },
-  {
-    icon: "clock",
-    title: "Full-Service",
-    description: "Wartung und Betrieb inklusive",
-  },
-];
-
 export default function DynamicHero() {
   const [heroData, setHeroData] = useState<HeroData | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -103,11 +71,13 @@ export default function DynamicHero() {
         const query = `*[_type == "hero"][0]{
           title,
           subtitle,
+          headline,
+          subheadline,
+          trustIndicators,
           "images": images[]{
             "src": asset->url,
             alt
-          },
-          benefits
+          }
         }`;
         const data = await client.fetch(query);
         setHeroData(data);
@@ -135,7 +105,8 @@ export default function DynamicHero() {
   }, [heroData]);
 
   const images = heroData?.images || fallbackData.images;
-  const benefits = heroData?.benefits || fallbackBenefits;
+  const trustIndicators =
+    heroData?.trustIndicators || fallbackData.trustIndicators;
 
   return (
     <section className="relative">
@@ -177,58 +148,54 @@ export default function DynamicHero() {
         />
 
         {/* Content Overlay */}
-        <div className="relative z-10 flex flex-col justify-center items-center w-full h-full">
-          <div className="w-full px-4 md:w-4/5">
-            <motion.h1
-              initial={{ color: "#047857" }}
-              animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-              className="border-b-4 border-emerald-700 text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-center mb-4"
-            >
-              {heroData?.title || fallbackData.title}
-            </motion.h1>
+        <div className="relative z-10 flex flex-col justify-center items-center w-full h-full ">
+          <div className="w-full md:w-4/5 max-w-4xl mx-auto text-center ">
+            <div className="border-b-4 border-emerald-700 mb-4">
+              <motion.h1
+                initial={{ color: "#047857" }}
+                animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4"
+              >
+                {heroData?.headline || fallbackData.headline}
+              </motion.h1>
+            </div>
             <motion.h2
               initial={{ color: "#047857" }}
               animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-light text-center mb-4"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-8"
             >
-              {heroData?.subtitle || fallbackData.subtitle}
+              {heroData?.subheadline || fallbackData.subheadline}
             </motion.h2>
-          </div>
 
-          {/* <div className="absolute bottom-8 left-auto">
-            <Dots />
-          </div> */}
-        </div>
-      </div>
-
-      {/* Key Benefits Section */}
-      <div className="relative -mt-24 z-20 pb-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1 + 0.5,
-                }}
-                className="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-300"
-              >
-                <div className="flex flex-col items-center text-center">
-                  <div className="text-emerald-600 mb-4">
-                    <IconComponent name={benefit.icon} className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600">{benefit.description}</p>
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              {Object.entries(trustIndicators).map(([key, value]) => (
+                <div key={key} className="text-center">
+                  <motion.span
+                    initial={{ color: "#047857" }}
+                    animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    className="block text-3xl md:text-5xl font-bold"
+                  >
+                    {value}
+                  </motion.span>
+                  <motion.span
+                    initial={{ color: "#047857" }}
+                    animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    className="text-md"
+                  >
+                    {key === "emissions"
+                      ? "Emissionseinsparung"
+                      : key === "projects"
+                        ? "Großprojekte"
+                        : "Kosteneinsparung"}
+                  </motion.span>
                 </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
