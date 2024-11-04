@@ -2,13 +2,12 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
-  const { firstName, lastName, email, message, to } = await req.json();
+  const { firstName, lastName, company, email, phone, message, to } = await req.json();
 
-  // Create a transporter using SMTP
   let transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT || "587"),
-    secure: process.env.SMTP_SECURE === "true", // true for 465, false for other ports
+    secure: process.env.SMTP_SECURE === "true",
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
@@ -16,32 +15,35 @@ export async function POST(req: Request) {
   });
 
   try {
-    // Send email
     await transporter.sendMail({
       from: `"Contact Form" <${process.env.SMTP_USER}>`,
       to: to,
-      subject: "New Contact Form Submission",
+      subject: "Neue Kontaktanfrage",
       text: `
         Name: ${firstName} ${lastName}
-        Email: ${email}
-        Message: ${message}
+        ${company ? `Firma: ${company}` : ''}
+        ${email ? `E-Mail: ${email}` : ''}
+        ${phone ? `Telefon: ${phone}` : ''}
+        ${message ? `Nachricht: ${message}` : ''}
       `,
       html: `
-        <h1>New Contact Form Submission</h1>
+        <h1>Neue Kontaktanfrage</h1>
         <p><strong>Name:</strong> ${firstName} ${lastName}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${message}</p>
+        ${company ? `<p><strong>Firma:</strong> ${company}</p>` : ''}
+        ${email ? `<p><strong>E-Mail:</strong> ${email}</p>` : ''}
+        ${phone ? `<p><strong>Telefon:</strong> ${phone}</p>` : ''}
+        ${message ? `<p><strong>Nachricht:</strong> ${message}</p>` : ''}
       `,
     });
 
     return NextResponse.json(
-      { message: "Email sent successfully" },
+      { message: "E-Mail erfolgreich gesendet" },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Fehler beim Senden der E-Mail:", error);
     return NextResponse.json(
-      { message: "Error sending email" },
+      { message: "Fehler beim Senden der E-Mail" },
       { status: 500 }
     );
   }

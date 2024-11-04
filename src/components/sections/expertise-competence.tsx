@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { client } from "@/sanity/client";
 import Link from "next/link";
+import { Button } from "../ui/button";
 
 interface ExpertiseArea {
   icon: string;
@@ -203,12 +204,11 @@ export default function ExpertiseCompetenceSection() {
 
               {/* New CTA Section */}
               <div className="pt-6">
-                <Link
-                  href="/kontakt"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white rounded-lg"
-                >
-                  <span>Persönliche Beratung anfragen</span>
-                  <ExternalLink className="ml-2 w-4 h-4" />
+                <Link href="/kontakt">
+                  <Button className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 hover:bg-black text-white rounded-lg">
+                    <span>Persönliche Beratung anfragen</span>
+                    <ExternalLink className="ml-2 w-4 h-4" />
+                  </Button>
                 </Link>
               </div>
             </div>

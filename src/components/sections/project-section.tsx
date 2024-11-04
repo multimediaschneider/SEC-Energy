@@ -23,7 +23,7 @@ type ProjectType = {
   };
 };
 
-const CaseStudySection = () => {
+const ProjectSection = () => {
   const [activeProject, setActiveProject] = useState("klinikum");
 
   const projects: Record<string, ProjectType> = {
@@ -59,8 +59,8 @@ const CaseStudySection = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gray-50 ">
+      <div className="container mx-auto px-4 ">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Column - Project Details */}
           <div>
@@ -68,81 +68,77 @@ const CaseStudySection = () => {
               Referenzprojekte
             </h2>
 
-            <div className="flex flex-wrap gap-3 mb-6">
-              {Object.keys(projects).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveProject(key)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                    activeProject === key
-                      ? "bg-emerald-700 text-white"
-                      : "bg-white text-emerald-700 hover:bg-emerald-50"
-                  }`}
-                >
-                  {projects[key].title.split(",")[0]}
-                </button>
-              ))}
-            </div>
-
-            <motion.div
-              key={activeProject}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-lg shadow-lg p-4 max-w-xl"
-            >
-              <div className="aspect-video w-full rounded-lg mb-4 relative overflow-hidden">
-                <Image
-                  src="/pipes.jpg"
-                  alt="Industrial HVAC system and pipes"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority
-                />
+            <div className="max-w-xl">
+              <div className="flex flex-wrap gap-3 mb-6 justify-between">
+                {Object.keys(projects).map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveProject(key)}
+                    className={`px-3.5 py-1.5 font-semibold border-2 border-emerald-700 text-sm rounded-lg transition-colors ${
+                      activeProject === key
+                        ? "bg-emerald-700 text-white"
+                        : "bg-emerald-50 text-emerald-700 hover:bg-emerald-50"
+                    }`}
+                  >
+                    {projects[key].title.split(",")[0]}
+                  </button>
+                ))}
               </div>
-
-              <h3 className="text-xl font-semibold text-emerald-800 mb-3">
-                {projects[activeProject].title}
-              </h3>
-
-              <div className="flex items-center gap-2 text-emerald-600 mb-4 text-sm">
-                <Building size={16} />
-                <span>{projects[activeProject].description}</span>
-              </div>
-
-              <div className="space-y-3">
-                <div className="p-3 bg-emerald-50 rounded-lg">
-                  <div className="flex items-center gap-2 mb-1">
-                    <CloudLightning className="w-5 h-5 text-emerald-500" />
-                    <span className="font-semibold text-sm">
-                      Elektrische Leistung
-                    </span>
-                  </div>
-                  <div className="text-gray-600 text-sm">
-                    {projects[activeProject].technicalData.electricalPower}
-                  </div>
+              <motion.div
+                key={activeProject}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-lg shadow-lg p-4 max-w-xl border-2 border-emerald-700"
+              >
+                <div className="aspect-video w-full rounded-lg mb-4 relative overflow-hidden">
+                  <Image
+                    src="/pipes.jpg"
+                    alt="Industrial HVAC system and pipes"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
+                  />
                 </div>
-
-                <div className="p-3 bg-emerald-50 rounded-lg">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Factory className="w-5 h-5 text-emerald-500" />
-                    <span className="font-semibold text-sm">Anlagentyp</span>
-                  </div>
-                  <div className="text-gray-600 text-sm">
-                    {projects[activeProject].technicalData.type}
-                  </div>
+                <h3 className="text-xl font-semibold text-emerald-800 mb-3">
+                  {projects[activeProject].title}
+                </h3>
+                <div className="flex items-center gap-2 text-emerald-600 mb-4 text-sm">
+                  <Building size={16} />
+                  <span>{projects[activeProject].description}</span>
                 </div>
-
-                {projects[activeProject].technicalData.additionalInfo && (
+                <div className="space-y-3">
                   <div className="p-3 bg-emerald-50 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <CloudLightning className="w-5 h-5 text-emerald-500" />
+                      <span className="font-semibold text-sm">
+                        Elektrische Leistung
+                      </span>
+                    </div>
                     <div className="text-gray-600 text-sm">
-                      {projects[activeProject].technicalData.additionalInfo}
+                      {projects[activeProject].technicalData.electricalPower}
                     </div>
                   </div>
-                )}
-              </div>
-            </motion.div>
+                  <div className="p-3 bg-emerald-50 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Factory className="w-5 h-5 text-emerald-500" />
+                      <span className="font-semibold text-sm">Anlagentyp</span>
+                    </div>
+                    <div className="text-gray-600 text-sm">
+                      {projects[activeProject].technicalData.type}
+                    </div>
+                  </div>
+                  {projects[activeProject].technicalData.additionalInfo && (
+                    <div className="p-3 bg-emerald-50 rounded-lg">
+                      <div className="text-gray-600 text-sm">
+                        {projects[activeProject].technicalData.additionalInfo}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </div>
           </div>
 
           {/* Right Column - Global Introduction */}
@@ -188,4 +184,4 @@ const CaseStudySection = () => {
   );
 };
 
-export default CaseStudySection;
+export default ProjectSection;

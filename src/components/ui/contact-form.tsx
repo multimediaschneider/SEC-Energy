@@ -22,29 +22,36 @@ const formSchema = z.object({
   lastName: z.string().min(2, {
     message: "Nachname muss mindestens 2 Zeichen lang sein.",
   }),
-  email: z.string().email({
-    message: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-  }),
-  message: z.string().min(10, {
-    message: "Nachricht muss mindestens 10 Zeichen lang sein.",
-  }),
+  company: z.string().optional(),
+  email: z
+    .string()
+    .email({
+      message: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    })
+    .optional(),
+  phone: z.string().optional(),
+  message: z.string().optional(),
 });
+
+type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
+      company: "",
       email: "",
+      phone: "",
       message: "",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: FormValues) {
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/send-email", {
@@ -63,7 +70,8 @@ export function ContactForm() {
       if (response.ok) {
         toast({
           title: "Nachricht gesendet",
-          description: `${data.message} (Message ID: ${data.messageId})`,
+          description:
+            "Vielen Dank für Ihre Nachricht. Wir werden uns zeitnah bei Ihnen melden.",
         });
         form.reset();
       } else {
@@ -73,9 +81,8 @@ export function ContactForm() {
       console.error("Error submitting form:", error);
       toast({
         title: "Fehler",
-        description: `Es gab ein Problem beim Senden Ihrer Nachricht: ${
-          error instanceof Error ? error.message : "Unbekannter Fehler"
-        }. Bitte versuchen Sie es später erneut.`,
+        description:
+          "Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es später erneut.",
         variant: "destructive",
       });
     } finally {
@@ -85,36 +92,65 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <div className="space-y-4">
+          <h2 className="text-2xl font-semibold text-emerald-700">
+            Benötigen Sie weitere Informationen?
+          </h2>
+          <p className="text-gray-600">
+            Gerne klären wir in einem persönlichen Gespräch Ihr Anliegen oder
+            übermitteln Ihnen weitere Informationen.
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          <h3 className="text-xl font-semibold">Persönliche Angaben</h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Vorname"
+                      {...field}
+                      className="w-full text-base"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Nachname"
+                      {...field}
+                      className="w-full text-base"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
           <FormField
             control={form.control}
-            name="firstName"
+            name="company"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Ihr Vorname"
+                    placeholder="Firma (optional)"
                     {...field}
-                    className="w-full text-xl"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Ihr Nachname"
-                    {...field}
-                    className="w-full text-xl"
+                    className="w-full text-base"
                   />
                 </FormControl>
                 <FormMessage />
@@ -122,44 +158,77 @@ export function ContactForm() {
             )}
           />
         </div>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Ihre E-Mail Adresse"
-                  {...field}
-                  className="w-full text-xl"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-emerald-700 font-semibold text-lg"></FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Ihre Nachricht..."
-                  {...field}
-                  className="w-full text-xl min-h-[150px]"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
+        <div className="space-y-6">
+          <h3 className="text-xl font-semibold">
+            Wie dürfen wir Sie kontaktieren?
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="E-Mail-Adresse (optional)"
+                      type="email"
+                      {...field}
+                      className="w-full text-base"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      placeholder="Telefonnummer (optional)"
+                      type="tel"
+                      {...field}
+                      className="w-full text-base"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <h3 className="text-xl font-semibold">
+            Teilen Sie uns Ihr Anliegen mit.
+          </h3>
+
+          <FormField
+            control={form.control}
+            name="message"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    placeholder="Ihr Anliegen (optional)"
+                    {...field}
+                    className="w-full text-base min-h-[150px]"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-emerald-700 text-lg hover:bg-emerald-600"
+          className="w-full bg-emerald-700 text-white hover:bg-emerald-600"
         >
           {isSubmitting ? "Wird gesendet..." : "Absenden"}
         </Button>

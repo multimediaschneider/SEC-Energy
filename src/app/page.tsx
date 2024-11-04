@@ -4,12 +4,11 @@ import { useEffect } from "react";
 import Layout from "../components/layout";
 import DynamicHero from "@/components/sections/hero-section";
 
-import CaseStudySection from "@/components/casestudies";
-import ExpertiseShowcase from "@/components/sections/expertise-section";
-import CompetenceFieldsGrid from "@/components/sections/competence-fields";
+import ProjectSection from "@/components/sections/project-section";
 import ServicesSection from "@/components/sections/services-section";
 import AboutSection from "@/components/sections/about-section-neu";
 import ExpertiseCompetenceSection from "@/components/sections/expertise-competence";
+import ContactSection from "@/components/sections/contact-section";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -107,8 +106,9 @@ export default function LandingPage() {
       {/* <ExpertiseShowcase />
       <CompetenceFieldsGrid /> */}
       <ServicesSection />
-      <CaseStudySection />
+      <ProjectSection />
       <AboutSection />
+      <ContactSection />
     </Layout>
   );
 }

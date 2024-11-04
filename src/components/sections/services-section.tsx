@@ -100,9 +100,9 @@ export default function ServicesSection() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className="py-20 bg-emerald-700 bg-opacity-20">
+    <section className="py-20 bg-emerald-700 bg-opacity-20 ">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
           {/* Left Side - Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -110,10 +110,10 @@ export default function ServicesSection() {
             viewport={{ once: true }}
             className="flex flex-col justify-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl md:text-6xl font-light text-emerald-700 mb-6 ">
               Unsere Leistungen
             </h2>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+            <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
               Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten
               wir Ihnen ein umfassendes Portfolio an zukunftsorientierten
               Leistungen. Von der ersten Planung bis zur finalen Umsetzung
@@ -125,13 +125,13 @@ export default function ServicesSection() {
             <div className="space-y-6">
               <Link
                 href="/leistungen"
-                className="inline-flex items-center px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors duration-300"
+                className="inline-flex items-center px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-gray-500 transition-colors duration-300"
               >
                 Detaillierte Leistungsübersicht
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
 
-              <div className="flex flex-wrap items-center gap-4 text-gray-600">
+              <div className="flex flex-wrap items-center gap-4 text-gray-600 ">
                 <div className="flex items-center">
                   <span className="text-emerald-600 mr-2">✓</span>
                   <span>Zertifizierte Expertise</span>
@@ -146,7 +146,7 @@ export default function ServicesSection() {
 
           {/* Right Side - Service Cards */}
           <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               {initialServices.map((category, index) => {
                 const Icon = icons[category.icon];
                 return (
@@ -156,7 +156,7 @@ export default function ServicesSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white border-2 border-emerald-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                   >
                     <div className="flex flex-col h-full">
                       <div className="flex items-center mb-4">
@@ -196,10 +196,10 @@ export default function ServicesSection() {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{ delay: index * 0.1 }}
-                          className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                          className="bg-white rounded-lg  shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                         >
-                          <div className="flex flex-col h-full">
-                            <div className="flex items-center mb-4">
+                          <div className="flex flex-col h-full ">
+                            <div className="flex items-center mb-4 ">
                               <div className="bg-emerald-50 p-2 rounded-full">
                                 <Icon className="w-6 h-6 text-emerald-600" />
                               </div>
@@ -221,9 +221,9 @@ export default function ServicesSection() {
               {/* Improved Expand/Collapse Button */}
               <motion.button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="w-full bg-white rounded-lg py-4 px-6 flex items-center justify-center gap-2 text-emerald-600 hover:text-emerald-700 hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg"
+                className="w-full border-2 border-emerald-700 bg-white rounded-lg py-4 px-6 flex items-center justify-center gap-2 text-emerald-600 hover:text-emerald-700 hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg"
               >
-                <span className="font-medium">
+                <span className="font-medium ">
                   {isExpanded
                     ? "Weniger anzeigen"
                     : "Mehr Leistungen entdecken"}
