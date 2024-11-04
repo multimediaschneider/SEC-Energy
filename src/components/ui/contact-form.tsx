@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -225,13 +225,13 @@ export function ContactForm() {
           />
         </div>
 
-        <Button
+        {/* <Button
           type="submit"
           disabled={isSubmitting}
           className="w-full bg-emerald-700 text-white hover:bg-emerald-600"
         >
           {isSubmitting ? "Wird gesendet..." : "Absenden"}
-        </Button>
+        </Button> */}
       </form>
     </Form>
   );

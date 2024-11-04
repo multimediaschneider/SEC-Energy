@@ -144,7 +144,7 @@ export default function ExpertiseShowcase() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                className="bg-white rounded-sm shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="flex flex-col items-center text-center">
                   <div

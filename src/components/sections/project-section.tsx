@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import CustomButton from "../ui/custom-button";
 
 type ProjectType = {
   title: string;
@@ -74,7 +75,7 @@ const ProjectSection = () => {
                   <button
                     key={key}
                     onClick={() => setActiveProject(key)}
-                    className={`px-3.5 py-1.5 font-semibold border-2 border-emerald-700 text-sm rounded-lg transition-colors ${
+                    className={`px-3.5 py-1.5 font-semibold border-2 border-emerald-700 text-sm rounded-sm transition-colors ${
                       activeProject === key
                         ? "bg-emerald-700 text-white"
                         : "bg-emerald-50 text-emerald-700 hover:bg-emerald-50"
@@ -89,9 +90,9 @@ const ProjectSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-lg shadow-lg p-4 max-w-xl border-2 border-emerald-700"
+                className="bg-white rounded-sm shadow-lg p-4 max-w-xl border-2 border-emerald-700"
               >
-                <div className="aspect-video w-full rounded-lg mb-4 relative overflow-hidden">
+                <div className="aspect-video w-full rounded-sm mb-4 relative overflow-hidden">
                   <Image
                     src="/pipes.jpg"
                     alt="Industrial HVAC system and pipes"
@@ -109,7 +110,7 @@ const ProjectSection = () => {
                   <span>{projects[activeProject].description}</span>
                 </div>
                 <div className="space-y-3">
-                  <div className="p-3 bg-emerald-50 rounded-lg">
+                  <div className="p-3 bg-emerald-50 rounded-sm">
                     <div className="flex items-center gap-2 mb-1">
                       <CloudLightning className="w-5 h-5 text-emerald-500" />
                       <span className="font-semibold text-sm">
@@ -120,7 +121,7 @@ const ProjectSection = () => {
                       {projects[activeProject].technicalData.electricalPower}
                     </div>
                   </div>
-                  <div className="p-3 bg-emerald-50 rounded-lg">
+                  <div className="p-3 bg-emerald-50 rounded-sm">
                     <div className="flex items-center gap-2 mb-1">
                       <Factory className="w-5 h-5 text-emerald-500" />
                       <span className="font-semibold text-sm">Anlagentyp</span>
@@ -130,7 +131,7 @@ const ProjectSection = () => {
                     </div>
                   </div>
                   {projects[activeProject].technicalData.additionalInfo && (
-                    <div className="p-3 bg-emerald-50 rounded-lg">
+                    <div className="p-3 bg-emerald-50 rounded-sm">
                       <div className="text-gray-600 text-sm">
                         {projects[activeProject].technicalData.additionalInfo}
                       </div>
@@ -169,13 +170,13 @@ const ProjectSection = () => {
             </p>
 
             <div className="mt-8">
-              <Link
-                href="/kontakt"
-                className="inline-flex items-center justify-center px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 transition-colors group"
-              >
-                <span>Detaillierte Projektinformationen</span>
-                <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              <CustomButton
+                text="Detaillierte Projetübersicht"
+                href="/about"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-700"
+              />
             </div>
           </motion.div>
         </div>

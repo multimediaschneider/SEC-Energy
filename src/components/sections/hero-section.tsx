@@ -149,8 +149,8 @@ export default function DynamicHero() {
 
         {/* Content Overlay */}
         <div className="relative z-10 flex flex-col justify-center items-center w-full h-full ">
-          <div className="w-full md:w-4/5 max-w-4xl mx-auto text-center ">
-            <div className="border-b-4 border-emerald-700 mb-4">
+          <div className="w-full md:w-4/5 max-w-4xl  mx-auto text-center ">
+            <div className="border-b-4  border-emerald-700 mb-4">
               <motion.h1
                 initial={{ color: "#047857" }}
                 animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}

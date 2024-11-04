@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import CustomButtonTwo from "./button-navbar";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -150,14 +149,14 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="rounded-md">
-              <CustomButtonTwo
+              {/* <CustomButtonTwo
                 name="Kontakt"
                 href={isHomePage ? "#kontakt" : "/#kontakt"}
                 className="hover:bg-emerald-800 font-normal text-md"
                 onClick={(e) =>
                   handleNavClick(e, isHomePage ? "#kontakt" : "/#kontakt")
                 }
-              />
+              /> */}
             </li>
           </ul>
 

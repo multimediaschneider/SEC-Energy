@@ -18,6 +18,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
+import CustomButton from "../ui/custom-button";
 
 interface ServiceCategory {
   icon: string;
@@ -123,13 +124,13 @@ export default function ServicesSection() {
 
             {/* CTA Section */}
             <div className="space-y-6">
-              <Link
-                href="/leistungen"
-                className="inline-flex items-center px-6 py-3 bg-emerald-700 text-white rounded-lg hover:bg-gray-500 transition-colors duration-300"
-              >
-                Detaillierte Leistungsübersicht
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+              <CustomButton
+                text="Detaillierte Leistungsübersicht"
+                href="/about"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-700"
+              />
 
               <div className="flex flex-wrap items-center gap-4 text-gray-600 ">
                 <div className="flex items-center">
@@ -156,7 +157,7 @@ export default function ServicesSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white border-2 border-emerald-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white border-2 border-emerald-700 rounded-sm shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                   >
                     <div className="flex flex-col h-full">
                       <div className="flex items-center mb-4">
@@ -196,7 +197,7 @@ export default function ServicesSection() {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{ delay: index * 0.1 }}
-                          className="bg-white rounded-lg  shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                          className="bg-white border-2 border-emerald-700 rounded-sm shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                         >
                           <div className="flex flex-col h-full ">
                             <div className="flex items-center mb-4 ">
@@ -219,21 +220,23 @@ export default function ServicesSection() {
               </AnimatePresence>
 
               {/* Improved Expand/Collapse Button */}
-              <motion.button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="w-full border-2 border-emerald-700 bg-white rounded-lg py-4 px-6 flex items-center justify-center gap-2 text-emerald-600 hover:text-emerald-700 hover:bg-gray-50 transition-all duration-300 shadow-md hover:shadow-lg"
-              >
-                <span className="font-medium ">
-                  {isExpanded
-                    ? "Weniger anzeigen"
-                    : "Mehr Leistungen entdecken"}
-                </span>
-                <ChevronDown
-                  className={`w-5 h-5 transition-transform duration-300 ${
-                    isExpanded ? "rotate-180" : ""
-                  }`}
-                />
-              </motion.button>
+              <div className="flex justify-center">
+                <motion.button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="w-2/5 rounded-sm py-1 flex items-center justify-center gap-2 text-emerald-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300"
+                >
+                  <span className="font-medium ">
+                    {isExpanded
+                      ? "Weniger anzeigen"
+                      : "Mehr Leistungen entdecken"}
+                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 transition-transform duration-300 ${
+                      isExpanded ? "rotate-180" : ""
+                    }`}
+                  />
+                </motion.button>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import CustomButton from "../ui/custom-button";
@@ -19,7 +18,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-white shadow-lg border-2 border-emerald-700 rounded-lg">
+            <Card className="bg-white shadow-lg border-2 border-emerald-700 rounded-sm">
               <CardContent className="p-6">
                 <div className="flex  items-center gap-4">
                   <div className="w-28 h-28 flex-shrink-0 relative overflow-hidden rounded-full border-2 border-gray-100">
@@ -80,7 +79,13 @@ export default function ContactSection() {
               Gerne klären wir in einem persönlichen Gespräch Ihr Anliegen oder
               übermitteln Ihnen weitere Informationen.
             </p>
-            <Button>hallo</Button>
+            <CustomButton
+              text="Große Version"
+              href="/about"
+              iconSize={24}
+              size="lg"
+              className="bg-emerald-700"
+            />
           </motion.div>
         </div>
       </div>
