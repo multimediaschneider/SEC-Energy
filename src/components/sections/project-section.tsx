@@ -99,9 +99,9 @@ const ProjectSection = () => {
           </motion.div>
 
           {/* Left Column - Project Details */}
-          <div className="flex flex-col justify-center ">
+          <div className="flex flex-col justify-center border border-emerald-700">
             <div>
-              <div className="flex flex-wrap gap-3 mb-2 px-1 shadow-md justify-between rounded-sm ">
+              <div className="flex flex-wrap gap-3 mb-2 px-1 justify-between rounded-sm ">
                 {Object.keys(projects).map((key) => (
                   <button
                     key={key}
@@ -123,7 +123,7 @@ const ProjectSection = () => {
                 transition={{ duration: 0.5 }}
                 className="bg-white shadow-lg p-4 rounded-sm"
               >
-                <div className="aspect-video w-full rounded-sm mb-4 relative overflow-hidden">
+                <div className="aspect-video w-full mb-4 relative overflow-hidden">
                   <Image
                     src="/pipes.jpg"
                     alt="Industrial HVAC system and pipes"
@@ -141,7 +141,7 @@ const ProjectSection = () => {
                   <span>{projects[activeProject].description}</span>
                 </div>
                 <div className="space-y-3">
-                  <div className="p-3 bg-emerald-50 rounded-sm">
+                  {/* <div className="p-3 bg-emerald-50 rounded-sm">
                     <div className="flex items-center gap-2 mb-1">
                       <CloudLightning className="w-5 h-5 text-emerald-500" />
                       <span className="font-semibold text-sm">
@@ -151,8 +151,8 @@ const ProjectSection = () => {
                     <div className="text-gray-600 text-sm">
                       {projects[activeProject].technicalData.electricalPower}
                     </div>
-                  </div>
-                  <div className="p-3 bg-emerald-50 rounded-sm">
+                  </div> */}
+                  {/* <div className="p-3 bg-emerald-50 rounded-sm">
                     <div className="flex items-center gap-2 mb-1">
                       <Factory className="w-5 h-5 text-emerald-500" />
                       <span className="font-semibold text-sm">Anlagentyp</span>
@@ -160,14 +160,14 @@ const ProjectSection = () => {
                     <div className="text-gray-600 text-sm">
                       {projects[activeProject].technicalData.type}
                     </div>
-                  </div>
-                  {projects[activeProject].technicalData.additionalInfo && (
+                  </div> */}
+                  {/* {projects[activeProject].technicalData.additionalInfo && (
                     <div className="p-3 bg-emerald-50 rounded-sm">
                       <div className="text-gray-600 text-sm">
                         {projects[activeProject].technicalData.additionalInfo}
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </motion.div>
             </div>

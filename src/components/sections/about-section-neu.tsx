@@ -50,17 +50,17 @@ export default function AboutSection() {
       <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-6xl md:text-6xl font-light text-emerald-700 mb-4">
             Über SEC
           </h2>
-          <p className="text-xl text-emerald-700 mb-6">
-            20+ Jahre Expertise im Energiecontracting
+          <p className="text-3xl font-light text-emerald-700 mb-6">
+            Schneider Engineering Consulting
           </p>
-          <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-            Als führender Experte für Energiecontracting verbinden wir
-            technische Innovation mit wirtschaftlicher Effizienz. Unsere
-            langjährige Erfahrung und kontinuierliche Weiterbildung garantieren
-            erstklassige Beratung und Umsetzung im Energiesektor.
+          <p className="mt-4 text-2xl font-light text-gray-600 max-w-3xl mx-auto">
+            Als Experte für Energiecontracting verbinden wir technische
+            Innovation mit wirtschaftlicher Effizienz. Unsere langjährige
+            Erfahrung und kontinuierliche Weiterbildung garantieren erstklassige
+            Beratung und Umsetzung im Energiesektor.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function AboutSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Technical Expertise */}
             <div className="relative p-6 md:p-8">
-              <div className="absolute inset-0 shadow-lg bg-white border-2 border-emerald-700 rounded-xl" />
+              <div className="absolute inset-0 shadow-lg bg-white border border-emerald-700" />
               <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-xl" />
               <div className="relative space-y-4">
                 <h3 className="text-xl font-semibold text-gray-900">
@@ -95,7 +95,7 @@ export default function AboutSection() {
 
             {/* Practical Experience */}
             <div className="relative p-6 md:p-8">
-              <div className="absolute inset-0 border-2 border-emerald-700 shadow-lg bg-white rounded-xl" />
+              <div className="absolute inset-0 border border-emerald-700 shadow-lg bg-white" />
               <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-xl" />
               <div className="relative space-y-4">
                 <h3 className="text-xl font-semibold text-gray-900">
@@ -146,7 +146,7 @@ export default function AboutSection() {
         {/* CTA Section */}
         <div className="flex flex-wrap justify-center relative z-10 gap-4">
           <CustomButton
-            text="Große Version"
+            text="Erfahren Sie mehr"
             href="/about"
             iconSize={24}
             size="lg"

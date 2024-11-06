@@ -143,7 +143,7 @@ export default function ExpertiseCompetenceSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-emerald-50 border-2 border-emerald-700 rounded-sm shadow-lg p-4 sm:p-6"
+                  className="bg-emerald-50 border border-emerald-700 shadow-lg p-4 sm:p-6"
                 >
                   <div className="flex flex-col flex-grow h-full">
                     <div className="flex items-center mb-3 sm:mb-4 ">

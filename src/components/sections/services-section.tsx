@@ -116,7 +116,7 @@ export default function ServicesSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white border-2 border-emerald-700 rounded-sm shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white border border-emerald-700 shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                   >
                     <div className="flex flex-col h-full">
                       <div className="flex items-center mb-4">

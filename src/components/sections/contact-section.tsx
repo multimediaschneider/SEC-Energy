@@ -18,10 +18,10 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-white shadow-lg border-2 border-emerald-700 rounded-sm">
+            <Card className="bg-white shadow-lg border border-emerald-700">
               <CardContent className="p-6">
                 <div className="flex  items-center gap-4">
-                  <div className="w-28 h-28 flex-shrink-0 relative overflow-hidden rounded-full border-2 border-gray-100">
+                  <div className="w-28 h-28 flex-shrink-0 relative overflow-hidden rounded-full">
                     <Image
                       src="/dierk.jpg"
                       alt="Dipl.-Ing. Dierk Schneider"

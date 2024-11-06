@@ -4,6 +4,7 @@ import { expertise } from "./expertise-schema";
 import { competenceField } from "./competence-fields-schema";
 import { services } from "./services-section-schema";
 import { servicesPage } from "./services-page-schema";
+import { projectsPage } from "./project-page-schema";
 
 export const schemaTypes = [
   hero,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   competenceField,
   services,
   servicesPage,
+  projectsPage,
 ];

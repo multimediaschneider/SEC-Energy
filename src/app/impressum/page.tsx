@@ -1,13 +1,11 @@
 import Link from "next/link";
 import Navbar from "@/components/ui/navbar";
 import Layout from "@/components/layout";
-import BodyHeading from "@/components/content/body-heading";
 
 export default function Impressum() {
   return (
     <Layout>
       <Navbar />
-      <BodyHeading>Impressum</BodyHeading>
       <div className="flex justify-center w-full pb-12">
         <div className="w-4/5 rounded-xl border-b-solid border-b pb-8">
           <section className="space-y-4">

@@ -129,7 +129,7 @@ export default function ServicesPage() {
               <button
                 key={index}
                 onClick={() => setActiveCategory(index)}
-                className={`px-6 z-10 py-2 rounded-sm whitespace-nowrap transition-colors flex-shrink-0 ${
+                className={`px-6 z-10 py-2  rounded-sm whitespace-nowrap transition-colors flex-shrink-0 ${
                   activeCategory === index
                     ? "bg-emerald-700 text-white"
                     : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
@@ -187,7 +187,10 @@ export default function ServicesPage() {
             {data.categories[activeCategory].areas.map((area, index) => {
               const Icon = icons[area.icon];
               return (
-                <Card key={index} className="bg-emerald-50">
+                <Card
+                  key={index}
+                  className="bg-emerald-50 border border-emerald-700"
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4 ">
                       <div className="bg-emerald-100 p-3 rounded-full">

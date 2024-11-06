@@ -113,7 +113,12 @@ export default function Navbar() {
                 }}
               />
             </div> */}
-            <div className="font-light text-2xl">SEC Consulting GmbH</div>
+            <div className="flex-col py-2">
+              <h2 className="font-normal text-2xl">SEC Energieconsulting</h2>
+              <p className="font-extralight text-xl">
+                Schneider Engineering Consulting
+              </p>
+            </div>
           </Link>
 
           {/* Desktop Menu */}
@@ -201,10 +206,10 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  href={isHomePage ? "#projekte" : "/#projekte"}
+                  href={isHomePage ? "/projekte" : "/projekte"}
                   className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
                   onClick={(e) =>
-                    handleNavClick(e, isHomePage ? "#projekte" : "/#projekte")
+                    handleNavClick(e, isHomePage ? "/projekte" : "/projekte")
                   }
                 >
                   Projekte
