@@ -38,7 +38,7 @@ const icons: Record<string, LucideIcon> = {
 const fallbackData: ExpertiseData = {
   headline: "Fachkompetenzen",
   introduction:
-    "SEC Energieconsulting verbindet langjährige Markterfahrung mit tiefgreifender technischer Expertise. Als etablierter Partner der Immobilienwirtschaft entwickeln wir nachhaltige Energiekonzepte, die wirtschaftliche Effizienz mit ökologischer Verantwortung verbinden.",
+    "SEC Energieconsulting verbindet langjährige Markterfahrung mit tiefgreifender technischer Expertise. Zu unseren Kunden zählen Unternehmen aus der Wohnungswirtschaft, Wohnungsverwaltungen, der öffentlichen Hand, Pflegeheime, Energieversorger, Contractoren und der Industrie. Für sie haben wir zahlreiche Projekte erfolgreich umgesetzt und maßgeschneiderte Lösungen entwickelt.",
   targetGroups: [
     "Wohnungswirtschaft",
     "Wohnungsverwaltungen",
@@ -179,66 +179,24 @@ export default function ExpertiseCompetenceSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-4 sm:space-y-6 order-1 lg:order-2"
+            className="flex flex-col justify-center space-y-6 w-10/12"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-7xl text-emerald-700 font-light mb-4 sm:mb-6">
-              {data.headline}
-            </h2>
-            <p className="text-lg sm:text-xl lg:text-2xl font-light text-gray-700 leading-relaxed mb-6 sm:mb-8">
-              {data.introduction}
-            </p>
-            <div className="space-y-4">
-              <h3 className="text-xl sm:text-3xl font-light text-emerald-700 mb-4">
-                Für Kunden aus diesen Branchen haben wir zahlreiche Projekte
-                erfolgreich umgesetzt und maßgeschneiderte Lösungen entwickelt:
-              </h3>
+            <div className="border-l-4 border-emerald-700 pl-6">
+              <h2 className="text-6xl font-light text-emerald-700 mb-8">
+                {data.headline}
+              </h2>
 
-              {/* Responsive Target Groups Grid */}
-              <div className="grid  grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 sm:gap-y-0 mb-6 sm:mb-8">
-                {/* First Column */}
-                <div className="space-y-2 sm:space-y-3 ">
-                  {firstColumnGroups.map((group, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-center text-gray-700 "
-                    >
-                      <span className="flex-shrink-0 w-2 h-2 bg-emerald-600 rounded-full mr-3 " />
-                      <span className="text-md sm:text-lg">{group}</span>
-                    </motion.div>
-                  ))}
-                </div>
-                {/* Second Column */}
-                <div className="space-y-2 sm:space-y-3">
-                  {secondColumnGroups.map((group, index) => (
-                    <motion.div
-                      key={index + 4}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: (index + 4) * 0.1 }}
-                      className="flex items-center text-gray-700"
-                    >
-                      <span className="flex-shrink-0 w-2 h-2 bg-emerald-600 rounded-full mr-3" />
-                      <span className="text-md sm:text-lg">{group}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <p className="text-2xl font-light text-gray-700 leading-relaxed">
+                {data.introduction}
+              </p>
 
-              {/* New CTA Section */}
-              <div className="pt-4 sm:pt-6">
-                <CustomButton
-                  text="Persönliche Beratung anfragen"
-                  href="/about"
-                  iconSize={24}
-                  size="lg"
-                  className="bg-emerald-700 w-full sm:w-auto"
-                />
-              </div>
+              <CustomButton
+                text="Beratungsgespräch anfordern"
+                href="/about"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-700 mt-8"
+              />
             </div>
           </motion.div>
         </div>

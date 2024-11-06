@@ -60,25 +60,56 @@ const ProjectSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-50 ">
-      <div className="container mx-auto px-4 ">
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Column - Project Details */}
-          <div>
-            <h2 className="text-3xl font-bold text-emerald-700 mb-8">
-              Referenzprojekte
-            </h2>
+          {/* Left Column - Global Introduction */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col justify-center space-y-6 "
+          >
+            <div className="border-l-4 border-emerald-700 pl-6">
+              <h2 className="text-6xl font-light text-emerald-700 mb-8">
+                Referenzprojekte
+              </h2>
 
-            <div className="max-w-xl">
-              <div className="flex flex-wrap gap-3 mb-6 justify-between">
+              <p className="text-2xl font-light text-gray-700 leading-relaxed">
+                SEC Energieconsulting steht für über zwei Jahrzehnte
+                erfolgreiche Projektrealisierung im Energiesektor. Von
+                Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu
+                innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen
+                die ganze Bandbreite unserer technischen Expertise und
+                Planungskompetenz. Wir haben zahlreiche maßgeschneiderte
+                Energielösungen für Kliniken, Verwaltungsgebäude und
+                Wohnquartiere entwickelt und umgesetzt.
+              </p>
+
+              <div className="">
+                <CustomButton
+                  text="Detaillierte Projetübersicht"
+                  href="/about"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-700 mt-8"
+                />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Left Column - Project Details */}
+          <div className="flex flex-col justify-center ">
+            <div>
+              <div className="flex flex-wrap gap-3 mb-2 px-1 shadow-md justify-between rounded-sm ">
                 {Object.keys(projects).map((key) => (
                   <button
                     key={key}
                     onClick={() => setActiveProject(key)}
-                    className={`px-3.5 py-1.5 font-semibold border-2 border-emerald-700 text-sm rounded-sm transition-colors ${
+                    className={`px-3.5 py-1.5 m-3 rounded-sm z-10 transition-all ${
                       activeProject === key
                         ? "bg-emerald-700 text-white"
-                        : "bg-emerald-50 text-emerald-700 hover:bg-emerald-50"
+                        : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                     }`}
                   >
                     {projects[key].title.split(",")[0]}
@@ -90,7 +121,7 @@ const ProjectSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-sm shadow-lg p-4 max-w-xl border-2 border-emerald-700"
+                className="bg-white shadow-lg p-4 rounded-sm"
               >
                 <div className="aspect-video w-full rounded-sm mb-4 relative overflow-hidden">
                   <Image
@@ -141,44 +172,6 @@ const ProjectSection = () => {
               </motion.div>
             </div>
           </div>
-
-          {/* Right Column - Global Introduction */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-6 lg:mt-24"
-          >
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Bewährte Expertise in verschiedensten Energieprojekten
-            </h3>
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
-              SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche
-              Projektrealisierung im Energiesektor. Von Blockheizkraftwerken
-              über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten
-              - unsere Referenzprojekte zeigen die ganze Bandbreite unserer
-              technischen Expertise und Planungskompetenz. Wir haben zahlreiche
-              maßgeschneiderte Energielösungen für Kliniken, Verwaltungsgebäude
-              und Wohnquartiere entwickelt und umgesetzt.
-            </p>
-
-            <p className="text-lg text-gray-700 leading-relaxed mb-8">
-              Unsere Projekte zeichnen sich durch höchste Effizienz,
-              Nachhaltigkeit und Wirtschaftlichkeit aus. Jedes Projekt wird
-              individuell auf die spezifischen Anforderungen unserer Kunden
-              zugeschnitten und mit modernster Technik realisiert.
-            </p>
-
-            <div className="mt-8">
-              <CustomButton
-                text="Detaillierte Projetübersicht"
-                href="/about"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700"
-              />
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

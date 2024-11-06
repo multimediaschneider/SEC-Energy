@@ -101,53 +101,12 @@ export default function ServicesSection() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section className="py-20 bg-emerald-700 bg-opacity-20 ">
+    <section className="py-20 bg-emerald-700 bg-opacity-20">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 ">
-          {/* Left Side - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col justify-center"
-          >
-            <h2 className="text-3xl md:text-6xl font-light text-emerald-700 mb-6 ">
-              Unsere Leistungen
-            </h2>
-            <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
-              Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten
-              wir Ihnen ein umfassendes Portfolio an zukunftsorientierten
-              Leistungen. Von der ersten Planung bis zur finalen Umsetzung
-              begleiten wir Sie mit technischer Expertise und wirtschaftlichem
-              Weitblick.
-            </p>
-
-            {/* CTA Section */}
-            <div className="space-y-6">
-              <CustomButton
-                text="Detaillierte Leistungsübersicht"
-                href="/about"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700"
-              />
-
-              <div className="flex flex-wrap items-center gap-4 text-gray-600 ">
-                <div className="flex items-center">
-                  <span className="text-emerald-600 mr-2">✓</span>
-                  <span>Zertifizierte Expertise</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-emerald-600 mr-2">✓</span>
-                  <span>Nachhaltige Lösungen</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Side - Service Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left Side - Service Cards (Moved from right) */}
           <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {initialServices.map((category, index) => {
                 const Icon = icons[category.icon];
                 return (
@@ -199,8 +158,8 @@ export default function ServicesSection() {
                           transition={{ delay: index * 0.1 }}
                           className="bg-white border-2 border-emerald-700 rounded-sm shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                         >
-                          <div className="flex flex-col h-full ">
-                            <div className="flex items-center mb-4 ">
+                          <div className="flex flex-col h-full">
+                            <div className="flex items-center mb-4">
                               <div className="bg-emerald-50 p-2 rounded-full">
                                 <Icon className="w-6 h-6 text-emerald-600" />
                               </div>
@@ -225,7 +184,7 @@ export default function ServicesSection() {
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="w-2/5 rounded-sm py-1 flex items-center justify-center gap-2 text-emerald-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300"
                 >
-                  <span className="font-medium ">
+                  <span className="font-medium">
                     {isExpanded
                       ? "Weniger anzeigen"
                       : "Mehr Leistungen entdecken"}
@@ -239,6 +198,47 @@ export default function ServicesSection() {
               </div>
             </div>
           </div>
+
+          {/* Right Side - Text Content (Moved from left) */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col justify-center border-l-4 border-emerald-700 pl-6"
+          >
+            <h2 className="text-3xl md:text-6xl font-light text-emerald-700 mb-6">
+              Unsere Leistungen
+            </h2>
+            <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
+              Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten
+              wir Ihnen ein umfassendes Portfolio an zukunftsorientierten
+              Leistungen. Von der ersten Planung bis zur finalen Umsetzung
+              begleiten wir Sie mit technischer Expertise und wirtschaftlichem
+              Weitblick.
+            </p>
+
+            {/* CTA Section */}
+            <div className="space-y-6">
+              <CustomButton
+                text="Detaillierte Leistungsübersicht"
+                href="/leistungen"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-700"
+              />
+
+              <div className="flex flex-wrap items-center gap-4 text-gray-600">
+                <div className="flex items-center">
+                  <span className="text-emerald-600 mr-2">✓</span>
+                  <span>Zertifizierte Expertise</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-emerald-600 mr-2">✓</span>
+                  <span>Nachhaltige Lösungen</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

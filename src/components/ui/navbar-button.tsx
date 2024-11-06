@@ -33,7 +33,7 @@ const CustomButton = ({
         variant={variant}
         size={size}
         className={cn(
-          "bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:text-emerald-700 hover:bg-emerald-50 hover:shadow-lg hover:shadow-zinc-200 transition-all",
+          "text-lg font-normal text-white border-2 border-emerald-100 shadow-sm shadow-zinc-600 hover:text-white hover:bg-emerald-700 transition-all",
           "relative [&_svg]:w-auto [&_svg]:h-auto", // Override shadcn's default SVG constraints
           className
         )}

@@ -36,9 +36,12 @@ export default function ContactSection() {
                     />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold">
+                    <h3 className="text-lg font-semibold text-emerald-700">
                       Dipl.-Ing. Dierk Schneider
                     </h3>
+                    <h4 className="text-lg font-medium text-emerald-700">
+                      Geschäftsführung
+                    </h4>
                     <div className="mt-2 space-y-1">
                       <div className="flex items-center gap-2 text-gray-600">
                         <Mail className="w-4 h-4" />
@@ -72,16 +75,16 @@ export default function ContactSection() {
             viewport={{ once: true }}
             className="text-left space-y-4"
           >
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-3xl font-medium text-zinc-800">
               Benötigen Sie weitere Informationen?
             </h2>
-            <p className="text-gray-600">
+            <p className="text-zinc-600 text-lg">
               Gerne klären wir in einem persönlichen Gespräch Ihr Anliegen oder
               übermitteln Ihnen weitere Informationen.
             </p>
             <CustomButton
-              text="Große Version"
-              href="/about"
+              text="Sprechen Sie mich an"
+              href="/contact"
               iconSize={24}
               size="lg"
               className="bg-emerald-700"

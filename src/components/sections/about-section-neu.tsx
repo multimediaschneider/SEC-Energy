@@ -69,8 +69,8 @@ export default function AboutSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Technical Expertise */}
             <div className="relative p-6 md:p-8">
-              <div className="absolute inset-0 shadow-lg bg-white border-2 border-emerald-700 rounded-sm" />
-              <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-sm" />
+              <div className="absolute inset-0 shadow-lg bg-white border-2 border-emerald-700 rounded-xl" />
+              <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-xl" />
               <div className="relative space-y-4">
                 <h3 className="text-xl font-semibold text-gray-900">
                   Technische Expertise
@@ -95,8 +95,8 @@ export default function AboutSection() {
 
             {/* Practical Experience */}
             <div className="relative p-6 md:p-8">
-              <div className="absolute inset-0 border-2 border-emerald-700 shadow-lg bg-white rounded-sm" />
-              <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-sm" />
+              <div className="absolute inset-0 border-2 border-emerald-700 shadow-lg bg-white rounded-xl" />
+              <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-xl" />
               <div className="relative space-y-4">
                 <h3 className="text-xl font-semibold text-gray-900">
                   Praxiserfahrung

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import NavbarButton from "./navbar-button";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -96,10 +97,14 @@ export default function Navbar() {
     <div className="">
       <nav className="fixed shadow-lg w-full bg-emerald-700 py-2 z-50 border-b-solid border-b border-opacity-60">
         <div className="container mx-auto px-4 flex justify-between items-center text-white">
-          <Link href="/" onClick={handleLogoClick} className="text-2xl">
-            <div className="flex flex-row items-center">
+          <Link
+            href="/"
+            onClick={handleLogoClick}
+            className="flex items-center text-2xl hover:text-slate-300 transition-colors duration-300"
+          >
+            {/* <div className="flex flex-row items-center">
               <div
-                className="w-[60px] h-[60px] bg-white hover:bg-slate-300 transition-colors duration-300"
+                className="w-[70px] h-[70px] bg-white hover:bg-slate-300 transition-colors duration-300"
                 style={{
                   maskImage: 'url("/logo-sec.png")',
                   maskSize: "cover",
@@ -107,11 +112,12 @@ export default function Navbar() {
                   WebkitMaskSize: "cover",
                 }}
               />
-            </div>
+            </div> */}
+            <div className="font-light text-2xl">SEC Consulting GmbH</div>
           </Link>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-6 items-center">
+          <ul className="hidden md:flex text-lg font-light space-x-6 items-center">
             <li>
               <Link
                 href={isHomePage ? "#about" : "/#about"}
@@ -125,16 +131,13 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href={isHomePage ? "#schwerpunkte" : "/#schwerpunkte"}
+                href={isHomePage ? "/leistungen" : "/leistungen"}
                 className="hover:underline transition-colors duration-300"
                 onClick={(e) =>
-                  handleNavClick(
-                    e,
-                    isHomePage ? "#schwerpunkte" : "/#schwerpunkte"
-                  )
+                  handleNavClick(e, isHomePage ? "/leistungen" : "/leistungen")
                 }
               >
-                Schwerpunkte
+                Leistungen
               </Link>
             </li>
             <li>
@@ -148,16 +151,14 @@ export default function Navbar() {
                 Projekte
               </Link>
             </li>
-            <li className="rounded-md">
-              {/* <CustomButtonTwo
-                name="Kontakt"
-                href={isHomePage ? "#kontakt" : "/#kontakt"}
-                className="hover:bg-emerald-800 font-normal text-md"
-                onClick={(e) =>
-                  handleNavClick(e, isHomePage ? "#kontakt" : "/#kontakt")
-                }
-              /> */}
-            </li>
+
+            <NavbarButton
+              text="Kontakt"
+              href="/kontakt"
+              iconSize={24}
+              size="lg"
+              className="bg-emerald-100 text-emerald-700"
+            />
           </ul>
 
           {/* Mobile menu button */}
@@ -186,16 +187,16 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  href={isHomePage ? "#schwerpunkte" : "/#schwerpunkte"}
+                  href={isHomePage ? "#leistungen" : "/#leistungen"}
                   className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
                   onClick={(e) =>
                     handleNavClick(
                       e,
-                      isHomePage ? "#schwerpunkte" : "/#schwerpunkte"
+                      isHomePage ? "#leistungen" : "/#leistungen"
                     )
                   }
                 >
-                  Schwerpunkte
+                  Leistungen
                 </Link>
               </li>
               <li>
@@ -210,15 +211,13 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href={isHomePage ? "#kontakt" : "/#kontakt"}
-                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-emerald-800 transition-colors duration-300"
-                  onClick={(e) =>
-                    handleNavClick(e, isHomePage ? "#kontakt" : "/#kontakt")
-                  }
-                >
-                  Kontakt
-                </Link>
+                <NavbarButton
+                  text="Kontakt"
+                  href="/kontakt"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-100 text-emerald-700"
+                />
               </li>
             </ul>
           </div>
