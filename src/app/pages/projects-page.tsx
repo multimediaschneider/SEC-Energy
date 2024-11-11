@@ -1,60 +1,101 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import ProjectGrid from "@/components/ui/project-grid";
+import ProjectGrid from "@/components/project-grid";
 import ContactSection from "@/components/sections/contact-section";
+import ProjectDetail from "@/components/project-detail";
+import { client } from "@/sanity/client";
 
 // Import your projects data or fetch it from an API
 import { projectsFallbackData } from "@/app/constants/data/projects-fallback-data";
+import AboutSection from "@/components/sections/about-section-neu";
+
+interface ProjectsPageData {
+  headline: string;
+  introduction: string;
+  metaTitle: string;
+  metaDescription: string;
+}
 
 export default function ProjectsPage() {
+  const [projectsData, setProjectsData] = useState<ProjectsPageData | null>(
+    null
+  );
+  const heroRef = useRef<HTMLDivElement>(null);
+  const navbarHeight = 93; // Adjust this value based on your navbar height
+
+  useEffect(() => {
+    const fetchProjectsData = async () => {
+      try {
+        const query = `*[_type == "projects"][0]{
+          headline,
+          introduction,
+          metaTitle,
+          metaDescription
+        }`;
+        const data = await client.fetch(query);
+        setProjectsData(data);
+      } catch (error) {
+        console.error("Error fetching projects data:", error);
+        setProjectsData({
+          headline: "Unsere Projekte",
+          introduction: "Entdecken Sie unsere erfolgreich umgesetzten Projekte",
+          metaTitle: "Projekte",
+          metaDescription: "Unsere Projekte",
+        });
+      }
+    };
+
+    fetchProjectsData();
+  }, []);
+
+  const data = projectsData || {
+    headline: "Unsere Projekte",
+    introduction: "Entdecken Sie unsere erfolgreich umgesetzten Projekte",
+    metaTitle: "Projekte",
+    metaDescription: "Unsere Projekte",
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative h-[50vh] bg-emerald-700">
-        <Image
-          src="/placeholder.svg?height=1080&width=1920"
-          alt="Projects Hero"
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative h-full flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              Unsere Referenzprojekte
-            </h1>
-            <p className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4 mb-8">
-              Entdecken Sie unsere erfolgreich realisierten Projekte im Bereich
-              Energieeffizienz und nachhaltiger Versorgung
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-emerald-700 hover:bg-gray-100"
+      <section ref={heroRef} className="relative bg-emerald-700">
+        <div className="relative h-[40vh] flex items-center justify-center">
+          <div className="text-center text-emerald-50">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-light mb-8"
             >
-              <Link href="#projects">
-                Projekte ansehen <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+              {data.headline}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4"
+            >
+              {data.introduction}
+            </motion.p>
           </div>
         </div>
       </section>
 
       {/* ProjectGrid Component */}
-      <section id="projects" className="py-16 bg-gray-50">
+      <section id="projects" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center text-emerald-700">
-            Unsere Projekte
-          </h2>
-          <ProjectGrid projects={projectsFallbackData} />
+          <ProjectDetail />
         </div>
       </section>
 
       {/* Contact Section */}
+      <AboutSection />
       <ContactSection />
     </div>
   );

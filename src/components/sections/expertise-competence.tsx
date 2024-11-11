@@ -133,7 +133,7 @@ export default function ExpertiseCompetenceSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 ">
           {/* Right Column - Expertise Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 order-2 lg:order-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 order-2 lg:order-1 ">
             {data.expertiseAreas.map((area, index) => {
               const Icon = icons[area.icon as keyof typeof icons];
               return (

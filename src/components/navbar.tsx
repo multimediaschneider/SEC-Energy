@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import NavbarButton from "./navbar-button";
+import NavbarButton from "./ui/navbar-button";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -95,7 +95,7 @@ export default function Navbar() {
 
   return (
     <div className="">
-      <nav className="fixed shadow-lg w-full bg-emerald-700 py-2 z-50 border-b-solid border-b border-opacity-60">
+      <nav className="fixed shadow-lg w-full bg-emerald-700 py-2 z-50 border-b border-opacity-60">
         <div className="container mx-auto px-4 flex justify-between items-center text-white">
           <Link
             href="/"
@@ -147,10 +147,10 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href={isHomePage ? "#projekte" : "/#projekte"}
+                href={isHomePage ? "/projekte" : "/projekte"}
                 className="hover:underline transition-colors duration-300"
                 onClick={(e) =>
-                  handleNavClick(e, isHomePage ? "#projekte" : "/#projekte")
+                  handleNavClick(e, isHomePage ? "/projekte" : "/projekte")
                 }
               >
                 Projekte

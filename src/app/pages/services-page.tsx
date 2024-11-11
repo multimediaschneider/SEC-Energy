@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Metadata } from "next";
@@ -61,6 +61,10 @@ export default function ServicesPage() {
     null
   );
   const [activeCategory, setActiveCategory] = useState<number>(0);
+  const [isSticky, setIsSticky] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const navbarHeight = 93; // Adjust this value based on your navbar height
 
   useEffect(() => {
     const fetchServicesData = async () => {
@@ -94,13 +98,26 @@ export default function ServicesPage() {
     fetchServicesData();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navRef.current && heroRef.current) {
+        const heroBottom = heroRef.current.getBoundingClientRect().bottom;
+        const shouldStick = heroBottom <= navbarHeight;
+        setIsSticky(shouldStick);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const data = servicesData || fallbackData;
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-12">
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative h-[40vh] bg-emerald-700">
-        <div className="relative h-full flex items-center justify-center">
+      <section ref={heroRef} className="relative bg-emerald-700">
+        <div className="relative h-[40vh] flex items-center justify-center">
           <div className="text-center text-emerald-50">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -122,24 +139,42 @@ export default function ServicesPage() {
       </section>
 
       {/* Categories Navigation */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4">
-          <div className="flex overflow-x-auto no-scrollbar gap-4 py-4">
-            {data.categories.map((category, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveCategory(index)}
-                className={`px-6 z-10 py-2  rounded-sm whitespace-nowrap transition-colors flex-shrink-0 ${
-                  activeCategory === index
-                    ? "bg-emerald-700 text-white"
-                    : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-                }`}
-              >
-                {category.shortTitle}
-              </button>
-            ))}
+      <div className="relative">
+        <div
+          ref={navRef}
+          style={{
+            position: isSticky ? "fixed" : "relative",
+            top: isSticky ? `${navbarHeight}px` : "auto",
+            left: 0,
+            right: 0,
+            zIndex: 40,
+          }}
+          className="bg-white transition-all duration-300"
+        >
+          <div className="container mx-auto px-4">
+            <div className="flex overflow-x-auto gap-4 py-4">
+              {data.categories.map((category, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveCategory(index)}
+                  className={`px-6 py-2 rounded-sm whitespace-nowrap transition-colors flex-shrink-0 ${
+                    activeCategory === index
+                      ? "bg-emerald-700 text-white"
+                      : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                  }`}
+                >
+                  {category.shortTitle}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+        {/* Placeholder div to prevent content jump */}
+        {isSticky && (
+          <div
+            style={{ height: navRef.current ? navRef.current.offsetHeight : 0 }}
+          />
+        )}
       </div>
 
       {/* Main Content */}
@@ -192,7 +227,7 @@ export default function ServicesPage() {
                   className="bg-emerald-50 border border-emerald-700"
                 >
                   <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4 ">
+                    <div className="flex items-center gap-4 mb-4">
                       <div className="bg-emerald-100 p-3 rounded-full">
                         {Icon && <Icon className="w-6 h-6 text-emerald-600" />}
                       </div>
