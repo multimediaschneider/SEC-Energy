@@ -9,6 +9,7 @@ import ServicesSection from "@/components/sections/services-section";
 import AboutSection from "@/components/sections/about-section-neu";
 import ExpertiseCompetenceSection from "@/components/sections/expertise-competence";
 import ContactSection from "@/components/sections/contact-section";
+import CarouselAccordion from "@/components/ui/carousel-accordion";
 
 export default function LandingPage() {
   useEffect(() => {

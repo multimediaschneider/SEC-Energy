@@ -1,142 +1,186 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Building, CloudLightning, Factory } from "lucide-react";
-import Image from "next/image";
+import { projectsFallbackData } from "@/app/constants/data/projects-fallback-data";
+
+// TypeScript interfaces for our data structure
+interface TechnicalMetric {
+  label: string;
+  value: string;
+}
+
+interface TechnicalData {
+  type: string;
+  powerOutput: string;
+  additionalMetrics: TechnicalMetric[];
+}
+
+interface Project {
+  _id: string;
+  title: string;
+  description: string;
+  shortDescription: string;
+  technicalData: TechnicalData;
+  images: string[];
+}
 
 const CarouselAccordion: React.FC = () => {
+  // State Management
+  // ---------------
+  // activeProject: Tracks which project is currently centered/active
+  // Starting with "klinikum" as the default active project
   const [activeProject, setActiveProject] = useState<string>("klinikum");
 
-  const projects = {
-    klinikum: {
-      title: "Klinikum Wahrendorff, Sehnde",
-      description:
-        "Stromversorgung mittels zwei Blockheizkraftwerken für medizinische Einrichtungen",
-      technicalData: {
-        type: "Doppel-BHKW-Anlage",
-        electricalPower: "89 kW + 110 kW elektrisch",
-        additionalInfo: "Redundante Versorgung für medizinische Einrichtungen",
-      },
-    },
-    aok: {
-      title: "AOK Niedersachsen, Hannover",
-      description: "Kraft-Wärme-Kälte-Kopplung für Verwaltungsgebäude",
-      technicalData: {
-        type: "BHKW mit Kälteversorgung",
-        electricalPower: "495 kW elektrisch",
-        additionalInfo:
-          "Integrierte Kälteversorgung für optimale Gebäudeklimatisierung",
-      },
-    },
-    expo: {
-      title: "Expo-Projekt Kronsberg",
-      description: "Wärmeversorgungsgebiet mit innovativem Energiekonzept",
-      technicalData: {
-        type: "BHKW mit Nahwärmenetz",
-        electricalPower: "220 kW elektrisch",
-        additionalInfo: "Integriertes Quartiersversorgungskonzept",
-      },
-    },
-  };
+  // projectsData: Holds all our project information
+  // Initialize with fallback data directly
+  const [projectsData, setProjectsData] = useState(projectsFallbackData);
 
+  // Extract projects from the data and get array of project keys
+  const projects = projectsData.projects;
   const projectKeys = Object.keys(projects);
+
+  // Find the index of the currently active project
   const activeIndex = projectKeys.indexOf(activeProject);
 
+  // Early return if no projects are available
+  // This prevents the component from trying to render with empty data
+  if (!projects || Object.keys(projects).length === 0) {
+    return <div className="p-4 bg-red-100">No projects data available</div>;
+  }
+
   return (
-    <div className="relative w-[50%] h-[600px] flex items-center justify-center">
+    // Main container
+    // - relative positioning for absolute child positioning
+    // - h-[600px] sets fixed height for carousel
+    // - flex for centering content
+    <div className="relative w-full h-[600px] flex items-center justify-center">
+      {/* Map through all projects to create carousel items */}
       {Object.entries(projects).map(([key, project], index) => {
+        // Calculate position relative to active item
+        // position = 0 means item is active/centered
+        // negative position means item is to the left
+        // positive position means item is to the right
         const position = index - activeIndex;
         const isActive = position === 0;
 
+        // Function to get fade style based on card position
+        // Returns different gradient directions for left and right cards
         const getFadeStyle = () => {
-          if (position < 0) {
-            return "bg-gradient-to-r from-white via-transparent to-transparent";
-          } else if (position > 0) {
-            return "bg-gradient-to-l from-white via-transparent to-transparent";
+          if (!isActive) {
+            if (position < 0) {
+              // Cards to the left get a fade from right to left
+              return {
+                background: "linear-gradient(to right, white, transparent)",
+                left: 0,
+                width: "50%", // Controls the width of the fade effect
+              };
+            }
+            if (position > 0) {
+              // Cards to the right get a fade from left to right
+              return {
+                background: "linear-gradient(to left, white, transparent)",
+                right: 0,
+                width: "50%", // Controls the width of the fade effect
+              };
+            }
           }
-          return "";
+          return {}; // No fade for active card
         };
 
         return (
-          <motion.div
+          // Project Card Container
+          // - absolute positioning for carousel effect
+          // - w-[50%] makes each card take up half the container width
+          <div
             key={key}
             className={`
               absolute w-[50%] cursor-pointer
               ${isActive ? "z-20" : "z-10"}
             `}
-            initial={false}
-            animate={{
-              scale: isActive ? 1 : 0.7,
-              x: `${position * 100}%`,
+            style={{
+              // Transform for position and scale
+              // - translateX moves cards horizontally based on position
+              // - scale makes inactive cards smaller
+              transform: `translateX(${position * 90}%) scale(${
+                isActive ? 1 : 0.7
+              })`,
+              // Hide cards that are too far from center
               opacity: Math.abs(position) > 1 ? 0 : 1,
+              // Smooth transitions for all transformations
+              transition: "all 0.5s ease-in-out",
             }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
             onClick={() => setActiveProject(key)}
           >
+            {/* Fade overlay for inactive cards */}
+            {/* Only rendered when card is not active */}
             {!isActive && (
               <div
-                className={`
-                  absolute inset-0 pointer-events-none z-30 
-                  ${getFadeStyle()}
-                  opacity-90
-                `}
+                className="absolute top-0 bottom-0 z-30 pointer-events-none"
+                style={getFadeStyle()}
               />
             )}
 
+            {/* Project Card Content */}
             <div
               className={`
-                relative bg-white rounded-lg overflow-hidden
-                ${isActive ? "shadow-2xl ring-2 ring-emerald-500" : "shadow-lg"}
-              `}
+              relative bg-white overflow-hidden
+              ${isActive ? "shadow-2xl border border-emerald-700" : ""}
+            `}
             >
-              <div className="relative aspect-video">
-                <Image
-                  src="/pipes.jpg"
-                  alt="Industrial HVAC system"
-                  fill
-                  className={`
-                    object-cover
+              {/* Image Section */}
+              <div className="relative aspect-video bg-gray-200">
+                <img
+                  src={project.images[0] || "/api/placeholder/800/600"}
+                  alt={project.title}
+                  className={`w-full h-full object-cover
                     ${isActive ? "saturate-100" : "saturate-75"}
                   `}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
+                {/* Gradient overlay for active cards */}
                 <div
                   className={`
-                    absolute inset-0
-                    ${
-                      isActive
-                        ? "bg-gradient-to-t from-black/70 via-black/20 to-transparent"
-                        : ""
-                    }
-                  `}
+                  absolute inset-0
+                  ${
+                    isActive
+                      ? "bg-gradient-to-t from-black/70 via-black/20 to-transparent"
+                      : ""
+                  }
+                `}
                 />
               </div>
 
-              <div
-                className={`
-                  p-4
-                  ${isActive ? "bg-emerald-50" : ""}
-                `}
-              >
+              {/* Content Section */}
+              <div className={`p-4 ${isActive ? "bg-emerald-50" : ""}`}>
+                {/* Project Title */}
                 <h3
                   className={`
-                    text-2xl font-semibold mb-3
-                    ${isActive ? "text-emerald-700" : "text-gray-700"}
-                  `}
+                  text-2xl font-semibold mb-3
+                  ${isActive ? "text-emerald-700" : "text-gray-700"}
+                `}
                 >
                   {project.title}
                 </h3>
 
+                {/* Project Details */}
                 <div className="space-y-4">
+                  {/* Description with icon */}
                   <div
                     className={`flex items-center gap-2 ${
                       isActive ? "text-emerald-700" : "text-gray-600"
                     }`}
                   >
-                    <Building size={20} />
-                    <span>{project.description}</span>
+                    {/* <Building size={20} /> */}
+                    <span
+                      className={`p-4 rounded-lg ${
+                        isActive ? "bg-emerald-100" : "bg-gray-100"
+                      }`}
+                    >
+                      {project.shortDescription}
+                    </span>
                   </div>
 
+                  {/* Technical Data Grid */}
                   <div className="grid grid-cols-2 gap-4">
+                    {/* Power Output Info */}
                     <div
                       className={`p-4 rounded-lg ${
                         isActive ? "bg-emerald-100" : "bg-gray-100"
@@ -148,15 +192,14 @@ const CarouselAccordion: React.FC = () => {
                             isActive ? "text-emerald-500" : "text-gray-500"
                           }`}
                         />
-                        <span className="font-medium">
-                          Elektrische Leistung
-                        </span>
+                        <span className="font-medium">Leistung</span>
                       </div>
                       <span className="text-gray-600">
-                        {project.technicalData.electricalPower}
+                        {project.technicalData.powerOutput}
                       </span>
                     </div>
 
+                    {/* System Type Info */}
                     <div
                       className={`p-4 rounded-lg ${
                         isActive ? "bg-emerald-100" : "bg-gray-100"
@@ -176,19 +219,12 @@ const CarouselAccordion: React.FC = () => {
                     </div>
                   </div>
 
-                  {project.technicalData.additionalInfo && (
-                    <div
-                      className={`p-4 rounded-lg ${
-                        isActive ? "bg-emerald-100" : "bg-gray-100"
-                      } text-gray-600`}
-                    >
-                      {project.technicalData.additionalInfo}
-                    </div>
-                  )}
+                  {/* Additional Metrics */}
+                  {/* Map through any additional technical metrics */}
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         );
       })}
     </div>
