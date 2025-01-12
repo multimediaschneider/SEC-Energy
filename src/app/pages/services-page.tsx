@@ -116,13 +116,35 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative bg-emerald-700">
-        <div className="relative h-[40vh] flex items-center justify-center">
-          <div className="text-center text-emerald-50">
+      <section ref={heroRef} className="relative overflow-hidden">
+        {/* Base gradient background */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800"
+          style={{
+            backgroundSize: "400% 400%",
+            animation: "gradient 15s ease infinite",
+          }}
+        />
+
+        {/* Animated blur circles */}
+        <div className="blur-container">
+          <div className="blur-circle blur-circle-1" />
+          <div className="blur-circle blur-circle-2" />
+          <div className="blur-circle blur-circle-3" />
+          <div className="blur-circle blur-circle-4" />
+        </div>
+
+        {/* White noise overlay for texture */}
+        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay">
+          <div className="noise-texture" />
+        </div>
+
+        <div className="relative h-screen flex items-center justify-center">
+          <div className="text-center text-emerald-50 z-10">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-light mb-8"
+              className="text-4xl md:text-6xl font-light mb-8 drop-shadow-lg"
             >
               {data.headline}
             </motion.h1>
@@ -130,7 +152,7 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4"
+              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4 drop-shadow-lg"
             >
               {data.introduction}
             </motion.p>
@@ -218,14 +240,11 @@ export default function ServicesPage() {
           </div>
 
           {/* Service areas grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto py-8 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
             {data.categories[activeCategory].areas.map((area, index) => {
               const Icon = icons[area.icon];
               return (
-                <Card
-                  key={index}
-                  className="bg-emerald-50 border border-emerald-700"
-                >
+                <Card key={index} className="bg-emerald-50">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="bg-emerald-100 p-3 rounded-full">

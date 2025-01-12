@@ -53,10 +53,6 @@ const fallbackData: HeroData = {
       src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
       alt: "Waldweg im Sonnenlicht",
     },
-    {
-      src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e",
-      alt: "Sonnenuntergang über Wiese",
-    },
   ],
 };
 
@@ -149,7 +145,7 @@ export default function DynamicHero() {
 
         {/* Content Overlay */}
         <div className="relative z-10 flex flex-col justify-center items-center w-full h-full ">
-          <div className="w-full md:w-4/5 max-w-4xl  mx-auto text-center ">
+          <div className="w-full md:w-4/5 max-w-4xl mx-auto text-center ">
             <div className="border-b-4  border-emerald-700 mb-4">
               <motion.h1
                 initial={{ color: "#047857" }}

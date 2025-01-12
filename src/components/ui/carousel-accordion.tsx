@@ -71,7 +71,7 @@ const CarouselAccordion: React.FC = () => {
               return {
                 background: "linear-gradient(to right, white, transparent)",
                 left: 0,
-                width: "50%", // Controls the width of the fade effect
+                width: "120%", // Controls the width of the fade effect
               };
             }
             if (position > 0) {
@@ -79,7 +79,7 @@ const CarouselAccordion: React.FC = () => {
               return {
                 background: "linear-gradient(to left, white, transparent)",
                 right: 0,
-                width: "50%", // Controls the width of the fade effect
+                width: "120%", // Controls the width of the fade effect
               };
             }
           }
@@ -93,14 +93,14 @@ const CarouselAccordion: React.FC = () => {
           <div
             key={key}
             className={`
-              absolute w-[50%] cursor-pointer
+              absolute w-[45%] cursor-pointer 
               ${isActive ? "z-20" : "z-10"}
             `}
             style={{
               // Transform for position and scale
               // - translateX moves cards horizontally based on position
               // - scale makes inactive cards smaller
-              transform: `translateX(${position * 90}%) scale(${
+              transform: `translateX(${position * 85}%) scale(${
                 isActive ? 1 : 0.7
               })`,
               // Hide cards that are too far from center
@@ -123,11 +123,11 @@ const CarouselAccordion: React.FC = () => {
             <div
               className={`
               relative bg-white overflow-hidden
-              ${isActive ? "shadow-2xl border border-emerald-700" : ""}
+              ${isActive ? "shadow-2xl" : ""}
             `}
             >
               {/* Image Section */}
-              <div className="relative aspect-video bg-gray-200">
+              <div className="relative aspect-video ">
                 <img
                   src={project.images[0] || "/api/placeholder/800/600"}
                   alt={project.title}

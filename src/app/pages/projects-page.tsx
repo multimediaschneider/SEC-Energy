@@ -11,9 +11,6 @@ import ProjectGrid from "@/components/project-grid";
 import ContactSection from "@/components/sections/contact-section";
 import ProjectDetail from "@/components/project-detail";
 import { client } from "@/sanity/client";
-
-// Import your projects data or fetch it from an API
-import { projectsFallbackData } from "@/app/constants/data/projects-fallback-data";
 import AboutSection from "@/components/sections/about-section-neu";
 
 interface ProjectsPageData {
@@ -28,7 +25,7 @@ export default function ProjectsPage() {
     null
   );
   const heroRef = useRef<HTMLDivElement>(null);
-  const navbarHeight = 93; // Adjust this value based on your navbar height
+  const navbarHeight = 93;
 
   useEffect(() => {
     const fetchProjectsData = async () => {
@@ -63,15 +60,37 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative bg-emerald-700">
-        <div className="relative h-[40vh] flex items-center justify-center">
-          <div className="text-center text-emerald-50">
+    <div className="min-h-screen">
+      {/* Hero Section with Enhanced Gradient */}
+      <section ref={heroRef} className="relative overflow-hidden">
+        {/* Base gradient background */}
+        <div
+          className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800"
+          style={{
+            backgroundSize: "400% 400%",
+            animation: "gradient 15s ease infinite",
+          }}
+        />
+
+        {/* Animated blur circles */}
+        <div className="blur-container">
+          <div className="blur-circle blur-circle-1" />
+          <div className="blur-circle blur-circle-2" />
+          <div className="blur-circle blur-circle-3" />
+          <div className="blur-circle blur-circle-4" />
+        </div>
+
+        {/* White noise overlay for texture */}
+        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay">
+          <div className="noise-texture" />
+        </div>
+
+        <div className="relative h-screen flex items-center justify-center">
+          <div className="text-center text-emerald-50 z-10">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-light mb-8"
+              className="text-4xl md:text-6xl font-light mb-8 drop-shadow-lg"
             >
               {data.headline}
             </motion.h1>
@@ -79,7 +98,7 @@ export default function ProjectsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4"
+              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4 drop-shadow-lg"
             >
               {data.introduction}
             </motion.p>
@@ -94,8 +113,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <AboutSection />
+      {/* Additional Sections */}
       <ContactSection />
     </div>
   );

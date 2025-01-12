@@ -1,18 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import {
-  Building2,
-  Target,
-  Network,
-  Shield,
-  LucideIcon,
-  ExternalLink,
-} from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Building2, Target, Network, Shield, LucideIcon } from "lucide-react";
 import { client } from "@/sanity/client";
-import Link from "next/link";
-import CustomButton from "../ui/custom-button";
+import TextBlock from "../ui/text-block";
 
 interface ExpertiseArea {
   icon: string;
@@ -96,6 +88,13 @@ export default function ExpertiseCompetenceSection() {
   const [expertiseData, setExpertiseData] = useState<ExpertiseData | null>(
     null
   );
+  const textBlockRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: textBlockRef,
+    offset: ["start end", "end start"],
+  });
+
+  const borderHeight = useTransform(scrollYProgress, [0, 0.6], ["0%", "100%"]);
 
   useEffect(() => {
     const fetchExpertiseData = async () => {
@@ -124,16 +123,25 @@ export default function ExpertiseCompetenceSection() {
 
   const data = expertiseData || fallbackData;
 
-  // Split target groups into two arrays
-  const firstColumnGroups = data.targetGroups.slice(0, 4);
-  const secondColumnGroups = data.targetGroups.slice(4);
-
   return (
     <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 ">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+          {/* Left Column - Text Content */}
+          <div ref={textBlockRef} className="relative">
+            <motion.div
+              className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
+              style={{ height: borderHeight }}
+            />
+            <TextBlock
+              headline={data.headline}
+              introduction={data.introduction}
+              className="pl-6"
+            />
+          </div>
+
           {/* Right Column - Expertise Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 order-2 lg:order-1 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-12 mt-8 lg:mt-0">
             {data.expertiseAreas.map((area, index) => {
               const Icon = icons[area.icon as keyof typeof icons];
               return (
@@ -143,27 +151,27 @@ export default function ExpertiseCompetenceSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-emerald-50 border border-emerald-700 shadow-lg p-4 sm:p-6"
+                  className="bg-emerald-50 shadow-lg p-4 sm:p-4 w-1/1 relative"
                 >
-                  <div className="flex flex-col flex-grow h-full">
-                    <div className="flex items-center mb-3 sm:mb-4 ">
-                      <div className="bg-emerald-400 bg-opacity-20 p-2 rounded-full">
+                  <div className="flex flex-col flex-grow">
+                    <div className="absolute flex items-center">
+                      <div className="relative bottom-10 right-10 bg-emerald-400 bg-opacity-20 p-2 rounded-full">
                         <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
                       </div>
-                      <h3 className="text-xl sm:text-xl text-emerald-700 font-semibold ml-2">
-                        {area.title}
-                      </h3>
                     </div>
-                    <p className="text-gray-700  sm:text-md font-semibold mb-3 sm:mb-4">
+                    <h3 className="text-xl sm:text-xl text-emerald-700 font-semibold mb-2">
+                      {area.title}
+                    </h3>
+                    <p className="text-gray-700 sm:text-md font-semibold mb-3 sm:mb-4">
                       {area.description}
                     </p>
                     <ul className="space-y-2">
                       {area.highlights.map((highlight, i) => (
                         <li
                           key={i}
-                          className="text-sm  sm:text-base text-gray-600 flex  items-center"
+                          className="text-sm sm:text-sm text-gray-600 flex items-center"
                         >
-                          <span className="w-1.5 h-1.5  bg-emerald-600 rounded-full mr-2" />
+                          <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mr-4" />
                           {highlight}
                         </li>
                       ))}
@@ -173,32 +181,6 @@ export default function ExpertiseCompetenceSection() {
               );
             })}
           </div>
-
-          {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col justify-center space-y-6 w-10/12"
-          >
-            <div className="border-l-4 border-emerald-700 pl-6">
-              <h2 className="text-6xl font-light text-emerald-700 mb-8">
-                {data.headline}
-              </h2>
-
-              <p className="text-2xl font-light text-gray-700 leading-relaxed">
-                {data.introduction}
-              </p>
-
-              <CustomButton
-                text="Beratungsgespräch anfordern"
-                href="/about"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700 mt-8"
-              />
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

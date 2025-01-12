@@ -1,5 +1,12 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+"use client";
+
+import { useState, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import {
   Wrench,
   Lightbulb,
@@ -99,12 +106,21 @@ const additionalServices: ServiceCategory[] = [
 
 export default function ServicesSection() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const textBlockRef = useRef(null);
+
+  // Add scroll animation for border
+  const { scrollYProgress } = useScroll({
+    target: textBlockRef,
+    offset: ["start end", "end start"],
+  });
+
+  const borderHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
 
   return (
-    <section className="py-20 bg-emerald-700 bg-opacity-20">
-      <div className="container mx-auto px-4">
+    <section className="container mx-auto py-8 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Left Side - Service Cards (Moved from right) */}
+          {/* Left Side - Service Cards */}
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {initialServices.map((category, index) => {
@@ -116,7 +132,7 @@ export default function ServicesSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="bg-white border border-emerald-700 shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
                   >
                     <div className="flex flex-col h-full">
                       <div className="flex items-center mb-4">
@@ -199,46 +215,54 @@ export default function ServicesSection() {
             </div>
           </div>
 
-          {/* Right Side - Text Content (Moved from left) */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col justify-center border-l-4 border-emerald-700 pl-6"
-          >
-            <h2 className="text-3xl md:text-6xl font-light text-emerald-700 mb-6">
-              Unsere Leistungen
-            </h2>
-            <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
-              Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten
-              wir Ihnen ein umfassendes Portfolio an zukunftsorientierten
-              Leistungen. Von der ersten Planung bis zur finalen Umsetzung
-              begleiten wir Sie mit technischer Expertise und wirtschaftlichem
-              Weitblick.
-            </p>
+          {/* Right Side - Text Content */}
+          <div className="relative" ref={textBlockRef}>
+            {/* Animated border */}
+            <motion.div
+              className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
+              style={{ height: borderHeight }}
+            />
 
-            {/* CTA Section */}
-            <div className="space-y-6">
-              <CustomButton
-                text="Detaillierte Leistungsübersicht"
-                href="/leistungen"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700"
-              />
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col justify-center pl-6"
+            >
+              <h2 className="text-3xl md:text-5xl font-black text-emerald-700 mb-6">
+                Unsere Leistungen
+              </h2>
+              <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
+                Als Ingenieurdienstleister für technische Gebäudeausrüstung
+                bieten wir Ihnen ein umfassendes Portfolio an
+                zukunftsorientierten Leistungen. Von der ersten Planung bis zur
+                finalen Umsetzung begleiten wir Sie mit technischer Expertise
+                und wirtschaftlichem Weitblick.
+              </p>
 
-              <div className="flex flex-wrap items-center gap-4 text-gray-600">
-                <div className="flex items-center">
-                  <span className="text-emerald-600 mr-2">✓</span>
-                  <span>Zertifizierte Expertise</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-emerald-600 mr-2">✓</span>
-                  <span>Nachhaltige Lösungen</span>
+              {/* CTA Section */}
+              <div className="space-y-6">
+                <CustomButton
+                  text="Detaillierte Leistungsübersicht"
+                  href="/leistungen"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-700"
+                />
+
+                <div className="flex flex-wrap items-center gap-4 text-gray-600">
+                  <div className="flex items-center">
+                    <span className="text-emerald-600 mr-2">✓</span>
+                    <span>Zertifizierte Expertise</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-emerald-600 mr-2">✓</span>
+                    <span>Nachhaltige Lösungen</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

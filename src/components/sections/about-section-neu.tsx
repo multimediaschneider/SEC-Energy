@@ -1,159 +1,138 @@
-import React from "react";
-import {
-  Award,
-  BookOpen,
-  GraduationCap,
-  Building2,
-  ArrowRight,
-} from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
+import { Mail, Phone } from "lucide-react";
 import CustomButton from "../ui/custom-button";
 
-interface TrustBadge {
-  icon: string;
-  title: string;
-  description: string;
-}
+const AboutSection = () => {
+  const textBlockRef = useRef(null);
 
-const trustBadges: TrustBadge[] = [
-  {
-    icon: "award",
-    title: "Zertifizierte Expertise",
-    description: "IHK-geprüfte Fachkompetenz",
-  },
-  {
-    icon: "book",
-    title: "Wissenschaftlicher Beitrag",
-    description: "Regelmäßige Fachpublikationen",
-  },
-  {
-    icon: "graduation",
-    title: "Akademische Tätigkeit",
-    description: "Lehrbeauftragter FH Hannover",
-  },
-  {
-    icon: "building",
-    title: "Praxiserfahrung",
-    description: "50+ realisierte Großprojekte",
-  },
-];
+  // Add scroll animation for border
+  const { scrollYProgress } = useScroll({
+    target: textBlockRef,
+    offset: ["start end", "end start"],
+  });
 
-const icons: Record<string, any> = {
-  award: Award,
-  book: BookOpen,
-  graduation: GraduationCap,
-  building: Building2,
-};
+  const borderHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
 
-export default function AboutSection() {
   return (
-    <section className="py-20 bg-emerald-700 bg-opacity-20">
-      <div className="container mx-auto px-4">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <h2 className="text-6xl md:text-6xl font-light text-emerald-700 mb-4">
-            Über SEC
-          </h2>
-          <p className="text-3xl font-light text-emerald-700 mb-6">
-            Schneider Engineering Consulting
-          </p>
-          <p className="mt-4 text-2xl font-light text-gray-600 max-w-3xl mx-auto">
-            Als Experte für Energiecontracting verbinden wir technische
-            Innovation mit wirtschaftlicher Effizienz. Unsere langjährige
-            Erfahrung und kontinuierliche Weiterbildung garantieren erstklassige
-            Beratung und Umsetzung im Energiesektor.
-          </p>
-        </div>
-
-        {/* Expertise & Experience Section */}
-        <div className="max-w-5xl mx-auto mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Technical Expertise */}
-            <div className="relative p-6 md:p-8">
-              <div className="absolute inset-0 shadow-lg bg-white border border-emerald-700" />
-              <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-xl" />
-              <div className="relative space-y-4">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Technische Expertise
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "Diplom-Ingenieur der Versorgungstechnik",
-                    "Spezialisierung auf Kraft-Wärme-Kopplung",
-                    "Entwicklung nachhaltiger Energiekonzepte",
-                  ].map((item, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center space-x-3 text-gray-600"
-                    >
-                      <span className="w-2 h-2 bg-emerald-600 rounded-full" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+    <section className="container mx-auto my-12 py-6 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+      <div className=" ">
+        {/* Top Grid - About & Image */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="mt-8 lg:mt-0 flex items-center justify-center"
+          >
+            <div className="w-96 aspect-[4/6] relative ">
+              <div className="absolute inset-0 bg-emerald-700/10 rounded-lg -rotate-2 transform scale-105 " />
+              <div className="absolute inset-0 bg-emerald-700/5 rounded-lg rotate-2 transform scale-105" />
+              <div className="relative h-full rounded-lg shadow-2xl overflow-hidden">
+                <Image
+                  src="/dierk.jpg"
+                  alt="Dipl.-Ing. Dierk Schneider"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "50% 20%" }}
+                  sizes="(max-width: 768px) 100vw, 384px"
+                  priority
+                />
               </div>
             </div>
+          </motion.div>
 
-            {/* Practical Experience */}
-            <div className="relative p-6 md:p-8">
-              <div className="absolute inset-0 border border-emerald-700 shadow-lg bg-white" />
-              <div className="absolute inset-0 bg-emerald-700 bg-opacity-5 rounded-xl" />
-              <div className="relative space-y-4">
-                <h3 className="text-xl font-semibold text-gray-900">
-                  Praxiserfahrung
-                </h3>
-                <ul className="space-y-3">
-                  {[
-                    "Über 50 erfolgreiche Großprojekte",
-                    "30+ BHKW-Anlagen betreut",
-                    "Expertise in Contracting-Lösungen",
-                  ].map((item, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center space-x-3 text-gray-600"
-                    >
-                      <span className="w-2 h-2 bg-emerald-600 rounded-full" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+          {/* Left Column - Text Content */}
+          <div className="flex items-center relative" ref={textBlockRef}>
+            {/* Animated border */}
+            <motion.div
+              className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
+              style={{ height: borderHeight }}
+            />
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex-col pl-6"
+            >
+              <h2 className="text-5xl font-black text-emerald-700 mb-6">
+                Dipl.-Ing. Dierk Schneider
+              </h2>
+              <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
+                Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde
+                ich über drei Jahrzehnte praktische Erfahrung mit akademischer
+                Expertise. Meine Vision ist es, durch innovative Energielösungen
+                einen nachhaltigen Beitrag zur Energiewende zu leisten.
+              </p>
+              <CustomButton
+                text="Persönliches Gespräch vereinbaren"
+                href="/contact"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-700"
+              />
+            </motion.div>
           </div>
         </div>
 
-        {/* Trust Badges */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {trustBadges.map((badge, index) => {
-            const Icon = icons[badge.icon];
-            return (
-              <div key={index} className="bg-white rounded-sm shadow-lg p-6">
-                <div className="flex items-center gap-4">
-                  <div className="bg-emerald-50 p-2 rounded-full">
-                    <Icon className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {badge.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm">{badge.description}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        {/* Bottom Grid - Vision & Contact */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-24">
+          {/* Vision Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-emerald-50 shadow-lg p-8"
+          >
+            <h3 className="text-2xl font-semibold text-emerald-700 mb-4">
+              Vision & Geschichte
+            </h3>
+            <p className="text-gray-700 leading-relaxed">
+              Seit der Gründung im Jahr 2000 steht SEC Consulting für
+              herstellerunabhängige, innovative Energielösungen mit Fokus auf
+              Nachhaltigkeit und Klimaschutz. In einem starken Netzwerk von
+              Spezialisten entwickeln wir maßgeschneiderte Konzepte für unsere
+              Kunden.
+            </p>
+          </motion.div>
 
-        {/* CTA Section */}
-        <div className="flex flex-wrap justify-center relative z-10 gap-4">
-          <CustomButton
-            text="Erfahren Sie mehr"
-            href="/about"
-            iconSize={24}
-            size="lg"
-            className="bg-emerald-700"
-          />
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-emerald-50 shadow-lg p-8 mt-8 lg:mt-0"
+          >
+            <h3 className="text-2xl font-semibold text-emerald-700 mb-4">
+              Kontakt
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Mail className="w-4 h-4" />
+                <a
+                  href="mailto:Dierk.Schneider@sec-energy.de"
+                  className="hover:text-emerald-700 transition-colors"
+                >
+                  Dierk.Schneider@sec-energy.de
+                </a>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <Phone className="w-4 h-4" />
+                <a
+                  href="tel:0511 - 169 91 162"
+                  className="hover:text-emerald-700 transition-colors"
+                >
+                  0511 - 169 91 162
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default AboutSection;

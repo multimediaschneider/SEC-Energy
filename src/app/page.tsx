@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Layout from "../components/layout";
+import PageLayout from "../components/page-layout";
 import DynamicHero from "@/components/sections/hero-section";
 
 import ProjectSection from "@/components/sections/project-section";
@@ -101,15 +101,14 @@ export default function LandingPage() {
   };
 
   return (
-    <Layout>
+    <PageLayout>
       <DynamicHero />
       <ExpertiseCompetenceSection />
-      {/* <ExpertiseShowcase />
-      <CompetenceFieldsGrid /> */}
+      {/* <ExpertiseShowcase /> */}
+      {/* <CompetenceFieldsGrid /> */}
       <ServicesSection />
       <ProjectSection />
       <AboutSection />
-      <ContactSection />
-    </Layout>
+    </PageLayout>
   );
 }

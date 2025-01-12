@@ -1,19 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-// import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -69,9 +69,11 @@ export function ContactForm() {
 
       if (response.ok) {
         toast({
-          title: "Nachricht gesendet",
+          title: "✓ Nachricht gesendet",
           description:
             "Vielen Dank für Ihre Nachricht. Wir werden uns zeitnah bei Ihnen melden.",
+          variant: "default",
+          duration: 5000,
         });
         form.reset();
       } else {
@@ -80,10 +82,11 @@ export function ContactForm() {
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
-        title: "Fehler",
+        title: "⚠ Fehler",
         description:
           "Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es später erneut.",
         variant: "destructive",
+        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
@@ -172,7 +175,7 @@ export function ContactForm() {
                 <FormItem>
                   <FormControl>
                     <Input
-                      placeholder="E-Mail-Adresse (optional)"
+                      placeholder="E-Mail-Adresse"
                       type="email"
                       {...field}
                       className="w-full text-base"
@@ -225,13 +228,20 @@ export function ContactForm() {
           />
         </div>
 
-        {/* <Button
+        <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-emerald-700 text-white hover:bg-emerald-600"
+          className="w-full bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:text-emerald-700 hover:bg-emerald-50 hover:shadow-lg hover:shadow-zinc-200 transition-all"
         >
-          {isSubmitting ? "Wird gesendet..." : "Absenden"}
-        </Button> */}
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Wird gesendet...
+            </>
+          ) : (
+            "Nachricht senden"
+          )}
+        </Button>
       </form>
     </Form>
   );

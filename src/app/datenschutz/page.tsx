@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Layout from "@/components/layout";
+import PageLayout from "@/components/page-layout";
 
 // Placeholder components for Datenschutz sections
 const DatenschutzIntro = () => (
@@ -84,8 +84,8 @@ export default function DatenschutzPage() {
   }, []);
 
   return (
-    <Layout>
-      <div className="container mx-auto px-4">
+    <PageLayout>
+      <div className="container mx-auto px-4 pt-24">
         <section id="intro">
           <DatenschutzIntro />
         </section>
@@ -99,6 +99,6 @@ export default function DatenschutzPage() {
           <DatenschutzrechteSection />
         </section>
       </div>
-    </Layout>
+    </PageLayout>
   );
 }

@@ -53,6 +53,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -61,5 +62,117 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.blur-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.blur-circle {
+  position: absolute;
+  width: 45vw;
+  height: 45vw;
+  border-radius: 50%;
+  transform-origin: center;
+  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.blur-circle-1 {
+  background: rgba(52, 180, 153, 0.5);
+  filter: blur(100px);
+  animation: randomMove1 82s infinite;
+}
+
+.blur-circle-2 {
+  background: rgba(16, 185, 129, 0.4);
+  filter: blur(70px);
+  animation: randomMove2 39s infinite;
+}
+
+.blur-circle-3 {
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(50px);
+  animation: randomMove3 42s infinite;
+}
+
+.blur-circle-4 {
+  background: rgba(6, 78, 59, 0.4);
+  filter: blur(65px);
+  animation: randomMove4 64s infinite;
+}
+
+@keyframes randomMove1 {
+  0% {
+    transform: translate(50%, 50%) rotate(0deg) scale(1.2);
+  }
+  25% {
+    transform: translate(70%, 30%) rotate(45deg) scale(1);
+  }
+  50% {
+    transform: translate(30%, 70%) rotate(90deg) scale(0.8);
+  }
+  75% {
+    transform: translate(80%, 90%) rotate(135deg) scale(1.3);
+  }
+  100% {
+    transform: translate(50%, 50%) rotate(180deg) scale(1.2);
+  }
+}
+
+@keyframes randomMove2 {
+  0% {
+    transform: translate(100%, 100%) rotate(0deg) scale(0.9);
+  }
+  20% {
+    transform: translate(80%, 40%) rotate(90deg) scale(1.1);
+  }
+  50% {
+    transform: translate(40%, 80%) rotate(180deg) scale(0.7);
+  }
+  80% {
+    transform: translate(90%, 90%) rotate(270deg) scale(1.2);
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(360deg) scale(0.9);
+  }
+}
+
+@keyframes randomMove3 {
+  0% {
+    transform: translate(60%, 30%) rotate(0deg) scale(1.1);
+  }
+  25% {
+    transform: translate(40%, 70%) rotate(60deg) scale(0.9);
+  }
+  50% {
+    transform: translate(70%, 40%) rotate(120deg) scale(1.3);
+  }
+  75% {
+    transform: translate(30%, 60%) rotate(180deg) scale(0.8);
+  }
+  100% {
+    transform: translate(60%, 30%) rotate(240deg) scale(1.1);
+  }
+}
+
+@keyframes randomMove4 {
+  0% {
+    transform: translate(20%, 80%) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translate(70%, 20%) rotate(90deg) scale(1.2);
+  }
+  50% {
+    transform: translate(30%, 60%) rotate(180deg) scale(0.7);
+  }
+  80% {
+    transform: translate(80%, 40%) rotate(270deg) scale(1.4);
+  }
+  100% {
+    transform: translate(20%, 80%) rotate(360deg) scale(1);
   }
 }

@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import {
   Building,
   CloudLightning,
@@ -18,20 +23,36 @@ import {
 import CarouselAccordion from "../ui/carousel-accordion";
 
 const ProjectSection = () => {
+  const textBlockRef = useRef(null);
+
+  // Add scroll animation for border
+  const { scrollYProgress } = useScroll({
+    target: textBlockRef,
+    offset: ["start end", "end start"],
+  });
+
+  const borderHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
+
   return (
-    <section className="relative py-20 bg-gray-50 overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           {/* Introduction section */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:w-1/2 relative z-20"
-          >
-            <div className="border-l-4 border-emerald-700 pl-6">
-              <h2 className="text-6xl font-light text-emerald-700 mb-8">
+          <div className="lg:w-1/2 relative z-20" ref={textBlockRef}>
+            {/* Animated border */}
+            <motion.div
+              className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
+              style={{ height: borderHeight }}
+            />
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="pl-6"
+            >
+              <h2 className="text-5xl font-black text-emerald-700 mb-8">
                 {projectsFallbackData.projectsPage.headline}
               </h2>
               <p className="text-2xl font-light text-gray-700 leading-relaxed">
@@ -53,8 +74,8 @@ const ProjectSection = () => {
                   className="bg-emerald-700"
                 />
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Carousel section */}
           <motion.div

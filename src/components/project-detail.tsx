@@ -37,12 +37,12 @@ const ProjectDetail = () => {
   const projectScrollRef = useRef<HTMLDivElement>(null);
 
   // Handle horizontal scrolling with mouse wheel
-  const handleWheel = (event: WheelEvent, container: HTMLDivElement) => {
-    if (event.deltaY !== 0) {
-      event.preventDefault();
-      container.scrollLeft += event.deltaY;
-    }
-  };
+  // const handleWheel = (event: WheelEvent, container: HTMLDivElement) => {
+  //   if (event.deltaY !== 0) {
+  //     event.preventDefault();
+  //     container.scrollLeft += event.deltaY;
+  //   }
+  // };
 
   // Extract unique categories from the projects data
   const getCategories = (data: ProjectsData) => {
@@ -147,8 +147,7 @@ const ProjectDetail = () => {
 
     if (categoryContainer) {
       checkScroll(categoryContainer);
-      const handleCategoryWheel = (e: WheelEvent) =>
-        handleWheel(e, categoryContainer);
+      const handleCategoryWheel = (e: WheelEvent) => categoryContainer;
       const handleCategoryScroll = () => checkScroll(categoryContainer);
 
       categoryContainer.addEventListener("wheel", handleCategoryWheel, {
@@ -170,8 +169,7 @@ const ProjectDetail = () => {
 
     if (projectContainer) {
       checkScroll(projectContainer, true);
-      const handleProjectWheel = (e: WheelEvent) =>
-        handleWheel(e, projectContainer);
+      const handleProjectWheel = (e: WheelEvent) => projectContainer;
       const handleProjectScroll = () => checkScroll(projectContainer, true);
 
       projectContainer.addEventListener("wheel", handleProjectWheel, {
@@ -202,7 +200,7 @@ const ProjectDetail = () => {
   const filteredProjects = getFilteredProjects();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 ">
       {/* Category Navigation */}
       <div className="bg-white sticky top-[93px] z-40 border-b">
         <div className="container mx-auto px-4 relative">
@@ -372,9 +370,9 @@ const ProjectDetail = () => {
         </div>
 
         {/* Details Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto py-8 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
           {/* Technical Data */}
-          <Card className="bg-emerald-50 border border-emerald-700">
+          <Card className="bg-emerald-50">
             <CardContent className="p-6">
               <div className="flex items-center gap-4 mb-4">
                 <div className="bg-emerald-100 p-3 rounded-full">
@@ -416,7 +414,7 @@ const ProjectDetail = () => {
           </Card>
 
           {/* Scope */}
-          <Card className="bg-emerald-50 border border-emerald-700">
+          <Card className="bg-emerald-50">
             <CardContent className="p-6">
               <div className="flex items-center gap-4 mb-4">
                 <div className="bg-emerald-100 p-3 rounded-full">
@@ -441,7 +439,7 @@ const ProjectDetail = () => {
           </Card>
 
           {/* Features & Results */}
-          <Card className="bg-emerald-50 border border-emerald-700">
+          <Card className="bg-emerald-50">
             <CardContent className="p-6">
               <div className="flex items-center gap-4 mb-4">
                 <div className="bg-emerald-100 p-3 rounded-full">

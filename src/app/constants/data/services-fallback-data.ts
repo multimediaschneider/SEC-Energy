@@ -53,24 +53,10 @@ export const fallbackData = {
           ],
         },
         {
-          title: "Elektrotechnik",
-          description: "Elektrotechnische Lösungen für Ihr Gebäude",
+          title: "Sonstiges",
+          description: "Weitere technische Leistungen für Ihr Gebäude",
           icon: "lightbulb",
-          bulletPoints: [
-            "Keine genaueren Angaben",
-            "Keine genaueren Angaben",
-            "Keine genaueren Angaben",
-          ],
-        },
-        {
-          title: "Klimatechnik",
-          description: "Klimatechnische Systeme und Lösungen",
-          icon: "snowflake",
-          bulletPoints: [
-            "Keine genaueren Angaben",
-            "Keine genaueren Angaben",
-            "Keine genaueren Angaben",
-          ],
+          bulletPoints: ["Elektrotechnik", "Klimatechnik"],
         },
       ],
     },

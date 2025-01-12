@@ -1,23 +1,25 @@
+"use client";
+
 import Link from "next/link";
-import Navbar from "@/components/ui/navbar";
-import Layout from "@/components/layout";
+import Navbar from "@/components/navbar";
+import PageLayout from "@/components/page-layout";
 
 export default function Impressum() {
   return (
-    <Layout>
+    <PageLayout>
       <Navbar />
-      <div className="flex justify-center w-full pb-12">
+      <div className="flex justify-center w-full pb-12 pt-36">
         <div className="w-4/5 rounded-xl border-b-solid border-b pb-8">
           <section className="space-y-4">
             <div className="prose">
               <p className="text-gray-600 leading-relaxed">
-                Dierk Schneider
+                Hans Mustermann
                 <br />
-                SEC Energieconsulting
+                Hans Firma
                 <br />
-                Schierholzstraße 25
+                Musterstrasse 255
                 <br />
-                30655 Hannover
+                00000 Musterhausen
               </p>
             </div>
 
@@ -26,9 +28,9 @@ export default function Impressum() {
                 Kontakt
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                Telefon: 01788136030
+                Telefon: 0123 12345678
                 <br />
-                E-Mail: schneider-sven@posteo.de
+                E-Mail: muster-mail@muster.de
               </p>
             </div>
 
@@ -40,7 +42,7 @@ export default function Impressum() {
                 Umsatzsteuer-Identifikationsnummer gemäß § 27 a
                 Umsatzsteuergesetz:
                 <br />
-                DE-34 52 600 24
+                DE-12-34-56-78
               </p>
             </div>
 
@@ -98,6 +100,6 @@ export default function Impressum() {
           </section>
         </div>
       </div>
-    </Layout>
+    </PageLayout>
   );
 }
