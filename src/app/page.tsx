@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import PageLayout from "../components/page-layout";
 import DynamicHero from "@/components/sections/hero-section";
 
 import ProjectSection from "@/components/sections/project-section";
@@ -10,6 +9,7 @@ import AboutSection from "@/components/sections/about-section-neu";
 import ExpertiseCompetenceSection from "@/components/sections/expertise-competence";
 import ContactSection from "@/components/sections/contact-section";
 import CarouselAccordion from "@/components/ui/carousel-accordion";
+import PageLayout from "../components/page-layout";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -103,12 +103,11 @@ export default function LandingPage() {
   return (
     <PageLayout>
       <DynamicHero />
-      <ExpertiseCompetenceSection />
-      {/* <ExpertiseShowcase /> */}
-      {/* <CompetenceFieldsGrid /> */}
-      <ServicesSection />
-      <ProjectSection />
-      <AboutSection />
+      {/* <ExpertiseCompetenceSection /> */}
+
+      {/* <ServicesSection /> */}
+      {/* <ProjectSection /> */}
+      {/* <AboutSection /> */}
     </PageLayout>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,8 +14,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -72,8 +74,6 @@ export function ContactForm() {
           title: "✓ Nachricht gesendet",
           description:
             "Vielen Dank für Ihre Nachricht. Wir werden uns zeitnah bei Ihnen melden.",
-          variant: "default",
-          duration: 5000,
         });
         form.reset();
       } else {
@@ -86,7 +86,6 @@ export function ContactForm() {
         description:
           "Es gab ein Problem beim Senden Ihrer Nachricht. Bitte versuchen Sie es später erneut.",
         variant: "destructive",
-        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
@@ -246,3 +245,4 @@ export function ContactForm() {
     </Form>
   );
 }
+

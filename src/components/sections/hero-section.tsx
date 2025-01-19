@@ -3,12 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { client } from "@/sanity/client";
-
-interface HeroImage {
-  src: string;
-  alt: string;
-}
+import Container from "../ui/container";
 
 interface TrustIndicators {
   emissions: string;
@@ -16,102 +11,79 @@ interface TrustIndicators {
   savings: string;
 }
 
-interface HeroData {
-  title: string;
-  subtitle: string;
-  headline: string;
-  subheadline: string;
-  trustIndicators: TrustIndicators;
-  images: HeroImage[];
+interface HeroImage {
+  src: string;
+  alt: string;
+  credit: {
+    name: string;
+    url: string;
+  };
 }
 
-const fallbackData: HeroData = {
-  title: "SEC Consulting GmbH",
-  subtitle: "Schneider Engineering Consulting",
-  headline: "Nachhaltige Energielösungen durch Expertise im Contracting",
-  subheadline:
-    "20+ Jahre Erfahrung in der Entwicklung wirtschaftlicher Energiekonzepte",
-  trustIndicators: {
-    emissions: "25%",
-    projects: "50+",
-    savings: "30%",
-  },
-  images: [
-    {
-      src: "https://images.unsplash.com/photo-1426604966848-d7adac402bff",
-      alt: "Naturaufnahme mit Gewässer",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05",
-      alt: "Berglandschaft im Sonnenlicht",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1466611653911-95081537e5b7",
-      alt: "Dramatischer Himmel über Landschaft",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e",
-      alt: "Waldweg im Sonnenlicht",
-    },
-  ],
+const trustIndicators: TrustIndicators = {
+  emissions: "25%",
+  projects: "50+",
+  savings: "30%",
 };
 
-export default function DynamicHero() {
-  const [heroData, setHeroData] = useState<HeroData | null>(null);
+const heroImages: HeroImage[] = [
+  {
+    src: "/wind-energy-sunset.webp",
+    alt: "Windenergie bei Sonnenuntergang",
+    credit: {
+      name: "Photographer Name",
+      url: "https://unsplash.com/photos/xxx",
+    },
+  },
+  {
+    src: "/street-rocks.webp",
+    alt: "Straße durch Felslandschaft",
+    credit: {
+      name: "Photographer Name",
+      url: "https://unsplash.com/photos/xxx",
+    },
+  },
+  {
+    src: "/green-hills.webp",
+    alt: "Grüne Hügellandschaft",
+    credit: {
+      name: "Photographer Name",
+      url: "https://unsplash.com/photos/xxx",
+    },
+  },
+  {
+    src: "/forest-path.webp",
+    alt: "Waldweg im Sonnenlicht",
+    credit: {
+      name: "Photographer Name",
+      url: "https://unsplash.com/photos/xxx",
+    },
+  },
+];
+
+export default function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isImageVisible, setIsImageVisible] = useState(true);
 
   useEffect(() => {
-    const fetchHeroData = async () => {
-      try {
-        const query = `*[_type == "hero"][0]{
-          title,
-          subtitle,
-          headline,
-          subheadline,
-          trustIndicators,
-          "images": images[]{
-            "src": asset->url,
-            alt
-          }
-        }`;
-        const data = await client.fetch(query);
-        setHeroData(data);
-      } catch (error) {
-        console.error("Error fetching hero data:", error);
-        setHeroData(fallbackData);
-      }
-    };
-
-    fetchHeroData();
-  }, []);
-
-  useEffect(() => {
-    const images = heroData?.images || fallbackData.images;
-
     const interval = setInterval(() => {
       setIsImageVisible(false);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setCurrentIndex((prev) => (prev + 1) % heroImages.length);
         setIsImageVisible(true);
       }, 2000);
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [heroData]);
-
-  const images = heroData?.images || fallbackData.images;
-  const trustIndicators =
-    heroData?.trustIndicators || fallbackData.trustIndicators;
+  }, []);
 
   return (
     <section className="relative">
-      {/* Hero Section */}
       <div className="relative w-full h-screen overflow-hidden">
-        {/* Fullscreen Image Container */}
+        {/* Image Container */}
         <div className="absolute inset-0">
           <AnimatePresence mode="wait">
-            {isImageVisible && images[currentIndex] && (
+            {isImageVisible && (
               <motion.div
                 key={currentIndex}
                 initial={{ opacity: 0 }}
@@ -121,21 +93,33 @@ export default function DynamicHero() {
                 className="absolute inset-0"
               >
                 <Image
-                  src={images[currentIndex].src}
-                  alt={images[currentIndex].alt}
+                  src={heroImages[currentIndex].src}
+                  alt={heroImages[currentIndex].alt}
                   fill
+                  quality={85}
                   className="object-cover"
                   sizes="100vw"
-                  priority
-                  unoptimized
+                  priority={currentIndex === 0}
                 />
                 <div className="absolute inset-0 bg-black/40" />
+
+                {/* Image credit */}
+                <div className="absolute bottom-2 right-2 text-xs text-white/70">
+                  <a
+                    href={heroImages[currentIndex].credit.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    Photo by {heroImages[currentIndex].credit.name} on Unsplash
+                  </a>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        {/* White background when no image is visible */}
+        {/* White background for transitions */}
         <motion.div
           className="absolute inset-0 bg-white"
           initial={{ opacity: 0 }}
@@ -143,57 +127,65 @@ export default function DynamicHero() {
           transition={{ duration: 1.5, ease: "easeInOut" }}
         />
 
-        {/* Content Overlay */}
-        <div className="relative z-10 flex flex-col justify-center items-center w-full h-full ">
-          <div className="w-full md:w-4/5 max-w-4xl mx-auto text-center ">
-            <div className="border-b-4  border-emerald-700 mb-4">
-              <motion.h1
+        {/* Content */}
+        <Container>
+          <div className="relative z-10 flex flex-col justify-center items-center h-screen">
+            <div className="w-full lg:w-4/5 max-w-4xl mx-auto text-center px-4">
+              <div className="border-b-4 border-emerald-700 mb-8">
+                <motion.h1
+                  initial={{ color: "#047857" }}
+                  animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4"
+                >
+                  Nachhaltige Energielösungen durch Expertise im Contracting
+                </motion.h1>
+              </div>
+
+              <motion.h2
                 initial={{ color: "#047857" }}
                 animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-12"
               >
-                {heroData?.headline || fallbackData.headline}
-              </motion.h1>
-            </div>
-            <motion.h2
-              initial={{ color: "#047857" }}
-              animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-8"
-            >
-              {heroData?.subheadline || fallbackData.subheadline}
-            </motion.h2>
+                20+ Jahre Erfahrung in der Entwicklung wirtschaftlicher
+                Energiekonzepte
+              </motion.h2>
 
-            {/* Trust Indicators */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
-              {Object.entries(trustIndicators).map(([key, value]) => (
-                <div key={key} className="text-center">
-                  <motion.span
-                    initial={{ color: "#047857" }}
-                    animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="block text-3xl md:text-5xl font-bold"
-                  >
-                    {value}
-                  </motion.span>
-                  <motion.span
-                    initial={{ color: "#047857" }}
-                    animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="text-md"
-                  >
-                    {key === "emissions"
-                      ? "Emissionseinsparung"
-                      : key === "projects"
-                        ? "Großprojekte"
-                        : "Kosteneinsparung"}
-                  </motion.span>
-                </div>
-              ))}
+              {/* Trust Indicators */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4">
+                {Object.entries(trustIndicators).map(([key, value]) => (
+                  <div key={key} className="text-center">
+                    <motion.span
+                      initial={{ color: "#047857" }}
+                      animate={{
+                        color: isImageVisible ? "#ffffff" : "#047857",
+                      }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
+                      className="block text-3xl md:text-5xl font-bold mb-2"
+                    >
+                      {value}
+                    </motion.span>
+                    <motion.span
+                      initial={{ color: "#047857" }}
+                      animate={{
+                        color: isImageVisible ? "#ffffff" : "#047857",
+                      }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
+                      className="text-sm sm:text-base"
+                    >
+                      {key === "emissions"
+                        ? "Emissionseinsparung"
+                        : key === "projects"
+                          ? "Großprojekte"
+                          : "Kosteneinsparung"}
+                    </motion.span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
     </section>
   );
