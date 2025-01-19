@@ -23,24 +23,23 @@ export function BaseCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
+      className="h-full"
     >
-      <Card className="flex flex-col bg-emerald-50 shadow-lg w-full h-full min-h-[250px]">
-        <CardHeader className="flex h-24 relative pb-0 ">
-          <div className="absolute top-0 left-0">
-            <div className="relative -top-4 -left-4 bg-emerald-400 bg-opacity-20 p-2 rounded-full">
-              <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
+      <Card className="flex flex-col bg-emerald-50 shadow-lg w-full h-full">
+        <CardHeader className="space-y-2 pb-4">
+          <div className="relative -mt-2 -ml-2 inline-flex">
+            <div className="bg-emerald-400 bg-opacity-20 p-2 rounded-full">
+              <Icon className="w-5 h-5 text-emerald-600" />
             </div>
           </div>
-          <h3 className="text-xl flex-col text-p text-emerald-700 font-semibold mt-8 pb-2 border-b border-gray-300">
-            {title}
-          </h3>
+          <div className="space-y-1.5 pb-3 ">
+            <h3 className="text-lg font-semibold text-emerald-700 pb-2 border-b border-gray-300">
+              {title}
+            </h3>
+            <p className="text-sm text-emerald-900/70 pt-3">{description}</p>
+          </div>
         </CardHeader>
-        <CardContent className="flex-1 flex flex-col">
-          <p className="text-gray-700 sm:text-md font-semibold mb-4 ">
-            {description}
-          </p>
-          <div className="flex-1">{children}</div>
-        </CardContent>
+        <CardContent className="pt-2 flex-1">{children}</CardContent>
       </Card>
     </motion.div>
   );
@@ -69,11 +68,11 @@ interface ExpertiseCardProps extends Omit<BaseCardProps, "children"> {
 export function ExpertiseCard({ highlights, ...props }: ExpertiseCardProps) {
   return (
     <BaseCard {...props}>
-      <ul className="space-y-2">
+      <ul className="space-y-3">
         {highlights.map((highlight, i) => (
-          <li key={i} className="text-sm text-gray-600 flex items-center">
-            <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mr-4" />
-            {highlight}
+          <li key={i} className="flex gap-3 text-sm text-emerald-900/70">
+            <span className="w-1 h-1 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
+            <span className="flex-1">{highlight}</span>
           </li>
         ))}
       </ul>
