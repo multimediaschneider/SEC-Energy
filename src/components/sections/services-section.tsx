@@ -26,6 +26,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import CustomButton from "../ui/custom-button";
+import Container from "../ui/container";
+import { GridLayout } from "../layouts/grid-layout";
+import { ServiceCard } from "../ui/base-card";
+import ExpandableServices from "../ui/expandable-services";
 
 interface ServiceCategory {
   icon: string;
@@ -105,124 +109,42 @@ const additionalServices: ServiceCategory[] = [
 ];
 
 export default function ServicesSection() {
-  const [isExpanded, setIsExpanded] = useState(false);
   const textBlockRef = useRef(null);
-
-  // Add scroll animation for border
   const { scrollYProgress } = useScroll({
     target: textBlockRef,
     offset: ["start end", "end start"],
   });
-
   const borderHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
 
   return (
-    <section className="container mx-auto py-8 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+      <Container>
+        <GridLayout>
           {/* Left Side - Service Cards */}
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {initialServices.map((category, index) => {
-                const Icon = icons[category.icon];
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-                  >
-                    <div className="flex flex-col h-full">
-                      <div className="flex items-center mb-4">
-                        <div className="bg-emerald-50 p-2 rounded-full">
-                          <Icon className="w-6 h-6 text-emerald-600" />
-                        </div>
-                        <h3 className="text-lg font-semibold text-gray-900 ml-3">
-                          {category.title}
-                        </h3>
-                      </div>
-                      <p className="text-gray-600 text-sm">
-                        {category.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
+              {initialServices.map((service, index) => (
+                <ServiceCard
+                  key={index}
+                  icon={icons[service.icon]}
+                  title={service.title}
+                  description={service.description}
+                  index={index}
+                />
+              ))}
             </div>
-
-            {/* Expandable Section */}
-            <div className="relative">
-              <AnimatePresence>
-                {isExpanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"
-                  >
-                    {additionalServices.map((category, index) => {
-                      const Icon = icons[category.icon];
-                      return (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="bg-white border-2 border-emerald-700 rounded-sm shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-                        >
-                          <div className="flex flex-col h-full">
-                            <div className="flex items-center mb-4">
-                              <div className="bg-emerald-50 p-2 rounded-full">
-                                <Icon className="w-6 h-6 text-emerald-600" />
-                              </div>
-                              <h3 className="text-lg font-semibold text-gray-900 ml-3">
-                                {category.title}
-                              </h3>
-                            </div>
-                            <p className="text-gray-600 text-sm">
-                              {category.description}
-                            </p>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Improved Expand/Collapse Button */}
-              <div className="flex justify-center">
-                <motion.button
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="w-2/5 rounded-sm py-1 flex items-center justify-center gap-2 text-emerald-700 hover:text-emerald-600 hover:bg-emerald-50 transition-all duration-300"
-                >
-                  <span className="font-medium">
-                    {isExpanded
-                      ? "Weniger anzeigen"
-                      : "Mehr Leistungen entdecken"}
-                  </span>
-                  <ChevronDown
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      isExpanded ? "rotate-180" : ""
-                    }`}
-                  />
-                </motion.button>
-              </div>
-            </div>
+            <ExpandableServices
+              additionalServices={additionalServices}
+              icons={icons}
+            />
           </div>
 
-          {/* Right Side - Text Content */}
+          {/* Right Side - Content */}
           <div className="relative" ref={textBlockRef}>
-            {/* Animated border */}
             <motion.div
               className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
               style={{ height: borderHeight }}
             />
-
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -239,8 +161,6 @@ export default function ServicesSection() {
                 finalen Umsetzung begleiten wir Sie mit technischer Expertise
                 und wirtschaftlichem Weitblick.
               </p>
-
-              {/* CTA Section */}
               <div className="space-y-6">
                 <CustomButton
                   text="Detaillierte Leistungsübersicht"
@@ -249,7 +169,6 @@ export default function ServicesSection() {
                   size="lg"
                   className="bg-emerald-700"
                 />
-
                 <div className="flex flex-wrap items-center gap-4 text-gray-600">
                   <div className="flex items-center">
                     <span className="text-emerald-600 mr-2">✓</span>
@@ -263,8 +182,8 @@ export default function ServicesSection() {
               </div>
             </motion.div>
           </div>
-        </div>
-      </div>
+        </GridLayout>
+      </Container>
     </section>
   );
 }

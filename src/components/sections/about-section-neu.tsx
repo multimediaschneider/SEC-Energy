@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
 import CustomButton from "../ui/custom-button";
+import Container from "../ui/container";
 
 const AboutSection = () => {
   const textBlockRef = useRef(null);
@@ -16,9 +17,9 @@ const AboutSection = () => {
   const borderHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
 
   return (
-    <section className="container mx-auto my-12 py-6 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
-      <div className=" ">
-        {/* Top Grid - About & Image */}
+    <section className="py-24 bg-emerald-700 bg-opacity-20">
+      {/* Top Grid - About & Image */}
+      <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -42,7 +43,6 @@ const AboutSection = () => {
               </div>
             </div>
           </motion.div>
-
           {/* Left Column - Text Content */}
           <div className="flex items-center relative" ref={textBlockRef}>
             {/* Animated border */}
@@ -50,7 +50,6 @@ const AboutSection = () => {
               className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
               style={{ height: borderHeight }}
             />
-
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -76,7 +75,6 @@ const AboutSection = () => {
             </motion.div>
           </div>
         </div>
-
         {/* Bottom Grid - Vision & Contact */}
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-24">
           {/* Vision Content */}
@@ -97,7 +95,6 @@ const AboutSection = () => {
               Kunden.
             </p>
           </motion.div>
-
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -130,7 +127,7 @@ const AboutSection = () => {
             </div>
           </motion.div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

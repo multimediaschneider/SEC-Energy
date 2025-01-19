@@ -5,6 +5,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Building2, Target, Network, Shield, LucideIcon } from "lucide-react";
 import { client } from "@/sanity/client";
 import TextBlock from "../ui/text-block";
+import Container from "../ui/container";
+import { GridLayout } from "../layouts/grid-layout";
+import { ExpertiseCard } from "../ui/base-card";
 
 interface ExpertiseArea {
   icon: string;
@@ -125,9 +128,8 @@ export default function ExpertiseCompetenceSection() {
 
   return (
     <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
-          {/* Left Column - Text Content */}
+      <Container>
+        <GridLayout>
           <div ref={textBlockRef} className="relative">
             <motion.div
               className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
@@ -140,49 +142,20 @@ export default function ExpertiseCompetenceSection() {
             />
           </div>
 
-          {/* Right Column - Expertise Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-12 mt-8 lg:mt-0">
-            {data.expertiseAreas.map((area, index) => {
-              const Icon = icons[area.icon as keyof typeof icons];
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-emerald-50 shadow-lg p-4 sm:p-4 w-1/1 relative"
-                >
-                  <div className="flex flex-col flex-grow">
-                    <div className="absolute flex items-center">
-                      <div className="relative bottom-10 right-10 bg-emerald-400 bg-opacity-20 p-2 rounded-full">
-                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
-                      </div>
-                    </div>
-                    <h3 className="text-xl sm:text-xl text-emerald-700 font-semibold mb-2">
-                      {area.title}
-                    </h3>
-                    <p className="text-gray-700 sm:text-md font-semibold mb-3 sm:mb-4">
-                      {area.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {area.highlights.map((highlight, i) => (
-                        <li
-                          key={i}
-                          className="text-sm sm:text-sm text-gray-600 flex items-center"
-                        >
-                          <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mr-4" />
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-8 mt-8 lg:mt-0">
+            {data.expertiseAreas.map((area, index) => (
+              <ExpertiseCard
+                key={index}
+                icon={icons[area.icon]}
+                title={area.title}
+                description={area.description}
+                highlights={area.highlights}
+                index={index}
+              />
+            ))}
           </div>
-        </div>
-      </div>
+        </GridLayout>
+      </Container>
     </section>
   );
 }

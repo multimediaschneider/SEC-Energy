@@ -103,11 +103,11 @@ export default function LandingPage() {
   return (
     <PageLayout>
       <DynamicHero />
-      {/* <ExpertiseCompetenceSection /> */}
+      <ExpertiseCompetenceSection />
 
-      {/* <ServicesSection /> */}
-      {/* <ProjectSection /> */}
-      {/* <AboutSection /> */}
+      <ServicesSection />
+      <ProjectSection />
+      <AboutSection />
     </PageLayout>
   );
 }

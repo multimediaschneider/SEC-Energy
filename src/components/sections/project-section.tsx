@@ -21,6 +21,7 @@ import {
   type Project,
 } from "@/app/constants/data/projects-fallback-data";
 import CarouselAccordion from "../ui/carousel-accordion";
+import Container from "../ui/container";
 
 const ProjectSection = () => {
   const textBlockRef = useRef(null);
@@ -35,7 +36,7 @@ const ProjectSection = () => {
 
   return (
     <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <Container>
         <div className="flex flex-col lg:flex-row gap-12 items-center">
           {/* Introduction section */}
           <div className="lg:w-1/2 relative z-20" ref={textBlockRef}>
@@ -44,7 +45,6 @@ const ProjectSection = () => {
               className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
               style={{ height: borderHeight }}
             />
-
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -76,7 +76,6 @@ const ProjectSection = () => {
               </div>
             </motion.div>
           </div>
-
           {/* Carousel section */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -88,7 +87,7 @@ const ProjectSection = () => {
             <CarouselAccordion />
           </motion.div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
