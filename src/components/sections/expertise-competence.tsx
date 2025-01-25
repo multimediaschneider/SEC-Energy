@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import { Building2, Target, Network, Shield, LucideIcon } from "lucide-react";
 import { client } from "@/sanity/client";
 import TextBlock from "../ui/text-block";
@@ -91,13 +90,6 @@ export default function ExpertiseCompetenceSection() {
   const [expertiseData, setExpertiseData] = useState<ExpertiseData | null>(
     null
   );
-  const textBlockRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: textBlockRef,
-    offset: ["start end", "end start"],
-  });
-
-  const borderHeight = useTransform(scrollYProgress, [0, 0.6], ["0%", "100%"]);
 
   useEffect(() => {
     const fetchExpertiseData = async () => {
@@ -130,17 +122,17 @@ export default function ExpertiseCompetenceSection() {
     <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
       <Container>
         <GridLayout>
-          <div ref={textBlockRef} className="relative">
-            <motion.div
-              className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
-              style={{ height: borderHeight }}
-            />
-            <TextBlock
-              headline={data.headline}
-              introduction={data.introduction}
-              className="pl-6"
-            />
-          </div>
+          <TextBlock
+            headline={data.headline}
+            introduction={data.introduction}
+            buttonText="Beratungsgespräch anfordern"
+            buttonHref="/about"
+            headlineSize="lg"
+            textSize="lg"
+            verticalSpacing="lg"
+            horizontalSpacing="md"
+            withBorder={true}
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-8 mt-8 lg:mt-0">
             {data.expertiseAreas.map((area, index) => (

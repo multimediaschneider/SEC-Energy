@@ -59,7 +59,7 @@ const AboutSection = () => {
               <h2 className="text-5xl font-black text-emerald-700 mb-6">
                 Dipl.-Ing. Dierk Schneider
               </h2>
-              <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
+              <p className="text-3xl font-light text-gray-700 leading-relaxed mb-8">
                 Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde
                 ich über drei Jahrzehnte praktische Erfahrung mit akademischer
                 Expertise. Meine Vision ist es, durch innovative Energielösungen

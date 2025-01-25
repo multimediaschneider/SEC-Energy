@@ -26,17 +26,17 @@ export function BaseCard({
       className="h-full"
     >
       <Card className="flex flex-col bg-emerald-50 shadow-lg w-full h-full">
-        <CardHeader className="space-y-2 pb-4">
-          <div className="relative -mt-2 -ml-2 inline-flex">
-            <div className="bg-emerald-400 bg-opacity-20 p-2 rounded-full">
-              <Icon className="w-5 h-5 text-emerald-600" />
+        <CardHeader className="space-y-2 pb-4 relative">
+          <div className="absolute top-0 left-0">
+            <div className="relative -top-4 -left-4 bg-emerald-400 bg-opacity-20 p-2 rounded-full">
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-emerald-600" />
             </div>
           </div>
-          <div className="space-y-1.5 pb-3 ">
-            <h3 className="text-lg font-semibold text-emerald-700 pb-2 border-b border-gray-300">
+          <div className="space-y-1.5 pb-3">
+            <h3 className="text-lg font-extrabold text-emerald-700 pb-2 border-b border-gray-300">
               {title}
             </h3>
-            <p className="text-sm text-emerald-900/70 pt-3">{description}</p>
+            <p className="text-lg text-emerald-900/70 pt-3">{description}</p>
           </div>
         </CardHeader>
         <CardContent className="pt-2 flex-1">{children}</CardContent>
@@ -71,8 +71,8 @@ export function ExpertiseCard({ highlights, ...props }: ExpertiseCardProps) {
       <ul className="space-y-3">
         {highlights.map((highlight, i) => (
           <li key={i} className="flex gap-3 text-sm text-emerald-900/70">
-            <span className="w-1 h-1 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
-            <span className="flex-1">{highlight}</span>
+            <span className="w-1 h-1  bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
+            <span className="flex-1 text-lg">{highlight}</span>
           </li>
         ))}
       </ul>
