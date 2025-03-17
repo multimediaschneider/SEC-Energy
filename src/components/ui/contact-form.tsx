@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2 } from 'lucide-react';
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -94,7 +94,10 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 min-h-screen"
+      >
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-emerald-700">
             Benötigen Sie weitere Informationen?
@@ -245,4 +248,3 @@ export function ContactForm() {
     </Form>
   );
 }
-

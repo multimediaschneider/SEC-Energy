@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   BookOpen,
   User,
@@ -13,8 +14,10 @@ import {
   BookMarked,
   LucideIcon,
 } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { BaseCard } from "@/components/ui/base-card";
 import CustomButton from "@/components/ui/custom-button";
+import TextBlock from "@/components/ui/text-block";
+import Container from "@/components/ui/container";
 import { client } from "@/sanity/client";
 
 interface AboutPageData {
@@ -81,8 +84,6 @@ const qualifications = [
 
 export default function AboutPage() {
   const [aboutData, setAboutData] = useState<AboutPageData | null>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const navbarHeight = 93;
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -113,7 +114,7 @@ export default function AboutPage() {
   const data = aboutData || {
     headline: "Über SEC Consulting",
     introduction:
-      "Ihr Partner für nachhaltige Energielösungen und technische Gebäudeausrüstung",
+      "Ihr Partner für nachhaltige Energielösup/ngen und technische Gebäudeausrüstung",
     metaTitle: "About",
     metaDescription: "Über-SEC",
   };
@@ -121,168 +122,138 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative overflow-hidden">
-        {/* Base gradient background */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800"
-          style={{
-            backgroundSize: "400% 400%",
-            animation: "gradient 15s ease infinite",
-          }}
-        />
-
-        {/* Animated blur circles */}
-        <div className="blur-container">
-          <div className="blur-circle blur-circle-1" />
-          <div className="blur-circle blur-circle-2" />
-          <div className="blur-circle blur-circle-3" />
-          <div className="blur-circle blur-circle-4" />
-        </div>
-
-        {/* White noise overlay for texture */}
-        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay">
-          <div className="noise-texture" />
-        </div>
-
-        <div className="relative h-screen flex items-center justify-center">
-          <div className="text-center text-emerald-50 z-10">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-light mb-8 drop-shadow-lg"
-            >
-              {data.headline}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4 drop-shadow-lg"
-            >
-              {data.introduction}
-            </motion.p>
+      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800">
+        <Container>
+          <div className="h-screen flex items-center justify-center">
+            <div className="text-center text-emerald-50 z-10 px-4">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-4xl md:text-6xl font-light mb-8"
+              >
+                {data.headline}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl md:text-2xl font-light max-w-3xl mx-auto"
+              >
+                {data.introduction}
+              </motion.p>
+            </div>
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
-        {/* Company Overview Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-          {aboutSections.map((section, index) => {
-            const Icon = icons[section.icon];
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-emerald-50 border border-emerald-700 shadow-lg p-6"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-emerald-100 p-3 rounded-full">
-                    <Icon className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <h3 className="text-2xl font-medium text-emerald-700">
-                    {section.title}
-                  </h3>
-                </div>
-                <p className="text-gray-700 text-lg">{section.content}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Leadership Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24">
-          {/* Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col justify-center border-l-4 border-emerald-700 pl-6"
-          >
-            <h2 className="text-6xl font-light text-emerald-700 mb-6">
-              Geschäftsführung
-            </h2>
-            <p className="text-2xl font-light text-gray-700 leading-relaxed mb-8">
-              Dierk Schneider verbindet als Diplom-Ingenieur für
-              Versorgungstechnik und Energieanlagenelektroniker über drei
-              Jahrzehnte praktische Erfahrung mit akademischer Expertise.
-            </p>
-            <CustomButton
-              text="Kontakt aufnehmen"
-              href="/contact"
-              iconSize={24}
-              size="lg"
-              className="bg-emerald-700"
-            />
-          </motion.div>
-
-          {/* Profile Image */}
-          <div className="relative h-[400px] w-full">
-            <img
-              src="/dierk.jpg"
-              alt="Dierk Schneider"
-              className="object-cover w-full h-full"
-            />
+      {/* Company Overview Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {aboutSections.map((section, index) => {
+              const Icon = icons[section.icon];
+              return (
+                <BaseCard
+                  key={index}
+                  icon={Icon}
+                  title={section.title}
+                  description={section.content}
+                  index={index}
+                />
+              );
+            })}
           </div>
-        </div>
+        </Container>
+      </section>
 
-        {/* Expertise & Qualifications Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Expertise Card */}
-          <Card className="bg-emerald-50 border border-emerald-700">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="bg-emerald-100 p-3 rounded-full">
-                  <BookMarked className="w-6 h-6 text-emerald-600" />
+      {/* Leadership Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+            <div className="lg:w-full">
+              <TextBlock
+                headline="Geschäftsführung"
+                introduction="Dierk Schneider verbindet als Diplom-Ingenieur für Versorgungstechnik und Energieanlagenelektroniker über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise."
+                buttonText="Kontakt aufnehmen"
+                buttonHref="/contact"
+                headlineSize="lg"
+                textSize="lg"
+                verticalSpacing="lg"
+                horizontalSpacing="md"
+                withBorder={true}
+              />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="mt-8 lg:mt-0 flex items-center justify-center"
+            >
+              <div className="w-96 aspect-[4/6] relative">
+                <div className="absolute inset-0 bg-emerald-700/10 rounded-lg -rotate-2 transform scale-105" />
+                <div className="absolute inset-0 bg-emerald-700/5 rounded-lg rotate-2 transform scale-105" />
+                <div className="relative h-full rounded-lg shadow-2xl overflow-hidden">
+                  <Image
+                    src="/dierk.jpg"
+                    alt="Dipl.-Ing. Dierk Schneider"
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: "50% 20%" }}
+                    sizes="(max-width: 768px) 100vw, 384px"
+                    priority
+                  />
                 </div>
-                <h4 className="text-2xl font-medium text-emerald-700">
-                  Fachliche Spezialisierung
-                </h4>
               </div>
+            </motion.div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Expertise & Qualifications Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <BaseCard
+              icon={BookMarked}
+              title="Fachliche Spezialisierung"
+              description="Unsere Kernkompetenzen und Spezialgebiete"
+              index={0}
+            >
               <ul className="space-y-3">
                 {expertise.map((item, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-2 text-gray-700"
+                    className="flex gap-3 text-sm text-emerald-900/70"
                   >
-                    <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full" />
-                    <span>{item}</span>
+                    <span className="w-1 h-1 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
+                    <span className="flex-1 text-lg">{item}</span>
                   </li>
                 ))}
               </ul>
-            </CardContent>
-          </Card>
+            </BaseCard>
 
-          {/* Qualifications Card */}
-          <Card className="bg-emerald-50 border border-emerald-700">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="bg-emerald-100 p-3 rounded-full">
-                  <GraduationCap className="w-6 h-6 text-emerald-600" />
-                </div>
-                <h4 className="text-2xl font-medium text-emerald-700">
-                  Qualifikationen
-                </h4>
-              </div>
+            <BaseCard
+              icon={GraduationCap}
+              title="Qualifikationen"
+              description="Akademische und berufliche Qualifikationen"
+              index={1}
+            >
               <ul className="space-y-3">
                 {qualifications.map((item, index) => (
                   <li
                     key={index}
-                    className="flex items-center gap-2 text-gray-700"
+                    className="flex gap-3 text-sm text-emerald-900/70"
                   >
-                    <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full" />
-                    <span>{item}</span>
+                    <span className="w-1 h-1 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
+                    <span className="flex-1 text-lg">{item}</span>
                   </li>
                 ))}
               </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
+            </BaseCard>
+          </div>
+        </Container>
+      </section>
     </div>
   );
 }

@@ -127,7 +127,7 @@ export default function ExpertiseCompetenceSection() {
             introduction={data.introduction}
             buttonText="Beratungsgespräch anfordern"
             buttonHref="/about"
-            headlineSize="lg"
+            headlineSize="md"
             textSize="lg"
             verticalSpacing="lg"
             horizontalSpacing="md"
