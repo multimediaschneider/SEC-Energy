@@ -50,7 +50,7 @@ const TextBlock = ({
   const textSizeClasses = {
     sm: "text-lg md:text-xl",
     md: "text-xl md:text-2xl",
-    lg: "text-2xl md:text-3xl",
+    lg: "text-3xl md:text-4xl",
   }[textSize];
 
   const verticalSpacingClasses = {
@@ -77,7 +77,7 @@ const TextBlock = ({
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className={`flex flex-col justify-center w-full ${withBorder ? "pl-6" : ""} ${horizontalSpacingClasses} ${verticalSpacingClasses} ${className}`}
+        className={`flex flex-col justify-center w-full h-full ${withBorder ? "pl-6" : ""} ${horizontalSpacingClasses} ${verticalSpacingClasses} ${className}`}
       >
         <div className={verticalSpacingClasses}>
           <h2 className={`font-black text-emerald-700 ${headlineSizeClasses}`}>
