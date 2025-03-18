@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Building2, Target, Network, Shield, LucideIcon } from "lucide-react";
 import { client } from "@/sanity/client";
 import TextBlock from "../ui/text-block";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
 import { ExpertiseCard } from "../ui/base-card";
+import ScrollBorder from "../ui/scroll-border";
 
 interface ExpertiseArea {
   icon: string;
@@ -30,9 +31,10 @@ const icons: Record<string, LucideIcon> = {
 };
 
 const fallbackData: ExpertiseData = {
-  headline: "Fachkompetenzen",
+  headline:
+    "SEC Energieconsulting - langjährige Markterfahrung mit tiefgreifender technischer Expertise.",
   introduction:
-    "SEC Energieconsulting verbindet langjährige Markterfahrung mit tiefgreifender technischer Expertise. Zu unseren Kunden zählen Unternehmen aus der Wohnungswirtschaft, Wohnungsverwaltungen, der öffentlichen Hand, Pflegeheime, Energieversorger, Contractoren und der Industrie. Für sie haben wir zahlreiche Projekte erfolgreich umgesetzt und maßgeschneiderte Lösungen entwickelt.",
+    "Zu unseren Kunden zählen Unternehmen aus der Wohnungswirtschaft, Wohnungsverwaltungen, der öffentlichen Hand, Pflegeheime, Energieversorger, Contractoren und der Industrie. Für sie haben wir zahlreiche Projekte erfolgreich umgesetzt und maßgeschneiderte Lösungen entwickelt.",
   targetGroups: [
     "Wohnungswirtschaft",
     "Wohnungsverwaltungen",
@@ -63,16 +65,7 @@ const fallbackData: ExpertiseData = {
         "Integrierte Quartierskonzepte",
       ],
     },
-    {
-      icon: "network",
-      title: "Branchennetzwerk",
-      description: "Starke Partnerschaften in der Energiewirtschaft",
-      highlights: [
-        "Partner der Klimaallianz",
-        "Aktives Verbandsmitglied",
-        "Technologiepartnerschaften",
-      ],
-    },
+
     {
       icon: "shield",
       title: "Qualitätssicherung",
@@ -90,6 +83,7 @@ export default function ExpertiseCompetenceSection() {
   const [expertiseData, setExpertiseData] = useState<ExpertiseData | null>(
     null
   );
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const fetchExpertiseData = async () => {
@@ -119,7 +113,12 @@ export default function ExpertiseCompetenceSection() {
   const data = expertiseData || fallbackData;
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
+    <section
+      ref={sectionRef}
+      className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50 relative"
+    >
+      {/* Apply ScrollBorder to the entire section */}
+
       <Container>
         <GridLayout>
           <TextBlock
@@ -131,10 +130,10 @@ export default function ExpertiseCompetenceSection() {
             textSize="lg"
             verticalSpacing="lg"
             horizontalSpacing="md"
-            withBorder={true}
+            withBorder={false} // Removed border from TextBlock since we use the ScrollBorder for the entire section
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-8 mt-8 lg:mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:gap-8 mt-8 lg:mt-0">
             {data.expertiseAreas.map((area, index) => (
               <ExpertiseCard
                 key={index}

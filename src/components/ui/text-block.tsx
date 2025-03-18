@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import CustomButton from "../ui/custom-button";
+import ScrollBorder from "./scroll-border";
 
 interface TextBlockProps {
   headline: string;
@@ -16,6 +17,10 @@ interface TextBlockProps {
   verticalSpacing?: "sm" | "md" | "lg";
   horizontalSpacing?: "sm" | "md" | "lg";
   children?: React.ReactNode;
+  borderWidth?: number;
+  borderColor?: string;
+  borderBaseOpacity?: number;
+  borderActiveOpacity?: number;
 }
 
 const TextBlock = ({
@@ -29,16 +34,13 @@ const TextBlock = ({
   textSize = "lg",
   verticalSpacing = "md",
   horizontalSpacing = "md",
+  borderWidth = 4,
+  borderColor = "bg-emerald-700",
+  borderBaseOpacity = 0.2,
+  borderActiveOpacity = 0.8,
+  children,
 }: TextBlockProps) => {
   const textBlockRef = useRef(null);
-
-  // Scroll animation for border
-  const { scrollYProgress } = useScroll({
-    target: textBlockRef,
-    offset: ["start end", "end start"],
-  });
-
-  const borderHeight = useTransform(scrollYProgress, [0, 0.6], ["0%", "100%"]);
 
   // Dynamic classes based on props
   const headlineSizeClasses = {
@@ -60,19 +62,15 @@ const TextBlock = ({
   }[verticalSpacing];
 
   const horizontalSpacingClasses = {
-    sm: "px-4 md:px-6",
-    md: "px-6 md:px-8",
-    lg: "px-8 md:px-12",
+    sm: "px-0 md:px-0",
+    md: "px-0 md:px-0",
+    lg: "px-0 md:px-0",
   }[horizontalSpacing];
 
   return (
     <div ref={textBlockRef} className="relative">
-      {withBorder && (
-        <motion.div
-          className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
-          style={{ height: borderHeight }}
-        />
-      )}
+      {/* Use the ScrollBorder component if withBorder is true */}
+
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -88,6 +86,7 @@ const TextBlock = ({
           >
             {introduction}
           </p>
+          {children}
           {buttonText && buttonHref && (
             <div className="pt-4">
               <CustomButton

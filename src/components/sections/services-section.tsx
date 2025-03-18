@@ -99,6 +99,18 @@ export default function ServicesSection() {
   return (
     <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
       <Container>
+        {/* Right Side - Content */}
+        <TextBlock
+          headline="Unsere Leistungen"
+          introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen ein umfassendes Portfolio an zukunftsorientierten Leistungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise und wirtschaftlichem Weitblick."
+          buttonText="Detaillierte Leistungsübersicht"
+          buttonHref="/leistungen"
+          headlineSize="lg"
+          textSize="lg"
+          verticalSpacing="lg"
+          horizontalSpacing="md"
+          withBorder={true}
+        ></TextBlock>
         <GridLayout>
           {/* Left Side - Service Cards */}
           <div className="space-y-8">
@@ -118,30 +130,6 @@ export default function ServicesSection() {
               icons={icons}
             />
           </div>
-
-          {/* Right Side - Content */}
-          <TextBlock
-            headline="Unsere Leistungen"
-            introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen ein umfassendes Portfolio an zukunftsorientierten Leistungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise und wirtschaftlichem Weitblick."
-            buttonText="Detaillierte Leistungsübersicht"
-            buttonHref="/leistungen"
-            headlineSize="lg"
-            textSize="lg"
-            verticalSpacing="lg"
-            horizontalSpacing="md"
-            withBorder={true}
-          >
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-gray-600">
-              <div className="flex items-center">
-                <span className="text-emerald-600 mr-2">✓</span>
-                <span>Zertifizierte Expertise</span>
-              </div>
-              <div className="flex items-center">
-                <span className="text-emerald-600 mr-2">✓</span>
-                <span>Nachhaltige Lösungen</span>
-              </div>
-            </div>
-          </TextBlock>
         </GridLayout>
       </Container>
     </section>
