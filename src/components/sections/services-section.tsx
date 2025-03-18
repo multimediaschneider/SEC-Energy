@@ -102,7 +102,7 @@ export default function ServicesSection() {
       <Container>
         {/* Headline and Introduction with overflow control */}
         <div className="mb-8 overflow-hidden">
-          <div className="pl-6">
+          <div className="">
             <TextBlock
               headline="Unsere Leistungen"
               introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen ein umfassendes Portfolio an zukunftsorientierten Leistungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise und wirtschaftlichem Weitblick."

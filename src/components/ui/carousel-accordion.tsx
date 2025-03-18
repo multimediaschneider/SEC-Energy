@@ -140,13 +140,13 @@ const CarouselAccordion: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                       <div
                         className={`p-4 rounded-lg ${
                           isActive ? "bg-emerald-100" : "bg-gray-100"
                         }`}
                       >
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="flex-col items-center gap-2 mb-2">
                           <CloudLightning
                             className={`w-5 h-5 ${
                               isActive ? "text-emerald-500" : "text-gray-500"

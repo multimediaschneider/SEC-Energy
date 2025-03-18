@@ -116,7 +116,7 @@ export default function ExpertiseCompetenceSection() {
         <GridLayout>
           {/* Textblock with button container - fixing the overflow */}
           <div className="w-full overflow-hidden">
-            <div className="pl-6">
+            <div className="">
               <TextBlock
                 headline={data.headline}
                 introduction={data.introduction}
@@ -125,17 +125,6 @@ export default function ExpertiseCompetenceSection() {
                 verticalSpacing="lg"
                 horizontalSpacing="md"
               />
-
-              {/* Button in a properly constrained container */}
-              <div className="mt-8 mb-12 w-fit">
-                <CustomButton
-                  text="Beratungsgespräch anfordern"
-                  href="/kontakt"
-                  iconSize={24}
-                  size="lg"
-                  className="bg-emerald-700"
-                />
-              </div>
             </div>
           </div>
 
@@ -150,6 +139,16 @@ export default function ExpertiseCompetenceSection() {
                 index={index}
               />
             ))}
+          </div>
+          {/* Button in a properly constrained container */}
+          <div className="mt-8 mb-12 w-fit">
+            <CustomButton
+              text="Beratungsgespräch anfordern"
+              href="/kontakt"
+              iconSize={24}
+              size="lg"
+              className="bg-emerald-700"
+            />
           </div>
         </GridLayout>
       </Container>
