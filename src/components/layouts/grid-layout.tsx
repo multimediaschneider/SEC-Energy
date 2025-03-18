@@ -7,12 +7,7 @@ interface GridLayoutProps {
 
 export function GridLayout({ children, className }: GridLayoutProps) {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-1 lg:grid-cols-1 gap-8 lg:gap-12",
-        className
-      )}
-    >
+    <div className={cn("grid grid-cols-1 gap-8 lg:gap-12", className)}>
       {children}
     </div>
   );

@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Building2, Target, Network, Shield, LucideIcon } from "lucide-react";
 import { client } from "@/sanity/client";
 import TextBlock from "../ui/text-block";
+import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
 import { ExpertiseCard } from "../ui/base-card";
-import ScrollBorder from "../ui/scroll-border";
 
 interface ExpertiseArea {
   icon: string;
@@ -65,7 +65,6 @@ const fallbackData: ExpertiseData = {
         "Integrierte Quartierskonzepte",
       ],
     },
-
     {
       icon: "shield",
       title: "Qualitätssicherung",
@@ -83,7 +82,6 @@ export default function ExpertiseCompetenceSection() {
   const [expertiseData, setExpertiseData] = useState<ExpertiseData | null>(
     null
   );
-  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const fetchExpertiseData = async () => {
@@ -113,25 +111,33 @@ export default function ExpertiseCompetenceSection() {
   const data = expertiseData || fallbackData;
 
   return (
-    <section
-      ref={sectionRef}
-      className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50 relative"
-    >
-      {/* Apply ScrollBorder to the entire section */}
-
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50 relative">
       <Container>
         <GridLayout>
-          <TextBlock
-            headline={data.headline}
-            introduction={data.introduction}
-            buttonText="Beratungsgespräch anfordern"
-            buttonHref="/about"
-            headlineSize="md"
-            textSize="lg"
-            verticalSpacing="lg"
-            horizontalSpacing="md"
-            withBorder={false} // Removed border from TextBlock since we use the ScrollBorder for the entire section
-          />
+          {/* Textblock with button container - fixing the overflow */}
+          <div className="w-full overflow-hidden">
+            <div className="pl-6">
+              <TextBlock
+                headline={data.headline}
+                introduction={data.introduction}
+                headlineSize="md"
+                textSize="lg"
+                verticalSpacing="lg"
+                horizontalSpacing="md"
+              />
+
+              {/* Button in a properly constrained container */}
+              <div className="mt-8 mb-12 w-fit">
+                <CustomButton
+                  text="Beratungsgespräch anfordern"
+                  href="/kontakt"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-700"
+                />
+              </div>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 md:gap-8 mt-8 lg:mt-0">
             {data.expertiseAreas.map((area, index) => (

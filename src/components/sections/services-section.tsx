@@ -15,6 +15,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import TextBlock from "../ui/text-block";
+import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
 import { ServiceCard } from "../ui/base-card";
@@ -99,20 +100,33 @@ export default function ServicesSection() {
   return (
     <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
       <Container>
-        {/* Right Side - Content */}
-        <TextBlock
-          headline="Unsere Leistungen"
-          introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen ein umfassendes Portfolio an zukunftsorientierten Leistungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise und wirtschaftlichem Weitblick."
-          buttonText="Detaillierte Leistungsübersicht"
-          buttonHref="/leistungen"
-          headlineSize="lg"
-          textSize="lg"
-          verticalSpacing="lg"
-          horizontalSpacing="md"
-          withBorder={true}
-        ></TextBlock>
+        {/* Headline and Introduction with overflow control */}
+        <div className="mb-8 overflow-hidden">
+          <div className="pl-6">
+            <TextBlock
+              headline="Unsere Leistungen"
+              introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen ein umfassendes Portfolio an zukunftsorientierten Leistungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise und wirtschaftlichem Weitblick."
+              headlineSize="lg"
+              textSize="lg"
+              verticalSpacing="lg"
+              horizontalSpacing="md"
+            />
+
+            {/* Button in a properly constrained container */}
+            <div className="mt-8 mb-12 w-fit">
+              <CustomButton
+                text="Detaillierte Leistungsübersicht"
+                href="/leistungen"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-700"
+              />
+            </div>
+          </div>
+        </div>
+
         <GridLayout>
-          {/* Left Side - Service Cards */}
+          {/* Service Cards */}
           <div className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {initialServices.map((service, index) => (

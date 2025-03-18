@@ -1,21 +1,12 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
 import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
+import TextBlock from "../ui/text-block";
 
 const AboutSection = () => {
-  const textBlockRef = useRef(null);
-
-  // Add scroll animation for border
-  const { scrollYProgress } = useScroll({
-    target: textBlockRef,
-    offset: ["start end", "end start"],
-  });
-
-  const borderHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
-
   return (
     <section className="py-24 bg-emerald-700 bg-opacity-20">
       {/* Top Grid - About & Image */}
@@ -43,40 +34,35 @@ const AboutSection = () => {
               </div>
             </div>
           </motion.div>
+
           {/* Left Column - Text Content */}
-          <div className="flex items-center relative" ref={textBlockRef}>
-            {/* Animated border */}
-            <motion.div
-              className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-700"
-              style={{ height: borderHeight }}
-            />
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex-col pl-6"
-            >
-              <h2 className="text-5xl font-black text-emerald-700 mb-6">
-                Dipl.-Ing. Dierk Schneider
-              </h2>
-              <p className="text-3xl font-light text-gray-700 leading-relaxed mb-8">
-                Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde
-                ich über drei Jahrzehnte praktische Erfahrung mit akademischer
-                Expertise. Meine Vision ist es, durch innovative Energielösungen
-                einen nachhaltigen Beitrag zur Energiewende zu leisten.
-              </p>
-              <CustomButton
-                text="Persönliches Gespräch vereinbaren"
-                href="/contact"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700"
+          <div className="flex items-center relative pl-6 border-l-4 border-emerald-700">
+            <div className="flex-col">
+              <TextBlock
+                headline="Dipl.-Ing. Dierk Schneider"
+                introduction="Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde ich über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise. Meine Vision ist es, durch innovative Energielösungen einen nachhaltigen Beitrag zur Energiewende zu leisten."
+                headlineSize="lg"
+                textSize="lg"
+                verticalSpacing="lg"
+                horizontalSpacing="md"
               />
-            </motion.div>
+
+              {/* Button rendered separately */}
+              <div className="mt-8">
+                <CustomButton
+                  text="Persönliches Gespräch vereinbaren"
+                  href="/kontakt"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-700"
+                />
+              </div>
+            </div>
           </div>
         </div>
+
         {/* Bottom Grid - Vision & Contact */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8 mt-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
           {/* Vision Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -95,6 +81,7 @@ const AboutSection = () => {
               Kunden.
             </p>
           </motion.div>
+
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
