@@ -12,7 +12,10 @@ export default function Container({
 }: ContainerProps) {
   return (
     <div
-      className={cn("mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl", className)}
+      className={cn(
+        "w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-2xl",
+        className
+      )}
       {...props}
     >
       {children}

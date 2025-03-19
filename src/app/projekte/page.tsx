@@ -1,11 +1,11 @@
 "use client";
 import PageLayout from "../../components/page-layout";
-import ProjectsPage from "../pages/projects-page";
+import UpdatedProjectsPage from "../pages/projects-page";
 
-export default function LeistungenPage() {
+export default function ProjectPage() {
   return (
     <PageLayout>
-      <ProjectsPage />
+      <UpdatedProjectsPage />
     </PageLayout>
   );
 }

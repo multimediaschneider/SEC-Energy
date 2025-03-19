@@ -1,48 +1,105 @@
-"use client";
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { projectsFallbackData } from "@/app/constants/data/projects-fallback-data";
 import TextBlock from "../ui/text-block";
 import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
-import CarouselAccordion from "../ui/carousel-accordion";
-import { GridLayout } from "../layouts/grid-layout";
+import ProjectScrollSection from "../ui/project-scroll-section";
+import { client } from "@/sanity/client";
 
 const ProjectSection = () => {
+  const [projectsData, setProjectsData] = useState(projectsFallbackData);
+
+  useEffect(() => {
+    const fetchProjectsData = async () => {
+      try {
+        const query = `*[_type == "projects"][0]{
+          headline,
+          introduction,
+          metaTitle,
+          metaDescription,
+          "projects": {
+            "klinikum": {
+              _id,
+              title,
+              category,
+              projectType,
+              status,
+              location,
+              description,
+              shortDescription,
+              technicalData,
+              scope,
+              specialFeatures,
+              results,
+              "images": images[].asset->url
+            },
+            "expo": {
+              _id,
+              title,
+              category,
+              projectType,
+              status,
+              location,
+              description,
+              shortDescription,
+              technicalData,
+              scope,
+              specialFeatures,
+              results,
+              "images": images[].asset->url
+            }
+          }
+        }`;
+        const data = await client.fetch(query);
+        setProjectsData(data || projectsFallbackData);
+      } catch (error) {
+        console.error("Error fetching projects data:", error);
+        // Fallback data is already set
+      }
+    };
+
+    fetchProjectsData();
+  }, []);
+
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
+    <section
+      id="projekte"
+      className="py-16 sm:py-20 md:py-24 bg-gray-50 overflow-hidden"
+    >
       <Container>
-        {/* Headline and Introduction with overflow control - at the top */}
-        <div className="mb-8 overflow-hidden">
-          <div className="pl-6">
+        <div className="grid grid-cols-1 gap-12">
+          {/* Headline and introduction */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative pl-6 border-l-4 border-emerald-700"
+          >
             <TextBlock
-              headline={projectsFallbackData.projectsPage.headline}
+              headline={projectsData.projectsPage.headline}
               introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
               headlineSize="lg"
               textSize="lg"
               verticalSpacing="lg"
               horizontalSpacing="md"
             />
-
-            {/* Button in a properly constrained container */}
-            <div className="mt-8 mb-12 w-fit">
+            <div className="mt-8 w-fit">
               <CustomButton
-                text="Detaillierte Projektübersicht"
+                text="Alle Projekte ansehen"
                 href="/projekte"
                 iconSize={24}
                 size="lg"
                 className="bg-emerald-700"
               />
             </div>
+          </motion.div>
+
+          {/* Project scroll section */}
+          <div className="w-full">
+            <ProjectScrollSection projectsData={projectsData} />
           </div>
         </div>
-
-        <GridLayout>
-          {/* Carousel section - below the text */}
-          <div className="w-full relative flex items-center justify-center">
-            <CarouselAccordion />
-          </div>
-        </GridLayout>
       </Container>
     </section>
   );
