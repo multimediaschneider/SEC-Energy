@@ -66,7 +66,7 @@ export const projectsFallbackData: ProjectsData = {
       description:
         "Realisierung einer hocheffizienten Energiezentrale für die AOK Niedersachsen. Das Projekt umfasst die vollständige Energieversorgung des Verwaltungsgebäudes durch ein leistungsstarkes BHKW-System mit Kraft-Wärme-Kälte-Kopplung.",
       shortDescription:
-        "Innovative Energiezentrale für modernes Verwaltungsgebäude mit kombinierter Strom-, Wärme- und Kälteversorgung",
+        "Energiezentrale für Verwaltungsgebäude mit kombinierter Strom-, Wärme- und Kälteversorgung",
       technicalData: {
         type: "BHKW mit Kraft-Wärme-Kälte-Kopplung",
         powerOutput: "495 kW elektrisch",
@@ -108,8 +108,7 @@ export const projectsFallbackData: ProjectsData = {
       },
       description:
         "Entwicklung und Umsetzung eines zukunftsweisenden Energieversorgungskonzepts für das EXPO-Wohnquartier Kronsberg. Integration eines leistungsstarken BHKWs in ein effizientes Nahwärmenetz.",
-      shortDescription:
-        "Innovative Quartiersversorgung im Rahmen des EXPO 2000 Projekts",
+      shortDescription: "Quartiersversorgung im Rahmen des EXPO 2000 Projekts",
       technicalData: {
         type: "BHKW mit Nahwärmenetz",
         powerOutput: "220 kW elektrisch",
@@ -152,7 +151,7 @@ export const projectsFallbackData: ProjectsData = {
       description:
         "Realisierung einer ausfallsicheren Energieversorgung für das Klinikum Wahrendorff. Das Projekt umfasst zwei BHKW-Anlagen unterschiedlicher Leistungsklassen zur optimalen Lastabdeckung und maximalen Versorgungssicherheit.",
       shortDescription:
-        "Zuverlässige Energieversorgung für sensiblen Klinikbetrieb durch redundante BHKW-Systeme",
+        "Energieversorgung für sensiblen Klinikbetrieb durch redundante BHKW-Systeme",
       technicalData: {
         type: "BHKW",
         powerOutput: "89 kW + 110 kW elektrisch",
@@ -273,8 +272,7 @@ export const projectsFallbackData: ProjectsData = {
       },
       description:
         "Realisierung eines modernen Energieversorgungskonzepts für das Schulzentrum Letter. Integration eines leistungsstarken BHKWs zur kombinierten Strom- und Wärmeerzeugung unter Berücksichtigung der speziellen Anforderungen einer Bildungseinrichtung.",
-      shortDescription:
-        "Effiziente Energie- und Wärmeversorgung eines Schulzentrums",
+      shortDescription: "Energie- und Wärmeversorgung eines Schulzentrums",
       technicalData: {
         type: "BHKW",
         powerOutput: "220 kW elektrisch",
@@ -315,7 +313,7 @@ export const projectsFallbackData: ProjectsData = {
       },
       description:
         "Installation einer hochmodernen raumlufttechnischen Anlage unter besonderer Berücksichtigung der akustischen Anforderungen und Luftqualität in einem stark frequentierten Hörsaal.",
-      shortDescription: "Moderne Lüftungsanlage für universitären Hörsaal",
+      shortDescription: "Lüftungsanlage für universitären Hörsaal",
       technicalData: {
         type: "Lüftungstechnik",
         powerOutput: "Nicht spezifiziert",
@@ -342,8 +340,7 @@ export const projectsFallbackData: ProjectsData = {
       },
       description:
         "Implementierung eines maßgeschneiderten Energieversorgungskonzepts für den speziellen Bedarf eines Kurzentrums. Besondere Berücksichtigung der ganzjährig hohen Wärmelast durch therapeutische Einrichtungen.",
-      shortDescription:
-        "Energieeffiziente Versorgung eines Kurzentrums mit hohem Wärmebedarf",
+      shortDescription: "Versorgung eines Kurzentrums mit hohem Wärmebedarf",
       technicalData: {
         type: "BHKW",
         powerOutput: "110 kW elektrisch",
@@ -381,8 +378,7 @@ export const projectsFallbackData: ProjectsData = {
       },
       description:
         "Realisierung von zwei Blockheizkraftwerken mit Biomethan als nachhaltigem Energieträger. Fokus auf CO2-neutrale Energieerzeugung bei gleichzeitig hoher Versorgungssicherheit.",
-      shortDescription:
-        "Klimafreundliche Energieversorgung durch Biomethan-BHKWs",
+      shortDescription: "Energieversorgung durch Biomethan-BHKWs",
       technicalData: {
         type: "BHKW",
         powerOutput: "140 kW el. und 110 kW el.",

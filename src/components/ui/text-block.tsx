@@ -6,22 +6,28 @@ import { motion } from "framer-motion";
 interface TextBlockProps {
   headline: string;
   introduction: string;
+  buttonText?: string;
+  buttonHref?: string;
   className?: string;
   headlineSize?: "sm" | "md" | "lg";
   textSize?: "sm" | "md" | "lg";
   verticalSpacing?: "sm" | "md" | "lg";
   horizontalSpacing?: "sm" | "md" | "lg";
+  withBorder?: boolean;
   children?: React.ReactNode;
 }
 
 const TextBlock = ({
   headline,
   introduction,
+  buttonText,
+  buttonHref,
   className = "",
   headlineSize = "lg",
   textSize = "lg",
   verticalSpacing = "md",
   horizontalSpacing = "md",
+  withBorder,
   children,
 }: TextBlockProps) => {
   // Dynamic classes based on props

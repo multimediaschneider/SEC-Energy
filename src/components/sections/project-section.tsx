@@ -65,38 +65,39 @@ const ProjectSection = () => {
   return (
     <section
       id="projekte"
-      className="py-16 sm:py-20 md:py-24 bg-gray-50 overflow-hidden"
+      className="py-16 sm:py-20 md:py-24 bg-gray-50 overflow-visible"
     >
       <Container>
         <div className="grid grid-cols-1 gap-12">
           {/* Headline and introduction */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative pl-6 border-l-4 border-emerald-700"
-          >
-            <TextBlock
-              headline={projectsData.projectsPage.headline}
-              introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
-              headlineSize="lg"
-              textSize="lg"
-              verticalSpacing="lg"
-              horizontalSpacing="md"
-            />
-            <div className="mt-8 w-fit">
-              <CustomButton
-                text="Alle Projekte ansehen"
-                href="/projekte"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700"
+          <div className="pl-6 border-l-4 border-emerald-700">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <TextBlock
+                headline={projectsData.projectsPage.headline}
+                introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
+                headlineSize="lg"
+                textSize="lg"
+                verticalSpacing="lg"
+                horizontalSpacing="md"
               />
-            </div>
-          </motion.div>
+              <div className="mt-8 mb-12 w-fit">
+                <CustomButton
+                  text="Alle Projekte ansehen"
+                  href="/projekte"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-700"
+                />
+              </div>
+            </motion.div>
+          </div>
 
-          {/* Project scroll section */}
-          <div className="w-full">
+          {/* Project scroll section - with clear margin separation */}
+          <div className="w-full mt-4">
             <ProjectScrollSection projectsData={projectsData} />
           </div>
         </div>

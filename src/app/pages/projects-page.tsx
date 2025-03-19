@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "next/navigation";
 import {
   Building2,
   Target,
@@ -36,6 +37,7 @@ export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [activeProject, setActiveProject] = useState<ProjectKey>("klinikum");
   const [showDetails, setShowDetails] = useState(false);
+  const searchParams = useSearchParams();
 
   // Reference for scrolling
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -93,6 +95,23 @@ export default function ProjectsPage() {
     fetchProjectsData();
   }, []);
 
+  // Handle URL query params for direct project selection
+  useEffect(() => {
+    const projectParam = searchParams.get("project");
+    if (
+      projectParam &&
+      Object.keys(projectsData.projects).includes(projectParam)
+    ) {
+      setActiveProject(projectParam as ProjectKey);
+      setShowDetails(true);
+
+      // Get the category of the project to set the filter
+      const projectCategory =
+        projectsData.projects[projectParam as ProjectKey].category;
+      setSelectedCategory(projectCategory);
+    }
+  }, [searchParams, projectsData.projects]);
+
   // Get unique categories from the projects data
   const getCategories = () => {
     const categories = new Set<string>();
@@ -118,43 +137,26 @@ export default function ProjectsPage() {
   // Scroll to details when a project is clicked
   useEffect(() => {
     if (showDetails && detailsRef.current) {
-      detailsRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        detailsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
     }
   }, [activeProject, showDetails]);
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Base gradient background */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800"
-          style={{
-            backgroundSize: "400% 400%",
-            animation: "gradient 15s ease infinite",
-          }}
-        />
-
-        {/* Animated blur circles */}
-        <div className="blur-container">
-          <div className="blur-circle blur-circle-1" />
-          <div className="blur-circle blur-circle-2" />
-          <div className="blur-circle blur-circle-3" />
-          <div className="blur-circle blur-circle-4" />
-        </div>
-
-        {/* White noise overlay for texture */}
-        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay">
-          <div className="noise-texture" />
-        </div>
-
+      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800">
         <Container>
-          <div className="relative h-[60vh] md:h-[70vh] flex items-center justify-center">
-            <div className="text-center text-emerald-50 z-10">
+          <div className="h-screen flex items-center justify-center">
+            <div className="text-center text-emerald-50 z-10 px-4">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl font-light mb-8 drop-shadow-lg"
+                className="text-4xl md:text-6xl font-light mb-8"
               >
                 {projectsData.projectsPage.headline}
               </motion.h1>
@@ -162,7 +164,7 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4 drop-shadow-lg"
+                className="text-xl md:text-2xl font-light max-w-3xl mx-auto"
               >
                 {projectsData.projectsPage.introduction}
               </motion.p>
@@ -198,7 +200,7 @@ export default function ProjectsPage() {
       </div>
 
       {/* Projects Grid Section */}
-      <section className="py-12 overflow-hidden">
+      <section className="py-12 overflow-visible">
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredProjects.map(([key, project], index) => (

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import ProjectCard from "./project-card";
 import {
   ProjectsData,
@@ -15,7 +16,7 @@ const ProjectScrollSection = ({ projectsData }: ProjectScrollSectionProps) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
-  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const router = useRouter();
 
   // Array of projects from the object
   const projects = Object.entries(projectsData.projects).map(
@@ -67,6 +68,11 @@ const ProjectScrollSection = ({ projectsData }: ProjectScrollSectionProps) => {
     });
   };
 
+  // Navigate to project detail page
+  const handleProjectClick = (projectKey: string) => {
+    router.push(`/projekte?project=${projectKey}`);
+  };
+
   return (
     <div className="relative w-full">
       {/* Content container with padding for arrows */}
@@ -103,13 +109,12 @@ const ProjectScrollSection = ({ projectsData }: ProjectScrollSectionProps) => {
           {projects.map((project, index) => (
             <div
               key={project.key}
-              className="min-w-[280px] md:min-w-[300px] w-[280px] md:w-[300px] flex-shrink-0"
+              className="min-w-[280px] md:min-w-[300px] w-[280px] md:w-[420px] flex-shrink-0"
             >
               <ProjectCard
                 project={project}
                 index={0} // Set all indexes to 0 to avoid staggered animation on scroll
-                isActive={selectedProject === project.key}
-                onClick={() => setSelectedProject(project.key)}
+                onClick={() => handleProjectClick(project.key)}
               />
             </div>
           ))}
