@@ -3,141 +3,92 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Building, MapPin } from "lucide-react";
-import { Badge } from "./badge";
 
-/**
- * Interface for the ProjectCard component props
- */
 interface ProjectCardProps {
   project: {
-    title: string; // Project title
-    category: string; // Project category (e.g., "BHKW", "Contracting")
-    shortDescription: string; // Brief project description
+    key?: string;
+    title: string;
+    category: string;
+    shortDescription: string;
     technicalData: {
-      type: string; // Type of system (e.g., "BHKW", "Holzfeuerung")
-      powerOutput?: string; // Optional power output value (e.g., "220 kW elektrisch")
+      type: string;
+      powerOutput?: string;
     };
     location: {
-      city: string; // Project location city
+      city: string;
     };
-    images?: string[]; // Optional array of image URLs
-    status?: string; // Optional project status (e.g., "completed", "ongoing")
+    images?: string[];
+    status?: string;
   };
-  index?: number; // Animation index (for staggered animations)
-  isActive?: boolean; // Whether card is in active/selected state
-  onClick?: () => void; // Click handler function
-  className?: string; // Additional classes for the main container
-  imageClassName?: string; // Additional classes for the image container
-  contentClassName?: string; // Additional classes for the content container
-  minimal?: boolean; // Whether to show minimal version (affects title placement)
+  index?: number;
+  isActive?: boolean;
+  onClick?: () => void;
+  className?: string;
 }
 
-/**
- * Project Card Component
- *
- * Displays project information in a card format with image and metadata.
- * Supports animation, active state highlighting, and minimal display mode.
- */
 const ProjectCard = ({
   project,
   index = 0,
   isActive = false,
   onClick,
   className,
-  imageClassName,
-  contentClassName,
-  minimal = false,
 }: ProjectCardProps) => {
   // Fallback image if project.images is undefined or empty
   const imageSrc = project.images?.[0] || "/pipes.jpg";
 
   return (
-    // Main card container with motion animation
     <motion.div
-      // Animation settings
-      initial={{ opacity: 0, y: 20 }} // Start invisible and below final position
-      whileInView={{ opacity: 1, y: 0 }} // Animate to visible when in viewport
-      viewport={{ once: true }} // Only animate once
-      transition={{ delay: index * 0.1 }} // Stagger animation based on index
-      // Styling classes with conditional modifiers
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
       className={cn(
-        // Base styles - full height, rounded corners, white background, shadow
-        "h-full overflow-hidden rounded-md bg-white shadow-md hover:shadow-lg transition-all duration-300 flex flex-col",
-        // Highlight with ring if active
+        "h-full w-full rounded-lg overflow-hidden shadow-md bg-white flex flex-col",
         isActive && "ring-2 ring-emerald-500",
-        // Show pointer cursor if clickable
         onClick && "cursor-pointer",
-        // Custom classes passed as props
         className
       )}
-      onClick={onClick} // Click handler
-      whileHover={{ y: -5 }} // Slight lift effect on hover
+      onClick={onClick}
+      whileHover={{ y: -5 }}
     >
-      {/* Image container with fixed aspect ratio */}
-      <div className={cn("relative aspect-video w-full", imageClassName)}>
-        {/* Next.js Image component for optimized image loading */}
+      {/* Image container without overlay */}
+      <div className="relative w-full aspect-video">
         <Image
           src={imageSrc}
           alt={project.title}
-          fill // Fill container
-          className="object-cover" // Cover sizing mode
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Responsive sizing
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-
-        {/* Title overlay for non-minimal mode */}
-        {!minimal && (
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-            <h3 className="text-white font-medium text-lg truncate">
-              {project.title}
-            </h3>
-          </div>
-        )}
       </div>
 
       {/* Content container */}
-      <div
-        className={cn(
-          "p-6 flex-1 flex flex-col min-h-[320px]", // Padding, flex behavior, min height
-          contentClassName
-        )}
-      >
-        {/* Title for minimal mode (inside content area instead of overlay) */}
-        {minimal && (
-          <h3 className="text-emerald-700 font-medium text-xl mb-3 line-clamp-1">
-            {project.title}
-          </h3>
-        )}
+      <div className="p-6 flex flex-col flex-grow">
+        {/* Location label */}
+        <div className="text-rose-600 font-medium mb-2">
+          {project.location.city}
+        </div>
 
-        {/* Project description with line clamping */}
-        <p className="text-gray-600 mb-4 text-xl line-clamp-3 h-auto">
-          {project.shortDescription}
-        </p>
+        {/* Project title */}
+        <h3 className="text-2xl font-bold text-gray-900 mb-4 line-clamp-2">
+          {project.title}
+        </h3>
 
-        {/* Metadata section - pushed to bottom with mt-auto */}
-        <div className="mt-auto space-y-3">
-          {/* Technical data section */}
-          <div className="flex flex-col">
-            {/* System type with icon */}
-            <div className="flex items-center gap-1 text-xl text-gray-500">
-              <Building size={16} className="text-emerald-600 flex-shrink-0" />
-              <span className="truncate">{project.technicalData.type}</span>
+        {/* Project description */}
+        <p className="text-lg mb-6 text-gray-700">{project.shortDescription}</p>
+
+        {/* Project metadata at the bottom */}
+        <div className="mt-auto">
+          <div className="flex items-center gap-2 text-gray-600">
+            <Building size={18} className="flex-shrink-0" />
+            <span>{project.technicalData.type}</span>
+          </div>
+
+          {project.technicalData.powerOutput && (
+            <div className="text-gray-600 mt-1 pl-6">
+              {project.technicalData.powerOutput}
             </div>
-
-            {/* Power output (if available) */}
-            {project.technicalData.powerOutput && (
-              <div className="flex items-center gap-1 text-sm text-gray-500 pl-5">
-                <span className="truncate">
-                  {project.technicalData.powerOutput}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* Location with icon */}
-          <div className="flex items-center gap-1 text-sm text-gray-500">
-            <MapPin size={16} className="text-emerald-600 flex-shrink-0" />
-            <span className="truncate">{project.location.city}</span>
-          </div>
+          )}
         </div>
       </div>
     </motion.div>
