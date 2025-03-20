@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Plus, X, Building, MapPin } from "lucide-react";
+import { Plus, Building, MapPin } from "lucide-react";
 import { projectsFallbackData } from "@/app/constants/data/projects-fallback-data";
 import TextBlock from "../ui/text-block";
 import CustomButton from "../ui/custom-button";
@@ -24,11 +24,14 @@ const ProjectColumn = ({
 
   return (
     <div
-      className={`relative transition-all duration-0 flex-1 h-[500px] overflow-hidden border-r border-emerald-800 last:border-r-0 ${isExpanded ? "flex-grow-[3]" : "flex-grow-1"}`}
+      className={`relative transition-all duration-300 h-full overflow-hidden border-r border-emerald-800 last:border-r-0 ${
+        isExpanded ? "flex-[2]" : "flex-[0.5]"
+      }`}
+      onClick={onToggle}
     >
       {/* Collapsed state - vertical title bar */}
       {!isExpanded && (
-        <div className="h-full flex flex-col justify-between bg-emerald-700 text-white">
+        <div className="h-full flex flex-col justify-between bg-emerald-700 text-white cursor-pointer">
           {/* Title section - top */}
           <div className="h-full flex items-center justify-center p-4">
             <span className="transform -rotate-90 whitespace-nowrap text-lg font-medium">
@@ -38,12 +41,9 @@ const ProjectColumn = ({
 
           {/* Plus button - bottom */}
           <div className="p-4 flex justify-center">
-            <button
-              onClick={onToggle}
-              className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md"
-            >
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
               <Plus className="w-4 h-4 text-emerald-700" />
-            </button>
+            </div>
           </div>
         </div>
       )}
@@ -52,14 +52,14 @@ const ProjectColumn = ({
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="flex flex-col h-full bg-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col h-full bg-white cursor-pointer"
           >
-            {/* Image section - top */}
-            <div className="relative h-2/3">
+            {/* Image container */}
+            <div className="relative w-full h-2/5">
               <Image
                 src={imageSrc}
                 alt={project.title}
@@ -67,54 +67,57 @@ const ProjectColumn = ({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-
-              {/* Close button */}
-              <div className="absolute top-4 right-4">
-                <button
-                  onClick={onToggle}
-                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md"
-                >
-                  <X className="w-4 h-4 text-emerald-700" />
-                </button>
-              </div>
             </div>
 
             {/* Content section - bottom */}
-            <div className="flex flex-col justify-between h-1/2 p-6 bg-white">
-              <div>
-                <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: 0.2,
+              }}
+              className="flex flex-col justify-between h-3/5 p-6 bg-white"
+            >
+              <div className="flex flex-col h-full">
+                {/* Location label */}
+                <div className="text-rose-600 font-medium mb-2">
+                  {project.location.city}
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
                   {project.title}
                 </h3>
-                <div className="flex items-center gap-2 text-gray-600 mb-3">
-                  <MapPin className="w-4 h-4" />
-                  <span>{project.location.city}</span>
-                </div>
-                <div className="mb-3">
+
+                <p className="text-lg mb-4 text-gray-700 line-clamp-3">
+                  {project.shortDescription}
+                </p>
+
+                {/* Project metadata */}
+                <div className="mb-6">
                   <div className="flex items-center gap-2 text-gray-600">
-                    <Building className="w-4 h-4" />
+                    <Building size={18} className="flex-shrink-0" />
                     <span>{project.technicalData.type}</span>
                   </div>
+
                   {project.technicalData.powerOutput && (
-                    <div className="text-gray-600 mt-1 ml-6">
+                    <div className="text-gray-600 mt-1 pl-6">
                       {project.technicalData.powerOutput}
                     </div>
                   )}
                 </div>
-                <p className="text-gray-700 line-clamp-3">
-                  {project.shortDescription}
-                </p>
-              </div>
 
-              <div className="mt-4">
-                <CustomButton
-                  text="Details ansehen"
-                  href={`/projekte?project=${project.key || index}`}
-                  iconSize={16}
-                  size="sm"
-                  className="bg-emerald-700 text-sm w-full"
-                />
+                <div className="mt-auto">
+                  <CustomButton
+                    text="Details ansehen"
+                    href={`/projekte?project=${project.key || index}`}
+                    iconSize={16}
+                    size="sm"
+                    className="bg-emerald-700 text-sm w-full"
+                  />
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -226,8 +229,8 @@ const ProjectSection = () => {
 
         {/* Project accordion that fills the entire container width */}
         <div className="mt-12 mb-8">
-          <div className="flex h-[600px] border border-emerald-800 shadow-md">
-            {projectsArray.slice(0, 8).map((project, index) => (
+          <div className="flex w-full h-[600px] border border-emerald-800 shadow-md overflow-hidden">
+            {projectsArray.slice(0, 7).map((project, index) => (
               <ProjectColumn
                 key={project.key}
                 project={project}
