@@ -87,10 +87,11 @@ const AboutSection = () => {
             </h3>
             <p className="text-gray-700 leading-relaxed">
               Seit der Gründung im Jahr 2000 steht SEC Consulting für
-              herstellerunabhängige, innovative Energielösungen mit Fokus auf
-              Nachhaltigkeit und Klimaschutz. In einem starken Netzwerk von
-              Spezialisten entwickeln wir maßgeschneiderte Konzepte für unsere
-              Kunden.
+              unabhängige und innovative Energielösungen. Unser Ziel:
+              Nachhaltigkeit und Klimaschutz mit wirtschaftlicher Effizienz
+              vereinen. Gemeinsam mit einem starken Netzwerk aus Spezialisten
+              entwickeln wir zukunftssichere Konzepte – individuell abgestimmt
+              auf die Bedürfnisse unserer Kunden.
             </p>
           </motion.div>
 
