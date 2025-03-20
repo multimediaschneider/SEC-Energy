@@ -9,45 +9,27 @@ import TextBlock from "../ui/text-block";
 const AboutSection = () => {
   return (
     <section className="py-24 bg-emerald-700 bg-opacity-20">
-      {/* Top Grid - About & Image */}
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="mt-8 lg:mt-0 flex items-center justify-center"
-          >
-            <div className="w-96 aspect-[4/6] relative ">
-              <div className="absolute inset-0 bg-emerald-700/10 rounded-lg -rotate-2 transform scale-105 " />
-              <div className="absolute inset-0 bg-emerald-700/5 rounded-lg rotate-2 transform scale-105" />
-              <div className="relative h-full rounded-lg shadow-2xl overflow-hidden">
-                <Image
-                  src="/dierk.jpg"
-                  alt="Dipl.-Ing. Dierk Schneider"
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: "50% 20%" }}
-                  sizes="(max-width: 768px) 100vw, 384px"
-                  priority
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Left Column - Text Content */}
-          <div className="flex items-center relative pl-6 border-l-4 border-emerald-700">
-            <div className="flex-col">
+      <Container className="relative">
+        {/* Main content section with proper positioning */}
+        <div className="relative flex flex-col lg:flex-row min-h-[500px]">
+          {/* Text Content - Occupying left side with proper vertical spacing */}
+          <div className="w-full lg:w-3/5 pr-0 lg:pr-16 flex items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="py-8"
+            >
               <TextBlock
                 headline="Dipl.-Ing. Dierk Schneider"
-                introduction="Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde ich über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise. Meine Vision ist es, durch innovative Energielösungen einen nachhaltigen Beitrag zur Energiewende zu leisten."
+                introduction="Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde ich über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise. Meine Vision ist es, durch innovative Energielösungen einen nachhaltigen Beitrag zur Energiewende zu leisten. Mit meinem Team entwickle ich zukunftssichere Konzepte, die wirtschaftliche Effizienz und ökologische Verantwortung vereinen."
                 headlineSize="lg"
                 textSize="lg"
                 verticalSpacing="lg"
                 horizontalSpacing="md"
               />
 
-              {/* Button rendered separately */}
+              {/* Button with proper spacing */}
               <div className="mt-8">
                 <CustomButton
                   text="Persönliches Gespräch vereinbaren"
@@ -57,18 +39,48 @@ const AboutSection = () => {
                   className="bg-emerald-700"
                 />
               </div>
-            </div>
+            </motion.div>
+          </div>
+
+          {/* Image Container - Positioned at right edge and vertically centered */}
+          <div className="lg:absolute lg:right-0 lg:top-1/2 lg:transform lg:-translate-y-1/2 w-full lg:w-2/5 mt-12 lg:mt-0 flex justify-center lg:justify-end">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="w-full max-w-md lg:max-w-none"
+            >
+              <div className="relative w-full h-[550px] lg:h-[650px] lg:w-[450px]">
+                {/* Decorative background effects */}
+                <div className="absolute inset-0 bg-emerald-700/10 rounded-lg -rotate-2 transform scale-105" />
+                <div className="absolute inset-0 bg-emerald-700/5 rounded-lg rotate-2 transform scale-105" />
+
+                {/* Main image container with proper sizing and shadow */}
+                <div className="relative h-full w-full rounded-lg shadow-2xl overflow-hidden">
+                  <Image
+                    src="/dierk.jpg"
+                    alt="Dipl.-Ing. Dierk Schneider"
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: "50% 20%" }}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 450px, 450px"
+                    priority
+                    quality={90}
+                  />
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Bottom Grid - Vision & Contact */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
+        {/* Bottom Grid - Vision & Contact with proper spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-32 lg:mt-24">
           {/* Vision Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-emerald-50 shadow-lg p-8"
+            className="bg-emerald-50 shadow-lg p-8 rounded-lg"
           >
             <h3 className="text-2xl font-semibold text-emerald-700 mb-4">
               Vision & Geschichte
@@ -87,23 +99,24 @@ const AboutSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-emerald-50 shadow-lg p-8 mt-8 lg:mt-0"
+            transition={{ delay: 0.15 }}
+            className="bg-emerald-50 shadow-lg p-8 rounded-lg"
           >
             <h3 className="text-2xl font-semibold text-emerald-700 mb-4">
               Kontakt
             </h3>
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-gray-600">
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 flex-shrink-0" />
                 <a
                   href="mailto:Dierk.Schneider@sec-energy.de"
-                  className="hover:text-emerald-700 transition-colors"
+                  className="hover:text-emerald-700 transition-colors overflow-hidden text-ellipsis"
                 >
                   Dierk.Schneider@sec-energy.de
                 </a>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 flex-shrink-0" />
                 <a
                   href="tel:0511 - 169 91 162"
                   className="hover:text-emerald-700 transition-colors"
