@@ -145,29 +145,8 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
-
-      {/* Company Overview Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {aboutSections.map((section, index) => {
-              const Icon = icons[section.icon];
-              return (
-                <BaseCard
-                  key={index}
-                  icon={Icon}
-                  title={section.title}
-                  description={section.content}
-                  index={index}
-                />
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
       {/* Leadership Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 ">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
             <div className="lg:w-full">
@@ -209,9 +188,28 @@ export default function AboutPage() {
           </div>
         </Container>
       </section>
+      {/* Company Overview Section */}
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {aboutSections.map((section, index) => {
+              const Icon = icons[section.icon];
+              return (
+                <BaseCard
+                  key={index}
+                  icon={Icon}
+                  title={section.title}
+                  description={section.content}
+                  index={index}
+                />
+              );
+            })}
+          </div>
+        </Container>
+      </section>
 
       {/* Expertise & Qualifications Section */}
-      <section className="py-8 sm:py-12 md:py-16 lg:py-20">
+      <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <BaseCard

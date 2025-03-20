@@ -104,8 +104,11 @@ export default function ServicesSection() {
         <div className="mb-8 overflow-hidden">
           <div className="">
             <TextBlock
-              headline="Unsere Leistungen"
-              introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen ein umfassendes Portfolio an zukunftsorientierten Leistungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise und wirtschaftlichem Weitblick."
+              headline="Unsere Leistungen – Effiziente Lösungen für die Gebäudetechnik
+"
+              introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten.
+
+Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Zukunft."
               headlineSize="lg"
               textSize="lg"
               verticalSpacing="lg"

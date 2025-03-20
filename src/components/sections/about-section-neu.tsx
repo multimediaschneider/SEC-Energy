@@ -21,8 +21,8 @@ const AboutSection = () => {
               className="py-8"
             >
               <TextBlock
-                headline="Dipl.-Ing. Dierk Schneider"
-                introduction="Als Gründer und Geschäftsführer der SEC Consulting GmbH verbinde ich über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise. Meine Vision ist es, durch innovative Energielösungen einen nachhaltigen Beitrag zur Energiewende zu leisten. Mit meinem Team entwickle ich zukunftssichere Konzepte, die wirtschaftliche Effizienz und ökologische Verantwortung vereinen."
+                headline="Nachhaltige Energielösungen mit Weitblick"
+                introduction="Seit über 30 Jahren entwickle ich mit meinem Team zukunftssichere Energiekonzepte, die wirtschaftliche Effizienz und ökologische Verantwortung vereinen. Als Gründer und Geschäftsführer der SEC Consulting GmbH setze ich auf Innovation, Praxisnähe und nachhaltige Lösungen für die Energiewende."
                 headlineSize="lg"
                 textSize="lg"
                 verticalSpacing="lg"

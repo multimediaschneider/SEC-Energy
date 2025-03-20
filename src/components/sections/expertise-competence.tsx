@@ -31,10 +31,9 @@ const icons: Record<string, LucideIcon> = {
 };
 
 const fallbackData: ExpertiseData = {
-  headline:
-    "SEC Energieconsulting - langjährige Markterfahrung mit tiefgreifender technischer Expertise.",
+  headline: "SEC Energieconsulting – Erfahrung trifft Innovation",
   introduction:
-    "Zu unseren Kunden zählen Unternehmen aus der Wohnungswirtschaft, Wohnungsverwaltungen, der öffentlichen Hand, Pflegeheime, Energieversorger, Contractoren und der Industrie. Für sie haben wir zahlreiche Projekte erfolgreich umgesetzt und maßgeschneiderte Lösungen entwickelt.",
+    "Mit langjähriger Erfahrung und technischer Expertise entwickeln wir effiziente Energielösungen für Wohnungswirtschaft, Industrie und öffentliche Einrichtungen. Zahlreiche erfolgreiche Projekte stehen für unsere nachhaltigen und wirtschaftlichen Konzepte. Lassen Sie uns Ihre Energiezukunft gestalten.",
   targetGroups: [
     "Wohnungswirtschaft",
     "Wohnungsverwaltungen",
@@ -120,7 +119,7 @@ export default function ExpertiseCompetenceSection() {
               <TextBlock
                 headline={data.headline}
                 introduction={data.introduction}
-                headlineSize="md"
+                headlineSize="lg"
                 textSize="lg"
                 verticalSpacing="lg"
                 horizontalSpacing="md"
