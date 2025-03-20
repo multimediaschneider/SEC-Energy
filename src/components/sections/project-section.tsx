@@ -24,7 +24,7 @@ const ProjectColumn = ({
 
   return (
     <div
-      className={`relative transition-all duration-300 flex-1 h-96 overflow-hidden border-r border-emerald-800 last:border-r-0 ${isExpanded ? "flex-grow-[3]" : "flex-grow-0"}`}
+      className={`relative transition-all duration-0 flex-1 h-[500px] overflow-hidden border-r border-emerald-800 last:border-r-0 ${isExpanded ? "flex-grow-[3]" : "flex-grow-1"}`}
     >
       {/* Collapsed state - vertical title bar */}
       {!isExpanded && (
@@ -52,14 +52,14 @@ const ProjectColumn = ({
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col h-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="flex flex-col h-full bg-white"
           >
             {/* Image section - top */}
-            <div className="relative h-1/2">
+            <div className="relative h-2/3">
               <Image
                 src={imageSrc}
                 alt={project.title}
@@ -80,14 +80,25 @@ const ProjectColumn = ({
             </div>
 
             {/* Content section - bottom */}
-            <div className="flex flex-col justify-between h-1/2 p-4 bg-white">
+            <div className="flex flex-col justify-between h-1/2 p-6 bg-white">
               <div>
-                <h3 className="text-xl font-semibold text-emerald-700 mb-2">
+                <h3 className="text-2xl font-semibold text-emerald-700 mb-3">
                   {project.title}
                 </h3>
-                <div className="flex items-center gap-1 text-gray-600 mb-2">
+                <div className="flex items-center gap-2 text-gray-600 mb-3">
                   <MapPin className="w-4 h-4" />
                   <span>{project.location.city}</span>
+                </div>
+                <div className="mb-3">
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Building className="w-4 h-4" />
+                    <span>{project.technicalData.type}</span>
+                  </div>
+                  {project.technicalData.powerOutput && (
+                    <div className="text-gray-600 mt-1 ml-6">
+                      {project.technicalData.powerOutput}
+                    </div>
+                  )}
                 </div>
                 <p className="text-gray-700 line-clamp-3">
                   {project.shortDescription}
@@ -215,7 +226,7 @@ const ProjectSection = () => {
 
         {/* Project accordion that fills the entire container width */}
         <div className="mt-12 mb-8">
-          <div className="flex h-96 border border-emerald-800 shadow-md">
+          <div className="flex h-[600px] border border-emerald-800 shadow-md">
             {projectsArray.slice(0, 8).map((project, index) => (
               <ProjectColumn
                 key={project.key}
