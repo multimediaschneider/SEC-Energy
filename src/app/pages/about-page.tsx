@@ -180,8 +180,8 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 py-32">
+      {/* Hero Section - Updated to full screen height */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 h-screen flex items-center">
         <div className="absolute inset-0">
           {/* Animated blur circles for visual interest */}
           <div className="blur-container">
@@ -467,33 +467,6 @@ export default function AboutPage() {
               size="lg"
               className="bg-emerald-700"
             />
-          </div>
-        </Container>
-      </section>
-
-      {/* Call-to-Action Section */}
-      <section className="py-16 bg-emerald-700">
-        <Container>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 text-white">
-            <div>
-              <h2 className="text-3xl font-light mb-4">
-                Bereit für Ihr nächstes Projekt?
-              </h2>
-              <p className="text-xl font-light opacity-90">
-                Lassen Sie uns gemeinsam die optimale Energielösung für Ihre
-                Anforderungen finden.
-              </p>
-            </div>
-
-            <div className="flex gap-4">
-              <CustomButton
-                text="Kontakt aufnehmen"
-                href="/kontakt"
-                iconSize={20}
-                size="lg"
-                className="bg-white text-emerald-700 hover:bg-emerald-50"
-              />
-            </div>
           </div>
         </Container>
       </section>
