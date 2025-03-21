@@ -74,35 +74,35 @@
 
 .blur-circle {
   position: absolute;
-  width: 45vw;
-  height: 45vw;
-  border-radius: 50%;
+  width: 85vw;
+  height: 85vw;
+  border-radius: 80%;
   transform-origin: center;
-  animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation-timing-function: cubic-bezier(0.25, 0.2, 0.25, 3);
 }
 
 .blur-circle-1 {
-  background: rgba(52, 180, 153, 0.5);
-  filter: blur(100px);
-  animation: randomMove1 82s infinite;
+  background: rgba(52, 180, 152, 0.294);
+  filter: blur(1px);
+  animation: randomMove1 62s infinite;
 }
 
 .blur-circle-2 {
-  background: rgba(16, 185, 129, 0.4);
-  filter: blur(70px);
+  background: rgba(65, 176, 119, 0.176);
+  filter: blur(1px);
   animation: randomMove2 39s infinite;
 }
 
 .blur-circle-3 {
   background: rgba(255, 255, 255, 0.2);
-  filter: blur(50px);
-  animation: randomMove3 42s infinite;
+  filter: blur(1px);
+  animation: randomMove3 22s infinite;
 }
 
 .blur-circle-4 {
-  background: rgba(6, 78, 59, 0.4);
-  filter: blur(65px);
-  animation: randomMove4 64s infinite;
+  background: rgba(38, 130, 99, 0.688);
+  filter: blur(1px);
+  animation: randomMove4 34s infinite;
 }
 
 @keyframes randomMove1 {
@@ -161,16 +161,16 @@
 
 @keyframes randomMove4 {
   0% {
-    transform: translate(20%, 80%) rotate(0deg) scale(1);
+    transform: translate(20%, 80%) rotate(7deg) scale(1);
   }
   20% {
-    transform: translate(70%, 20%) rotate(90deg) scale(1.2);
+    transform: translate(70%, 20%) rotate(94deg) scale(1.2);
   }
   50% {
-    transform: translate(30%, 60%) rotate(180deg) scale(0.7);
+    transform: translate(30%, 60%) rotate(125deg) scale(0.7);
   }
   80% {
-    transform: translate(80%, 40%) rotate(270deg) scale(1.4);
+    transform: translate(80%, 40%) rotate(241deg) scale(1.4);
   }
   100% {
     transform: translate(20%, 80%) rotate(360deg) scale(1);
