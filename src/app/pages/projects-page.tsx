@@ -149,26 +149,34 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800">
+      <section className="relative overflow-hidden h-screen flex items-center bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800">
+        <div className="absolute inset-0">
+          {/* Animated blur circles for visual interest */}
+          <div className="blur-container">
+            <div className="blur-circle blur-circle-1" />
+            <div className="blur-circle blur-circle-2" />
+            <div className="blur-circle blur-circle-3" />
+            <div className="blur-circle blur-circle-4" />
+          </div>
+        </div>
+
         <Container>
-          <div className="h-screen flex items-center justify-center">
-            <div className="text-center text-emerald-50 z-10 px-4">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-6xl font-light mb-8"
-              >
-                {projectsData.projectsPage.headline}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-xl md:text-2xl font-light max-w-3xl mx-auto"
-              >
-                {projectsData.projectsPage.introduction}
-              </motion.p>
-            </div>
+          <div className="text-center text-emerald-50 z-10 px-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-light mb-8"
+            >
+              {projectsData.projectsPage.headline}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl md:text-2xl font-light max-w-3xl mx-auto"
+            >
+              {projectsData.projectsPage.introduction}
+            </motion.p>
           </div>
         </Container>
       </section>

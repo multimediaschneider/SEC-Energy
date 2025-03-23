@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Metadata } from "next";
 import { client } from "@/sanity/client";
 import {
   Building2,
@@ -14,13 +13,15 @@ import {
   Scale,
   Leaf,
   Network,
+  ChevronDown,
   LucideIcon,
+  ArrowRight,
 } from "lucide-react";
 import { fallbackData } from "../constants/data/services-fallback-data";
 import { Card, CardContent } from "@/components/ui/card";
-import ImageSlider from "@/components/ui/image-slider";
 import ContactSection from "@/components/sections/contact-section";
 import CustomButton from "@/components/ui/custom-button";
+import Container from "@/components/ui/container";
 
 interface ServiceArea {
   title: string;
@@ -64,6 +65,7 @@ export default function ServicesPage() {
   const [isSticky, setIsSticky] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const navbarHeight = 93; // Adjust this value based on your navbar height
 
   useEffect(() => {
@@ -111,12 +113,37 @@ export default function ServicesPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fixed: Proper ref callback with useCallback
+  const setSectionRef = useCallback(
+    (el: HTMLDivElement | null, index: number) => {
+      sectionRefs.current[index] = el;
+    },
+    []
+  );
+
+  // Scroll to section when category is clicked
+  const scrollToSection = (index: number) => {
+    setActiveCategory(index);
+    if (sectionRefs.current[index]) {
+      const yOffset = -navbarHeight - 60; // Additional offset for sticky navigation
+      const element = sectionRefs.current[index];
+      if (element) {
+        const y =
+          element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  };
+
   const data = servicesData || fallbackData;
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section ref={heroRef} className="relative overflow-hidden">
+      {/* Hero Section - Full screen height */}
+      <section
+        ref={heroRef}
+        className="relative overflow-hidden h-screen flex items-center"
+      >
         {/* Base gradient background */}
         <div
           className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800"
@@ -127,11 +154,13 @@ export default function ServicesPage() {
         />
 
         {/* Animated blur circles */}
-        <div className="blur-container">
-          <div className="blur-circle blur-circle-1" />
-          <div className="blur-circle blur-circle-2" />
-          <div className="blur-circle blur-circle-3" />
-          <div className="blur-circle blur-circle-4" />
+        <div className="absolute inset-0">
+          <div className="blur-container">
+            <div className="blur-circle blur-circle-1" />
+            <div className="blur-circle blur-circle-2" />
+            <div className="blur-circle blur-circle-3" />
+            <div className="blur-circle blur-circle-4" />
+          </div>
         </div>
 
         {/* White noise overlay for texture */}
@@ -139,7 +168,7 @@ export default function ServicesPage() {
           <div className="noise-texture" />
         </div>
 
-        <div className="relative h-screen flex items-center justify-center">
+        <Container>
           <div className="text-center text-emerald-50 z-10">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -156,12 +185,38 @@ export default function ServicesPage() {
             >
               {data.introduction}
             </motion.p>
+
+            {/* Added CTA button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-8"
+            >
+              <CustomButton
+                text="Beratungsgespräch anfordern"
+                href="/kontakt"
+                iconSize={24}
+                size="lg"
+                className="bg-white text-emerald-700 hover:bg-emerald-50"
+              />
+            </motion.div>
+
+            {/* Scroll indicator */}
+            <motion.div
+              className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, y: [0, 10, 0] }}
+              transition={{ delay: 0.5, duration: 1.5, repeat: Infinity }}
+            >
+              <ChevronDown className="w-10 h-10 text-white" />
+            </motion.div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Categories Navigation */}
-      <div className="relative">
+      <div className="relative bg-white">
         <div
           ref={navRef}
           style={{
@@ -171,17 +226,17 @@ export default function ServicesPage() {
             right: 0,
             zIndex: 40,
           }}
-          className="bg-white transition-all duration-300"
+          className="bg-white shadow-md transition-all duration-300"
         >
-          <div className="container mx-auto px-4">
-            <div className="flex overflow-x-auto gap-4 py-4">
+          <Container>
+            <div className="flex overflow-x-auto gap-4 py-6 no-scrollbar">
               {data.categories.map((category, index) => (
                 <button
                   key={index}
-                  onClick={() => setActiveCategory(index)}
-                  className={`px-6 py-2 rounded-sm whitespace-nowrap transition-colors flex-shrink-0 ${
+                  onClick={() => scrollToSection(index)}
+                  className={`px-6 py-3 rounded-md whitespace-nowrap transition-all flex-shrink-0 font-medium ${
                     activeCategory === index
-                      ? "bg-emerald-700 text-white"
+                      ? "bg-emerald-700 text-white shadow-md"
                       : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                   }`}
                 >
@@ -189,7 +244,7 @@ export default function ServicesPage() {
                 </button>
               ))}
             </div>
-          </div>
+          </Container>
         </div>
         {/* Placeholder div to prevent content jump */}
         {isSticky && (
@@ -200,82 +255,302 @@ export default function ServicesPage() {
       </div>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
-        <motion.div
-          key={activeCategory}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Top section with text and image slider */}
-          <div className="flex items-center mt-12 mb-24">
-            {/* Left column - Text content */}
-            <div className="w-1/2 justify-center border-l-4 border-emerald-700 pl-6">
-              <h2 className="text-6xl font-light text-emerald-700 mb-6">
-                {data.categories[activeCategory].title}
+      <main className="py-12">
+        {data.categories.map((category, catIndex) => (
+          <section
+            key={catIndex}
+            id={`category-${catIndex}`}
+            // Fixed: Proper ref assignment using callback with type assertion
+            ref={(el) => setSectionRef(el as HTMLDivElement | null, catIndex)}
+            className={`py-16 ${catIndex % 2 === 0 ? "bg-white" : "bg-emerald-700 bg-opacity-5"}`}
+          >
+            <Container>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="mb-16"
+              >
+                <div className="flex flex-col items-center text-center mb-10">
+                  <div className="h-20 w-20 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-6">
+                    {category.areas[0]?.icon &&
+                      icons[category.areas[0].icon] &&
+                      React.createElement(icons[category.areas[0].icon], {
+                        className: "w-10 h-10 text-emerald-700",
+                      })}
+                  </div>
+                  <h2 className="text-4xl font-light text-emerald-700 mb-6 max-w-3xl">
+                    {category.title}
+                  </h2>
+                  <p className="text-xl font-light text-gray-600 max-w-3xl">
+                    {category.description}
+                  </p>
+                </div>
+
+                {/* Service areas grid with large cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+                  {category.areas.map((area, areaIndex) => {
+                    const IconComponent = icons[area.icon];
+                    return (
+                      <motion.div
+                        key={areaIndex}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: areaIndex * 0.1 }}
+                        className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:shadow-xl hover:-translate-y-1"
+                      >
+                        <div className="p-8">
+                          <div className="flex items-center gap-4 mb-5">
+                            <div className="bg-emerald-100 p-3 rounded-full">
+                              {IconComponent &&
+                                React.createElement(IconComponent, {
+                                  className: "w-6 h-6 text-emerald-600",
+                                })}
+                            </div>
+                            <h3 className="text-2xl font-medium text-emerald-700">
+                              {area.title}
+                            </h3>
+                          </div>
+
+                          <p className="text-lg text-gray-600 mb-6">
+                            {area.description}
+                          </p>
+
+                          <div className="border-t border-gray-100 pt-6">
+                            <h4 className="text-lg font-medium text-emerald-700 mb-4">
+                              Leistungen
+                            </h4>
+                            <ul className="space-y-3">
+                              {area.bulletPoints.map((point, i) => (
+                                <li
+                                  key={i}
+                                  className="flex items-start gap-3 text-gray-700"
+                                >
+                                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
+                                  <span>{point}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Visual separator with image */}
+                {category.images && category.images.length > 0 && (
+                  <div className="mt-16 relative h-64 md:h-96 rounded-xl overflow-hidden shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/60 to-emerald-700/20 z-10" />
+                    <Image
+                      src={category.images[0]}
+                      alt={category.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                    />
+                    <div className="absolute inset-0 z-20 flex items-center justify-center">
+                      <div className="text-white text-center p-8">
+                        <h3 className="text-3xl font-light mb-4 drop-shadow-lg">
+                          Maßgeschneiderte Lösungen
+                        </h3>
+                        <p className="text-xl font-light mb-6 max-w-lg mx-auto drop-shadow-lg">
+                          Wir entwickeln individuelle Konzepte nach Ihren
+                          spezifischen Anforderungen
+                        </p>
+                        <CustomButton
+                          text="Beratungsgespräch vereinbaren"
+                          href="/kontakt"
+                          iconSize={20}
+                          size="lg"
+                          className="bg-white text-emerald-700 hover:bg-emerald-50"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Benefits section after each category */}
+              {catIndex < data.categories.length - 1 && (
+                <div className="border-t border-emerald-100 pt-16">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="text-center p-6">
+                      <div className="mx-auto h-16 w-16 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-4">
+                        <Scale className="w-8 h-8 text-emerald-700" />
+                      </div>
+                      <h4 className="text-xl font-medium text-emerald-700 mb-2">
+                        Wirtschaftlichkeit
+                      </h4>
+                      <p className="text-gray-600">
+                        Optimale Balance aus Investitions- und Betriebskosten
+                      </p>
+                    </div>
+
+                    <div className="text-center p-6">
+                      <div className="mx-auto h-16 w-16 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-4">
+                        <Leaf className="w-8 h-8 text-emerald-700" />
+                      </div>
+                      <h4 className="text-xl font-medium text-emerald-700 mb-2">
+                        Nachhaltigkeit
+                      </h4>
+                      <p className="text-gray-600">
+                        Ressourcenschonende Lösungen für eine grüne Zukunft
+                      </p>
+                    </div>
+
+                    <div className="text-center p-6">
+                      <div className="mx-auto h-16 w-16 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-4">
+                        <Wrench className="w-8 h-8 text-emerald-700" />
+                      </div>
+                      <h4 className="text-xl font-medium text-emerald-700 mb-2">
+                        Technische Exzellenz
+                      </h4>
+                      <p className="text-gray-600">
+                        Höchste Standards in Planung und Umsetzung
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Container>
+          </section>
+        ))}
+
+        {/* Added: FAQ Section */}
+        <section className="py-16 bg-white">
+          <Container>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-light text-emerald-700 mb-4">
+                Häufig gestellte Fragen
               </h2>
-              <p className="text-2xl font-light w-10/12 text-gray-600">
-                {data.categories[activeCategory].description}
+              <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto">
+                Antworten auf die wichtigsten Fragen zu unseren Leistungen
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="bg-emerald-50 p-6 rounded-lg">
+                <h3 className="text-xl font-medium text-emerald-700 mb-3">
+                  Welche Vorteile bietet Contracting?
+                </h3>
+                <p className="text-gray-700">
+                  Contracting ermöglicht es Ihnen, moderne Energietechnik ohne
+                  eigene Investition zu nutzen. Sie profitieren von
+                  Kostensicherheit, professionellem Anlagenbetrieb und
+                  nachhaltigeren Lösungen ohne Kapitalbindung.
+                </p>
+              </div>
+
+              <div className="bg-emerald-50 p-6 rounded-lg">
+                <h3 className="text-xl font-medium text-emerald-700 mb-3">
+                  Wie lange dauert eine typische Projektplanung?
+                </h3>
+                <p className="text-gray-700">
+                  Die Dauer variiert je nach Komplexität. Von der ersten
+                  Beratung bis zur Umsetzungsreife vergehen in der Regel 2-6
+                  Monate, wobei wir großen Wert auf eine gründliche Analyse und
+                  maßgeschneiderte Lösung legen.
+                </p>
+              </div>
+
+              <div className="bg-emerald-50 p-6 rounded-lg">
+                <h3 className="text-xl font-medium text-emerald-700 mb-3">
+                  Für welche Gebäudetypen bieten Sie Lösungen?
+                </h3>
+                <p className="text-gray-700">
+                  Wir entwickeln Lösungen für eine Vielzahl von Gebäuden:
+                  Wohngebäude, Büroimmobilien, öffentliche Einrichtungen,
+                  Pflegeheime, Industriebetriebe und komplette Quartierslösungen
+                  - jedes Projekt erhält ein individuelles Konzept.
+                </p>
+              </div>
+
+              <div className="bg-emerald-50 p-6 rounded-lg">
+                <h3 className="text-xl font-medium text-emerald-700 mb-3">
+                  Wie wird die Wirtschaftlichkeit berechnet?
+                </h3>
+                <p className="text-gray-700">
+                  Wir führen detaillierte Analysen nach VDI 2067 durch und
+                  berücksichtigen alle relevanten Faktoren: Investitionskosten,
+                  Energiekosten, Betriebskosten, Fördermittel und
+                  Preisentwicklungen für eine realistische Kalkulation.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <CustomButton
+                text="Weitere Fragen? Kontaktieren Sie uns"
+                href="/kontakt"
+                iconSize={20}
+                size="lg"
+                className="bg-emerald-700"
+              />
+            </div>
+          </Container>
+        </section>
+      </main>
+
+      {/* Added: Pre-Contact CTA Section */}
+      <section className="py-16 bg-emerald-700">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-3xl font-light text-white mb-6">
+                Bereit für Ihren nächsten Schritt in Richtung Energieeffizienz?
+              </h2>
+              <p className="text-xl font-light text-white opacity-90 mb-8">
+                Unsere Experten beraten Sie gerne zu allen Fragen rund um
+                nachhaltige Energieversorgung und technische Gebäudeausrüstung.
               </p>
 
-              <CustomButton
-                text="Beratungsgespräch anfordern"
-                href="/contact"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700 mt-8 z-10"
-              />
+              <div className="flex flex-col sm:flex-row gap-4">
+                <CustomButton
+                  text="Kontakt aufnehmen"
+                  href="/kontakt"
+                  iconSize={20}
+                  size="lg"
+                  className="bg-white text-emerald-700 hover:bg-emerald-50"
+                />
+                <CustomButton
+                  text="Projekte ansehen"
+                  href="/projekte"
+                  iconSize={20}
+                  size="lg"
+                  className="bg-emerald-600 border-emerald-600 hover:bg-emerald-500"
+                />
+              </div>
             </div>
 
-            {/* Right column - Image slider */}
-            <div className="h-[400px] w-1/2">
-              <ImageSlider
-                images={
-                  data.categories[activeCategory].images || [
-                    "/api/placeholder/800/1200",
-                  ]
-                }
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
+              <Image
+                src="/consulting.jpg"
+                alt="Beratungsgespräch"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               />
+              <div className="absolute inset-0 bg-emerald-700/30" />
+              <div className="absolute bottom-0 left-0 right-0 bg-emerald-700/80 p-6">
+                <div className="flex items-center gap-3 text-white mb-2">
+                  <FileText className="w-5 h-5 flex-shrink-0" />
+                  <span className="font-medium">Erstberatung kostenlos</span>
+                </div>
+                <p className="text-white/90">
+                  Vereinbaren Sie ein unverbindliches Erstgespräch mit unseren
+                  Experten
+                </p>
+              </div>
             </div>
           </div>
+        </Container>
+      </section>
 
-          {/* Service areas grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 container mx-auto py-8 px-12 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
-            {data.categories[activeCategory].areas.map((area, index) => {
-              const Icon = icons[area.icon];
-              return (
-                <Card key={index} className="bg-emerald-50">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="bg-emerald-100 p-3 rounded-full">
-                        {Icon && <Icon className="w-6 h-6 text-emerald-600" />}
-                      </div>
-                      <h4 className="text-2xl font-medium text-emerald-700">
-                        {area.title}
-                      </h4>
-                    </div>
-                    <p className="text-xl font-medium text-emerald-700 mb-4">
-                      {area.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {area.bulletPoints.map((point, i) => (
-                        <li
-                          key={i}
-                          className="flex text-md items-center gap-2 text-gray-700"
-                        >
-                          <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </motion.div>
-        <ContactSection />
-      </main>
+      {/* Contact Section Component */}
+      <ContactSection />
     </div>
   );
 }
