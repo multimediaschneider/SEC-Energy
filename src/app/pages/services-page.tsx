@@ -272,20 +272,45 @@ export default function ServicesPage() {
                 transition={{ duration: 0.5 }}
                 className="mb-16"
               >
-                <div className="flex flex-col items-center text-center mb-10">
-                  <div className="h-20 w-20 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-6">
-                    {category.areas[0]?.icon &&
-                      icons[category.areas[0].icon] &&
-                      React.createElement(icons[category.areas[0].icon], {
-                        className: "w-10 h-10 text-emerald-700",
-                      })}
+                {/* Category Header with Image Background */}
+                <div className="mt-8 relative h-64 md:h-72 rounded-xl overflow-hidden shadow-lg mb-10">
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/70 to-emerald-700/30 z-10" />
+
+                  {/* Background image */}
+                  <Image
+                    src={
+                      category.images && category.images.length > 0
+                        ? category.images[0]
+                        : "/consulting.jpg"
+                    } // Fallback image
+                    alt={category.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                  />
+
+                  {/* Content overlay */}
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
+                    <div className="text-white text-center p-6">
+                      {/* Icon in circle */}
+                      <div className="h-20 w-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 mx-auto">
+                        {category.areas[0]?.icon &&
+                          icons[category.areas[0].icon] &&
+                          React.createElement(icons[category.areas[0].icon], {
+                            className: "w-10 h-10 text-white",
+                          })}
+                      </div>
+
+                      <h2 className="text-4xl font-light text-white mb-6 max-w-3xl drop-shadow-lg">
+                        {category.title}
+                      </h2>
+
+                      <p className="text-xl font-light text-white/90 max-w-3xl drop-shadow-lg">
+                        {category.description}
+                      </p>
+                    </div>
                   </div>
-                  <h2 className="text-4xl font-light text-emerald-700 mb-6 max-w-3xl">
-                    {category.title}
-                  </h2>
-                  <p className="text-xl font-light text-gray-600 max-w-3xl">
-                    {category.description}
-                  </p>
                 </div>
 
                 {/* Service areas grid with large cards */}
@@ -339,38 +364,6 @@ export default function ServicesPage() {
                     );
                   })}
                 </div>
-
-                {/* Visual separator with image */}
-                {category.images && category.images.length > 0 && (
-                  <div className="mt-16 relative h-64 md:h-96 rounded-xl overflow-hidden shadow-lg">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/60 to-emerald-700/20 z-10" />
-                    <Image
-                      src={category.images[0]}
-                      alt={category.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                    />
-                    <div className="absolute inset-0 z-20 flex items-center justify-center">
-                      <div className="text-white text-center p-8">
-                        <h3 className="text-3xl font-light mb-4 drop-shadow-lg">
-                          Maßgeschneiderte Lösungen
-                        </h3>
-                        <p className="text-xl font-light mb-6 max-w-lg mx-auto drop-shadow-lg">
-                          Wir entwickeln individuelle Konzepte nach Ihren
-                          spezifischen Anforderungen
-                        </p>
-                        <CustomButton
-                          text="Beratungsgespräch vereinbaren"
-                          href="/kontakt"
-                          iconSize={20}
-                          size="lg"
-                          className="bg-white text-emerald-700 hover:bg-emerald-50"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
               </motion.div>
 
               {/* Benefits section after each category */}

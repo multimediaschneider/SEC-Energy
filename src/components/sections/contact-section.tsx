@@ -38,7 +38,64 @@ export default function ContactSection() {
               </div>
             </div>
           </div>
+          {/* Added: Pre-Contact CTA Section */}
+          <section className="py-16 bg-emerald-700">
+            <Container>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                  <h2 className="text-3xl font-light text-white mb-6">
+                    Bereit für Ihren nächsten Schritt in Richtung
+                    Energieeffizienz?
+                  </h2>
+                  <p className="text-xl font-light text-white opacity-90 mb-8">
+                    Unsere Experten beraten Sie gerne zu allen Fragen rund um
+                    nachhaltige Energieversorgung und technische
+                    Gebäudeausrüstung.
+                  </p>
 
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <CustomButton
+                      text="Kontakt aufnehmen"
+                      href="/kontakt"
+                      iconSize={20}
+                      size="lg"
+                      className="bg-white text-emerald-700 hover:bg-emerald-50"
+                    />
+                    <CustomButton
+                      text="Projekte ansehen"
+                      href="/projekte"
+                      iconSize={20}
+                      size="lg"
+                      className="bg-emerald-600 border-emerald-600 hover:bg-emerald-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
+                  <Image
+                    src="/consulting.jpg"
+                    alt="Beratungsgespräch"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  />
+                  <div className="absolute inset-0 bg-emerald-700/30" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-emerald-700/80 p-6">
+                    <div className="flex items-center gap-3 text-white mb-2">
+                      <div className="w-5 h-5 flex-shrink-0" />
+                      <span className="font-medium">
+                        Erstberatung kostenlos
+                      </span>
+                    </div>
+                    <p className="text-white/90">
+                      Vereinbaren Sie ein unverbindliches Erstgespräch mit
+                      unseren Experten
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Container>
+          </section>
           {/* Bottom Section - Contact Info */}
           <div className="bg-white p-8">
             <div className="flex flex-col md:flex-row gap-8 items-center">

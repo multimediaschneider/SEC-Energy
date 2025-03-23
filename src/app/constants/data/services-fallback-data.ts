@@ -11,7 +11,7 @@ export const fallbackData = {
       shortTitle: "Technische Gebäudeausrüstung",
       title: "Ingenieurleistungen der Technischen Gebäudeausrüstung",
       description:
-        "In der technischen Gebäudeausrüstung bieten wir Ihnen ganzheitliche Lösungen für maximalen Komfort und Effizienz in Ihrem Gebäude. Von innovativen Heizungssystemen über moderne Sanitäranlagen bis hin zu ausgeklügelten Lüftungskonzepten entwickeln wir maßgeschneiderte Konzepte für Ihre individuellen Anforderungen. Unsere erfahrenen Experten begleiten Sie von der ersten Planung bis zur finalen Umsetzung und gewährleisten dabei höchste technische Standards.",
+        "Effiziente Gebäudetechnik aus einer Hand - Wir bieten ganzheitliche Lösungen für Heizung, Sanitär und Lüftung – individuell geplant, technisch präzise umgesetzt. Von der ersten Planung bis zur Umsetzung sorgen unsere Experten für maximale Effizienz und höchsten Komfort.",
       images: ["/cargarage.jpg"],
       areas: [
         {
