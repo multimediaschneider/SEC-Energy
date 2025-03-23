@@ -14,6 +14,7 @@ import {
   MailOpen,
   FileText,
   LucideIcon,
+  ChevronDown,
 } from "lucide-react";
 import Container from "@/components/ui/container";
 import TextBlock from "@/components/ui/text-block";
@@ -180,8 +181,8 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section - Updated to full screen height */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 h-screen flex items-center">
+      {/* Hero Section - Optimiert mit Flexbox */}
+      <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 min-h-screen flex items-center">
         <div className="absolute inset-0">
           {/* Animated blur circles for visual interest */}
           <div className="blur-container">
@@ -232,22 +233,25 @@ export default function AboutPage() {
               className="w-full md:w-1/2 flex justify-center"
             >
               <div className="relative w-80 h-96 md:w-96 md:h-[500px]">
-                {/* Decorative background effects */}
-                <div className="absolute inset-0 bg-emerald-100/30 rounded-lg -rotate-3 transform scale-105" />
-                <div className="absolute inset-0 bg-emerald-100/20 rounded-lg rotate-3 transform scale-105" />
+                {/* Ersetzt absolutes Positioning mit Flexbox und Transformation */}
+                <div className="w-full h-full flex items-center justify-center">
+                  {/* Dekorative Hintergründe mit Transform statt absoluter Positionierung */}
+                  <div className="absolute w-full h-full bg-emerald-100/30 rounded-lg transform -rotate-3 scale-105" />
+                  <div className="absolute w-full h-full bg-emerald-100/20 rounded-lg transform rotate-3 scale-105" />
 
-                {/* Main image container */}
-                <div className="relative h-full w-full rounded-lg shadow-2xl overflow-hidden">
-                  <Image
-                    src="/dierk.jpg"
-                    alt="Dipl.-Ing. Dierk Schneider"
-                    fill
-                    className="object-cover"
-                    style={{ objectPosition: "50% 20%" }}
-                    sizes="(max-width: 768px) 320px, 384px"
-                    priority
-                    quality={90}
-                  />
+                  {/* Hauptbild-Container */}
+                  <div className="relative h-full w-full rounded-lg shadow-2xl overflow-hidden z-10">
+                    <Image
+                      src="/dierk.jpg"
+                      alt="Dipl.-Ing. Dierk Schneider"
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: "50% 20%" }}
+                      sizes="(max-width: 768px) 320px, 384px"
+                      priority
+                      quality={90}
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -255,7 +259,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Leadership Section */}
+      {/* Leadership Section - Optimiert mit Flexbox */}
       <section className="py-20 bg-white">
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -298,72 +302,80 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:order-1 relative">
-              <div className="absolute -left-4 top-1/4 w-24 h-24 rounded-full bg-emerald-100 opacity-70"></div>
-              <div className="absolute -right-8 bottom-1/4 w-32 h-32 rounded-full bg-emerald-200 opacity-50"></div>
+              {/* Dekorative Elemente als separate, absolut positionierte Elemente */}
+              <div className="absolute -left-4 top-1/4 w-24 h-24 rounded-full bg-emerald-100 opacity-70 z-0"></div>
+              <div className="absolute -right-8 bottom-1/4 w-32 h-32 rounded-full bg-emerald-200 opacity-50 z-0"></div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="relative bg-white rounded-lg shadow-xl p-10 z-10"
-              >
-                <h3 className="text-2xl font-medium text-emerald-700 mb-6 border-b pb-4 border-emerald-200">
-                  Unternehmensgeschichte
-                </h3>
+              {/* Main content container */}
+              <div className="relative flex items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="relative bg-white rounded-lg shadow-xl p-10 z-10 w-full"
+                >
+                  <h3 className="text-2xl font-medium text-emerald-700 mb-6 border-b pb-4 border-emerald-200">
+                    Unternehmensgeschichte
+                  </h3>
 
-                <div className="space-y-6">
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                      2000
+                  <div className="space-y-6">
+                    {/* Timeline-Einträge mit Flexbox */}
+                    <div className="flex">
+                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                        2000
+                      </div>
+                      <div>
+                        <h4 className="font-medium">Gründung SEC Consulting</h4>
+                        <p className="text-gray-600">
+                          Start als spezialisierte Energieberatung
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium">Gründung SEC Consulting</h4>
-                      <p className="text-gray-600">
-                        Start als spezialisierte Energieberatung
-                      </p>
+
+                    <div className="flex">
+                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                        2005
+                      </div>
+                      <div>
+                        <h4 className="font-medium">
+                          Erweiterung Geschäftsfelder
+                        </h4>
+                        <p className="text-gray-600">
+                          Fokus auf TGA-Fachplanung und Contracting
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex">
+                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                        2010
+                      </div>
+                      <div>
+                        <h4 className="font-medium">20+ Referenzprojekte</h4>
+                        <p className="text-gray-600">
+                          Etablierung als Experte für nachhaltige
+                          Energielösungen
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex">
+                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                        Heute
+                      </div>
+                      <div>
+                        <h4 className="font-medium">
+                          Marktführer in der Region
+                        </h4>
+                        <p className="text-gray-600">
+                          Über 50 erfolgreiche Großprojekte und kontinuierliches
+                          Wachstum
+                        </p>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                      2005
-                    </div>
-                    <div>
-                      <h4 className="font-medium">
-                        Erweiterung Geschäftsfelder
-                      </h4>
-                      <p className="text-gray-600">
-                        Fokus auf TGA-Fachplanung und Contracting
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                      2010
-                    </div>
-                    <div>
-                      <h4 className="font-medium">20+ Referenzprojekte</h4>
-                      <p className="text-gray-600">
-                        Etablierung als Experte für nachhaltige Energielösungen
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex">
-                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                      Heute
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Marktführer in der Region</h4>
-                      <p className="text-gray-600">
-                        Über 50 erfolgreiche Großprojekte und kontinuierliches
-                        Wachstum
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </Container>
@@ -410,7 +422,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Expertise Grid Section */}
+      {/* Expertise Grid Section - Optimiert mit Flexbox und konsistenten Karten */}
       <section className="py-20 bg-white">
         <Container>
           <TextBlock
@@ -426,35 +438,14 @@ export default function AboutPage() {
             {expertise.map((area, index) => {
               const Icon = icons[area.icon];
               return (
-                <motion.div
+                <ExpertiseCard
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-emerald-50 rounded-lg p-8 shadow-md"
-                >
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="bg-emerald-100 p-3 rounded-full">
-                      <Icon className="w-6 h-6 text-emerald-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-emerald-700">
-                        {area.category}
-                      </h3>
-                      <p className="text-gray-600">{area.description}</p>
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3">
-                    {area.items.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-gray-700">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
+                  icon={Icon}
+                  title={area.category}
+                  description={area.description}
+                  highlights={area.items}
+                  index={index}
+                />
               );
             })}
           </div>

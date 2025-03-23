@@ -15,10 +15,9 @@ import {
   Network,
   ChevronDown,
   LucideIcon,
-  ArrowRight,
 } from "lucide-react";
 import { fallbackData } from "../constants/data/services-fallback-data";
-import { Card, CardContent } from "@/components/ui/card";
+import { ServiceCard } from "@/components/ui/base-card";
 import ContactSection from "@/components/sections/contact-section";
 import CustomButton from "@/components/ui/custom-button";
 import Container from "@/components/ui/container";
@@ -113,7 +112,7 @@ export default function ServicesPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fixed: Proper ref callback with useCallback
+  // Proper ref callback with useCallback
   const setSectionRef = useCallback(
     (el: HTMLDivElement | null, index: number) => {
       sectionRefs.current[index] = el;
@@ -142,7 +141,7 @@ export default function ServicesPage() {
       {/* Hero Section - Full screen height */}
       <section
         ref={heroRef}
-        className="relative overflow-hidden h-screen flex items-center"
+        className="relative overflow-hidden h-screen flex items-center justify-center"
       >
         {/* Base gradient background */}
         <div
@@ -186,7 +185,7 @@ export default function ServicesPage() {
               {data.introduction}
             </motion.p>
 
-            {/* Added CTA button */}
+            {/* CTA button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -219,14 +218,7 @@ export default function ServicesPage() {
       <div className="relative bg-white">
         <div
           ref={navRef}
-          style={{
-            position: isSticky ? "fixed" : "relative",
-            top: isSticky ? `${navbarHeight}px` : "auto",
-            left: 0,
-            right: 0,
-            zIndex: 40,
-          }}
-          className="bg-white shadow-md transition-all duration-300"
+          className={`bg-white shadow-md transition-all duration-300 ${isSticky ? "fixed top-[93px] left-0 right-0 z-40" : ""}`}
         >
           <Container>
             <div className="flex overflow-x-auto gap-4 py-6 no-scrollbar">
@@ -260,7 +252,6 @@ export default function ServicesPage() {
           <section
             key={catIndex}
             id={`category-${catIndex}`}
-            // Fixed: Proper ref assignment using callback with type assertion
             ref={(el) => setSectionRef(el as HTMLDivElement | null, catIndex)}
             className={`py-16 ${catIndex % 2 === 0 ? "bg-white" : "bg-emerald-700 bg-opacity-5"}`}
           >
@@ -272,102 +263,83 @@ export default function ServicesPage() {
                 transition={{ duration: 0.5 }}
                 className="mb-16"
               >
-                {/* Category Header with Image Background */}
-                <div className="mt-8 relative h-64 md:h-72 rounded-xl overflow-hidden shadow-lg mb-10">
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/70 to-emerald-700/30 z-10" />
+                {/* Category Header - Using Flexbox for clean layout */}
+                <div className="flex flex-col items-center mb-16">
+                  {/* Icon Circle - Clean and simple positioning */}
+                  <div className="mb-6 flex justify-center">
+                    <div className="h-20 w-20 rounded-full bg-emerald-700 shadow-lg flex items-center justify-center">
+                      {category.areas[0]?.icon &&
+                        icons[category.areas[0].icon] &&
+                        React.createElement(icons[category.areas[0].icon], {
+                          className: "w-10 h-10 text-white",
+                        })}
+                    </div>
+                  </div>
 
-                  {/* Background image */}
-                  <Image
-                    src={
-                      category.images && category.images.length > 0
-                        ? category.images[0]
-                        : "/consulting.jpg"
-                    } // Fallback image
-                    alt={category.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                  />
+                  {/* Background image container with overlay - proper sizing */}
+                  <div className="w-full relative h-64 md:h-72 rounded-xl overflow-hidden shadow-lg">
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/70 to-emerald-700/30 z-10" />
 
-                  {/* Content overlay */}
-                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
-                    <div className="text-white text-center p-6">
-                      {/* Icon in circle */}
-                      <div className="h-20 w-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 mx-auto">
-                        {category.areas[0]?.icon &&
-                          icons[category.areas[0].icon] &&
-                          React.createElement(icons[category.areas[0].icon], {
-                            className: "w-10 h-10 text-white",
-                          })}
+                    {/* Background image */}
+                    <Image
+                      src={
+                        category.images && category.images.length > 0
+                          ? category.images[0]
+                          : "/consulting.jpg"
+                      }
+                      alt={category.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                    />
+
+                    {/* Content overlay using flexbox for centering */}
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
+                      <div className="text-white text-center p-6">
+                        <h2 className="text-4xl font-light text-white mb-6 max-w-3xl drop-shadow-lg">
+                          {category.title}
+                        </h2>
+
+                        <p className="text-xl font-light text-white/90 max-w-3xl drop-shadow-lg">
+                          {category.description}
+                        </p>
                       </div>
-
-                      <h2 className="text-4xl font-light text-white mb-6 max-w-3xl drop-shadow-lg">
-                        {category.title}
-                      </h2>
-
-                      <p className="text-xl font-light text-white/90 max-w-3xl drop-shadow-lg">
-                        {category.description}
-                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Service areas grid with large cards */}
+                {/* Service areas grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
                   {category.areas.map((area, areaIndex) => {
                     const IconComponent = icons[area.icon];
                     return (
-                      <motion.div
+                      <ServiceCard
                         key={areaIndex}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: areaIndex * 0.1 }}
-                        className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all hover:shadow-xl hover:-translate-y-1"
+                        icon={IconComponent || Lightbulb}
+                        title={area.title}
+                        description={area.description}
+                        index={areaIndex}
                       >
-                        <div className="p-8">
-                          <div className="flex items-center gap-4 mb-5">
-                            <div className="bg-emerald-100 p-3 rounded-full">
-                              {IconComponent &&
-                                React.createElement(IconComponent, {
-                                  className: "w-6 h-6 text-emerald-600",
-                                })}
-                            </div>
-                            <h3 className="text-2xl font-medium text-emerald-700">
-                              {area.title}
-                            </h3>
-                          </div>
-
-                          <p className="text-lg text-gray-600 mb-6">
-                            {area.description}
-                          </p>
-
-                          <div className="border-t border-gray-100 pt-6">
-                            <h4 className="text-lg font-medium text-emerald-700 mb-4">
-                              Leistungen
-                            </h4>
-                            <ul className="space-y-3">
-                              {area.bulletPoints.map((point, i) => (
-                                <li
-                                  key={i}
-                                  className="flex items-start gap-3 text-gray-700"
-                                >
-                                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
-                                  <span>{point}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </motion.div>
+                        <ul className="space-y-3 mt-4">
+                          {area.bulletPoints.map((point, i) => (
+                            <li
+                              key={i}
+                              className="flex items-start gap-3 text-gray-700"
+                            >
+                              <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </ServiceCard>
                     );
                   })}
                 </div>
               </motion.div>
 
-              {/* Benefits section after each category */}
-              {catIndex < data.categories.length - 1 && (
+              {/* Display the Benefits section only once after the first category */}
+              {catIndex === 0 && (
                 <div className="border-t border-emerald-100 pt-16">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="text-center p-6">
@@ -412,7 +384,7 @@ export default function ServicesPage() {
           </section>
         ))}
 
-        {/* Added: FAQ Section */}
+        {/* FAQ Section */}
         <section className="py-16 bg-white">
           <Container>
             <div className="text-center mb-12">
@@ -486,61 +458,6 @@ export default function ServicesPage() {
           </Container>
         </section>
       </main>
-
-      {/* Added: Pre-Contact CTA Section */}
-      <section className="py-16 bg-emerald-700">
-        <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl font-light text-white mb-6">
-                Bereit für Ihren nächsten Schritt in Richtung Energieeffizienz?
-              </h2>
-              <p className="text-xl font-light text-white opacity-90 mb-8">
-                Unsere Experten beraten Sie gerne zu allen Fragen rund um
-                nachhaltige Energieversorgung und technische Gebäudeausrüstung.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <CustomButton
-                  text="Kontakt aufnehmen"
-                  href="/kontakt"
-                  iconSize={20}
-                  size="lg"
-                  className="bg-white text-emerald-700 hover:bg-emerald-50"
-                />
-                <CustomButton
-                  text="Projekte ansehen"
-                  href="/projekte"
-                  iconSize={20}
-                  size="lg"
-                  className="bg-emerald-600 border-emerald-600 hover:bg-emerald-500"
-                />
-              </div>
-            </div>
-
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
-              <Image
-                src="/consulting.jpg"
-                alt="Beratungsgespräch"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-              />
-              <div className="absolute inset-0 bg-emerald-700/30" />
-              <div className="absolute bottom-0 left-0 right-0 bg-emerald-700/80 p-6">
-                <div className="flex items-center gap-3 text-white mb-2">
-                  <FileText className="w-5 h-5 flex-shrink-0" />
-                  <span className="font-medium">Erstberatung kostenlos</span>
-                </div>
-                <p className="text-white/90">
-                  Vereinbaren Sie ein unverbindliches Erstgespräch mit unseren
-                  Experten
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
 
       {/* Contact Section Component */}
       <ContactSection />

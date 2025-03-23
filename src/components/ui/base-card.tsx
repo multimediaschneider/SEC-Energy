@@ -50,14 +50,12 @@ export function ServiceCard({
   title,
   description,
   index,
-}: Omit<BaseCardProps, "children">) {
+  children,
+}: BaseCardProps) {
   return (
-    <BaseCard
-      icon={icon}
-      title={title}
-      description={description}
-      index={index}
-    />
+    <BaseCard icon={icon} title={title} description={description} index={index}>
+      {children}
+    </BaseCard>
   );
 }
 

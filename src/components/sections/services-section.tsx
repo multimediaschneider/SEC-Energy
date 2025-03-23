@@ -18,8 +18,7 @@ import TextBlock from "../ui/text-block";
 import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
-import { ServiceCard } from "../ui/base-card";
-import ExpandableServices from "../ui/expandable-services";
+import { ExpertiseCard } from "../ui/base-card";
 
 interface ServiceCategory {
   icon: string;
@@ -40,7 +39,7 @@ const icons: Record<string, LucideIcon> = {
   lineChart: LineChart,
 };
 
-const initialServices: ServiceCategory[] = [
+const allServices: ServiceCategory[] = [
   {
     icon: "wrench",
     title: "Technische Gebäudeausrüstung",
@@ -61,9 +60,6 @@ const initialServices: ServiceCategory[] = [
     title: "Beratungsleistungen",
     description: "Expertenwissen für Ihre Projekterfolge",
   },
-];
-
-const additionalServices: ServiceCategory[] = [
   {
     icon: "droplet",
     title: "Sanitärtechnik",
@@ -98,56 +94,46 @@ const additionalServices: ServiceCategory[] = [
 
 export default function ServicesSection() {
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-emerald-700 bg-opacity-20">
+    <section className="py-16 bg-emerald-700 bg-opacity-20">
       <Container>
-        {/* Headline and Introduction with overflow control */}
-        <div className="mb-8 overflow-hidden">
-          <div className="">
-            <TextBlock
-              headline="Unsere Leistungen – Effiziente Lösungen für die Gebäudetechnik
-"
-              introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten.
+        {/* Headline and Introduction */}
+        <div className="mb-12">
+          <TextBlock
+            headline="Unsere Leistungen – Effiziente Lösungen für die Gebäudetechnik"
+            introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten.
 
 Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Zukunft."
-              headlineSize="lg"
-              textSize="lg"
-              verticalSpacing="lg"
-              horizontalSpacing="md"
-            />
+            headlineSize="lg"
+            textSize="lg"
+            verticalSpacing="lg"
+            horizontalSpacing="md"
+          />
 
-            {/* Button in a properly constrained container */}
-            <div className="mt-8 mb-12 w-fit">
-              <CustomButton
-                text="Detaillierte Leistungsübersicht"
-                href="/leistungen"
-                iconSize={24}
-                size="lg"
-                className="bg-emerald-700"
-              />
-            </div>
+          {/* Button mit konsistentem Abstand */}
+          <div className="mt-8 w-fit">
+            <CustomButton
+              text="Detaillierte Leistungsübersicht"
+              href="/leistungen"
+              iconSize={24}
+              size="lg"
+              className="bg-emerald-700"
+            />
           </div>
         </div>
 
-        <GridLayout>
-          {/* Service Cards */}
-          <div className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {initialServices.map((service, index) => (
-                <ServiceCard
-                  key={index}
-                  icon={icons[service.icon]}
-                  title={service.title}
-                  description={service.description}
-                  index={index}
-                />
-              ))}
-            </div>
-            <ExpandableServices
-              additionalServices={additionalServices}
-              icons={icons}
+        {/* Service Cards Grid mit konsistenten Abständen */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {allServices.map((service, index) => (
+            <ExpertiseCard
+              key={index}
+              icon={icons[service.icon]}
+              title={service.title}
+              description={service.description}
+              highlights={[]}
+              index={index}
             />
-          </div>
-        </GridLayout>
+          ))}
+        </div>
       </Container>
     </section>
   );

@@ -126,7 +126,16 @@ export default function ExpertiseCompetenceSection() {
               />
             </div>
           </div>
-
+          {/* Button in a properly constrained container */}
+          <div className="mt-8 mb-12 w-fit">
+            <CustomButton
+              text="Beratungsgespräch anfordern"
+              href="/kontakt"
+              iconSize={24}
+              size="lg"
+              className="bg-emerald-700"
+            />
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 md:gap-8 mt-8 lg:mt-0">
             {data.expertiseAreas.map((area, index) => (
               <ExpertiseCard
@@ -138,16 +147,6 @@ export default function ExpertiseCompetenceSection() {
                 index={index}
               />
             ))}
-          </div>
-          {/* Button in a properly constrained container */}
-          <div className="mt-8 mb-12 w-fit">
-            <CustomButton
-              text="Beratungsgespräch anfordern"
-              href="/kontakt"
-              iconSize={24}
-              size="lg"
-              className="bg-emerald-700"
-            />
           </div>
         </GridLayout>
       </Container>
