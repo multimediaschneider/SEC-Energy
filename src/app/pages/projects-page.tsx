@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,12 +15,14 @@ import {
   Settings,
   ListChecks,
   Trophy,
+  ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { client } from "@/sanity/client";
 import ProjectCard from "@/components/ui/project-card";
+import { ExpertiseCard } from "@/components/ui/base-card";
 
 import {
   projectsFallbackData,
@@ -177,6 +181,16 @@ export default function ProjectsPage() {
             >
               {projectsData.projectsPage.introduction}
             </motion.p>
+
+            {/* Scroll indicator */}
+            <motion.div
+              className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, y: [0, 10, 0] }}
+              transition={{ delay: 0.5, duration: 1.5, repeat: Infinity }}
+            >
+              <ChevronDown className="w-10 h-10 text-white" />
+            </motion.div>
           </div>
         </Container>
       </section>
@@ -228,7 +242,7 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      {/* Project Detail Section */}
+      {/* Project Detail Section - Redesigned to match services-page.tsx style */}
       <AnimatePresence>
         {showDetails && (
           <motion.section
@@ -236,51 +250,82 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="py-12 bg-emerald-700 bg-opacity-10"
+            className="py-16 bg-emerald-700 bg-opacity-10"
           >
             <Container>
               <div className="flex flex-col">
-                <Button
-                  variant="ghost"
-                  className="self-end mb-4"
-                  onClick={() => setShowDetails(false)}
-                >
-                  Schließen
-                </Button>
+                <div className="flex justify-end mb-4">
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-emerald-100"
+                    onClick={() => setShowDetails(false)}
+                  >
+                    Schließen
+                  </Button>
+                </div>
 
-                {/* Project Header */}
-                <div className="flex flex-col md:flex-row gap-8 mb-10">
-                  {/* Left column - Image */}
-                  <div className="md:w-1/2 h-[300px] md:h-auto relative rounded-lg overflow-hidden">
+                {/* Project Header with Icon, Image, and Description */}
+                <div className="flex flex-col items-center mb-16">
+                  {/* Icon Circle above Image */}
+                  <div className="mb-6 flex justify-center">
+                    <div className="h-20 w-20 rounded-full bg-emerald-700 shadow-lg flex items-center justify-center z-10">
+                      <Building2 className="w-10 h-10 text-white" />
+                    </div>
+                  </div>
+
+                  {/* Background image with overlay */}
+                  <div className="w-full relative h-64 md:h-72 rounded-xl overflow-hidden shadow-lg mb-8">
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-700/70 to-emerald-700/30 z-10" />
+
+                    {/* Background image */}
                     <Image
                       src={currentProject.images?.[0] || "/pipes.jpg"}
                       alt={currentProject.title}
                       fill
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                     />
+
+                    {/* Content overlay using flexbox for centering */}
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
+                      <div className="text-white text-center p-6">
+                        <div className="flex flex-wrap justify-center gap-2 mb-4">
+                          <Badge
+                            variant="outline"
+                            className="capitalize bg-white/20 text-white"
+                          >
+                            {currentProject.category}
+                          </Badge>
+                          <Badge
+                            variant="outline"
+                            className="bg-white/20 text-white"
+                          >
+                            {currentProject.projectType}
+                          </Badge>
+                          <Badge
+                            variant="secondary"
+                            className="flex items-center gap-1 bg-white/30 text-white"
+                          >
+                            <CheckCircle2 className="w-4 h-4" />
+                            {currentProject.status}
+                          </Badge>
+                        </div>
+
+                        <h2 className="text-4xl font-light text-white mb-6 max-w-3xl drop-shadow-lg">
+                          {currentProject.title}
+                        </h2>
+
+                        <p className="text-xl font-light text-white/90 max-w-3xl drop-shadow-lg">
+                          {currentProject.shortDescription}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Right column - Basic info */}
-                  <div className="md:w-1/2 justify-center border-l-4 border-emerald-700 pl-6">
-                    <div className="flex gap-2 mb-4">
-                      <Badge variant="outline" className="capitalize">
-                        {currentProject.category}
-                      </Badge>
-                      <Badge variant="outline">
-                        {currentProject.projectType}
-                      </Badge>
-                      <Badge
-                        variant="secondary"
-                        className="flex items-center gap-1"
-                      >
-                        <CheckCircle2 className="w-4 h-4" />
-                        {currentProject.status}
-                      </Badge>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-light text-emerald-700 mb-6">
-                      {currentProject.title}
-                    </h2>
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                  {/* Full Description */}
+                  <div className="mb-6 max-w-4xl text-center">
+                    <p className="text-lg text-gray-700 leading-relaxed">
                       {currentProject.description}
                     </p>
                     <CustomButton
