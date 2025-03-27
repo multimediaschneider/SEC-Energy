@@ -199,23 +199,29 @@ export default function ProjectsPage() {
       <div className="sticky top-[93px] z-40 bg-white border-b">
         <Container>
           <div className="flex overflow-x-auto py-4 gap-4 no-scrollbar">
-            <Button
+            <button
               onClick={() => setSelectedCategory(null)}
-              variant={!selectedCategory ? "default" : "outline"}
-              className={`whitespace-nowrap ${!selectedCategory ? "bg-emerald-700" : ""}`}
+              className={`px-6 py-3 rounded-md whitespace-nowrap transition-all flex-shrink-0 font-medium ${
+                !selectedCategory
+                  ? "bg-emerald-700 text-white shadow-md"
+                  : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+              }`}
             >
               Alle Projekte
-            </Button>
+            </button>
 
             {categories.map((category) => (
-              <Button
+              <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                variant={selectedCategory === category ? "default" : "outline"}
-                className={`whitespace-nowrap ${selectedCategory === category ? "bg-emerald-700" : ""}`}
+                className={`px-6 py-3 rounded-md whitespace-nowrap transition-all flex-shrink-0 font-medium ${
+                  selectedCategory === category
+                    ? "bg-emerald-700 text-white shadow-md"
+                    : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                }`}
               >
                 {category}
-              </Button>
+              </button>
             ))}
           </div>
         </Container>

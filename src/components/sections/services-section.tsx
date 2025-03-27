@@ -109,14 +109,15 @@ Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Z
             horizontalSpacing="md"
           />
 
-          {/* Button mit konsistentem Abstand */}
-          <div className="mt-8 w-fit">
+          {/* Button mit konsistentem Abstand und zentriert */}
+          <div className="mt-8 flex justify-center w-full">
             <CustomButton
               text="Detaillierte Leistungsübersicht"
               href="/leistungen"
               iconSize={24}
               size="lg"
               className="bg-emerald-700"
+              onGreenBackground={true}
             />
           </div>
         </div>

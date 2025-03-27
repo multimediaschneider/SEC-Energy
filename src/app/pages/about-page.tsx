@@ -214,13 +214,15 @@ export default function AboutPage() {
                     iconSize={20}
                     size="lg"
                     className="bg-white text-emerald-700 hover:bg-emerald-50"
+                    onGreenBackground={true}
                   />
                   <CustomButton
                     text="Projekte ansehen"
                     href="/projekte"
                     iconSize={20}
                     size="lg"
-                    className="bg-emerald-600 border-emerald-600 hover:bg-emerald-500"
+                    className="bg-emerald-600 border-emerald-600"
+                    onGreenBackground={true}
                   />
                 </div>
               </motion.div>
@@ -256,6 +258,16 @@ export default function AboutPage() {
               </div>
             </motion.div>
           </div>
+
+          {/* Scroll indicator arrow */}
+          <motion.div
+            className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ delay: 0.5, duration: 1.5, repeat: Infinity }}
+          >
+            <ChevronDown className="w-10 h-10 text-white" />
+          </motion.div>
         </Container>
       </section>
 
@@ -296,6 +308,7 @@ export default function AboutPage() {
                     iconSize={20}
                     size="lg"
                     className="bg-emerald-700"
+                    onGreenBackground={false}
                   />
                 </div>
               </div>
@@ -417,6 +430,7 @@ export default function AboutPage() {
               iconSize={20}
               size="lg"
               className="bg-emerald-700"
+              onGreenBackground={true}
             />
           </div>
         </Container>
@@ -457,6 +471,7 @@ export default function AboutPage() {
               iconSize={20}
               size="lg"
               className="bg-emerald-700"
+              onGreenBackground={false}
             />
           </div>
         </Container>

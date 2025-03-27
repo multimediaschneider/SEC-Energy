@@ -5,7 +5,6 @@ import DynamicHero from "@/components/sections/hero-section";
 
 import ProjectSection from "@/components/sections/project-section";
 import ServicesSection from "@/components/sections/services-section";
-import AboutSection from "@/components/sections/about-section-neu";
 import ExpertiseCompetenceSection from "@/components/sections/expertise-competence";
 import ContactSection from "@/components/sections/contact-section";
 import CarouselAccordion from "@/components/ui/carousel-accordion";
@@ -104,10 +103,9 @@ export default function LandingPage() {
     <PageLayout>
       <DynamicHero />
       <ExpertiseCompetenceSection />
-
       <ServicesSection />
       <ProjectSection />
-      <AboutSection />
+      <ContactSection />
     </PageLayout>
   );
 }

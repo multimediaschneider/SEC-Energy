@@ -1,107 +1,163 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
-import CustomButton from "../ui/custom-button";
+import NavbarButton from "../ui/navbar-button";
 import Container from "../ui/container";
+import Link from "next/link";
+
+// Slider data
+const slides = [
+  {
+    title: "Über SEC",
+    description: "Erfahren Sie mehr über unsere Expertise und Werte",
+    image: "/consulting.jpg",
+    href: "/about",
+  },
+  {
+    title: "Leistungen",
+    description: "Entdecken Sie unser Angebot an Energielösungen",
+    image: "/pipes.jpg",
+    href: "/leistungen",
+  },
+  {
+    title: "Projekte",
+    description: "Sehen Sie unsere erfolgreich umgesetzten Projekte",
+    image: "/thermostat.jpg",
+    href: "/projekte",
+  },
+];
 
 export default function ContactSection() {
-  return (
-    <section className="relative py-16 bg-emerald-50 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute -left-32 -top-32 w-96 h-96 rounded-full bg-emerald-700 opacity-5" />
-      <div className="absolute -right-32 -bottom-32 w-96 h-96 rounded-full bg-emerald-700 opacity-5" />
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-      <Container className="relative z-10">
-        {/* Main contact card with consistent styling */}
+  // Auto-rotate slides
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="py-20 bg-emerald-50">
+      <Container>
+        {/* Main contact card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="overflow-hidden rounded-xl shadow-xl bg-white"
         >
-          {/* Top Section - Green Header with image */}
+          {/* Top Section - Green Header with larger image and text */}
           <div className="bg-emerald-700 p-8 md:p-12 text-white">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl font-light mb-6">
-                  Innovative Energielösungen für Ihre Anforderungen
-                </h2>
-                <p className="text-xl opacity-90 font-light mb-8">
-                  Als unabhängiger Berater entwickeln wir maßgeschneiderte
-                  Lösungen, die sowohl wirtschaftlich als auch ökologisch
-                  nachhaltig sind.
-                </p>
+            <div className="flex flex-col items-center">
+              <h2 className="text-4xl md:text-5xl font-medium mb-8 text-center max-w-4xl">
+                Innovative Energielösungen für Ihre Anforderungen
+              </h2>
+              <p className="text-xl md:text-2xl opacity-90 font-light mb-12 text-center max-w-3xl">
+                Als unabhängiger Berater entwickeln wir maßgeschneiderte
+                Lösungen, die sowohl wirtschaftlich als auch ökologisch
+                nachhaltig sind.
+              </p>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <CustomButton
-                    text="Leistungen entdecken"
-                    href="/leistungen"
-                    iconSize={20}
-                    size="lg"
-                    className="bg-white text-emerald-700 hover:bg-emerald-50"
-                  />
-                  <CustomButton
-                    text="Projekte ansehen"
-                    href="/projekte"
-                    iconSize={20}
-                    size="lg"
-                    className="bg-emerald-600 border-emerald-600 hover:bg-emerald-500"
-                  />
-                </div>
-              </div>
+              {/* Interactive Slider without manual navigation arrows */}
+              <div className="w-full max-w-4xl h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
+                {/* Slide Content */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentSlide}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="w-full h-full"
+                  >
+                    {/* Image */}
+                    <div className="w-full h-full relative">
+                      <Image
+                        src={slides[currentSlide].image}
+                        alt={slides[currentSlide].title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                      />
 
-              <div className="relative h-64 md:h-80 rounded-lg overflow-hidden shadow-xl">
-                <Image
-                  src="/consulting.jpg"
-                  alt="Beratungsgespräch"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                />
-                <div className="absolute inset-0 bg-emerald-700/30" />
-                <div className="absolute bottom-0 left-0 right-0 bg-emerald-700/80 p-4">
-                  <p className="text-white font-medium">
-                    Unverbindliche Erstberatung
-                  </p>
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/80 via-emerald-700/30 to-transparent" />
+
+                      {/* Content */}
+                      <Link
+                        href={slides[currentSlide].href}
+                        className="absolute inset-0 flex flex-col justify-end items-center p-8 hover:bg-emerald-700/20 transition-colors group"
+                      >
+                        <div className="text-center mb-2">
+                          <h3 className="text-2xl md:text-3xl font-medium text-white mb-2">
+                            {slides[currentSlide].title}
+                          </h3>
+                          <p className="text-lg text-white/90">
+                            {slides[currentSlide].description}
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Slide Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-3 h-3 rounded-full ${
+                        index === currentSlide ? "bg-white" : "bg-white/50"
+                      }`}
+                    ></button>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Section - Contact Info with consistent grid */}
+          {/* Bottom Section - Centered contact info and button */}
           <div className="p-8 md:p-12 bg-white">
-            <div className="flex flex-col md:flex-row gap-12 items-start">
-              {/* Contact Person */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="md:w-1/2"
-              >
-                <div className="flex items-center gap-6">
-                  <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 relative">
-                    <div className="absolute w-full h-full rounded-full bg-emerald-100 -z-10 transform -rotate-6 scale-105" />
-                    <div className="absolute w-full h-full rounded-full bg-emerald-50 -z-10 transform rotate-6 scale-105" />
-                    <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-lg relative z-10">
-                      <Image
-                        src="/dierk.jpg"
-                        alt="Dipl.-Ing. Dierk Schneider"
-                        fill
-                        sizes="(max-width: 768px) 96px, 128px"
-                        className="object-cover"
-                        style={{ objectPosition: "50% 20%" }}
-                      />
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+              <div className="flex flex-col md:flex-row items-center gap-8 max-w-3xl">
+                {/* Dierk's info */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="flex flex-col md:flex-row items-center gap-8"
+                >
+                  {/* Larger image */}
+                  <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
+                    <div className="w-full h-full relative flex items-center justify-center">
+                      {/* Background decorations using flexbox */}
+                      <div className="w-full h-full rounded-full bg-emerald-100 absolute transform -rotate-6"></div>
+                      <div className="w-full h-full rounded-full bg-emerald-50 absolute transform rotate-6"></div>
+                      <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-lg z-10 relative">
+                        <Image
+                          src="/dierk.jpg"
+                          alt="Dipl.-Ing. Dierk Schneider"
+                          fill
+                          sizes="(max-width: 768px) 128px, 160px"
+                          className="object-cover"
+                          style={{ objectPosition: "50% 20%" }}
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div>
-                    <h4 className="text-2xl font-semibold text-emerald-700">
+                  <div className="text-center md:text-left">
+                    <h4 className="text-2xl md:text-3xl font-semibold text-emerald-700">
                       Dipl.-Ing. Dierk Schneider
                     </h4>
-                    <p className="text-lg text-emerald-700 mb-4">
+                    <p className="text-xl text-emerald-700 mb-4">
                       Geschäftsführung
                     </p>
                     <div className="space-y-3">
@@ -125,35 +181,25 @@ export default function ContactSection() {
                       </a>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
 
-              {/* Contact CTA */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="md:w-1/2 border-t md:border-t-0 md:border-l border-emerald-100 pt-6 md:pt-0 md:pl-12"
-              >
-                <div>
-                  <h3 className="text-2xl font-semibold text-emerald-700 mb-4">
-                    Ihr Projekt verwirklichen
-                  </h3>
-                  <p className="text-lg text-gray-700 mb-6">
-                    Vereinbaren Sie ein unverbindliches Erstgespräch und
-                    profitieren Sie von unserer langjährigen Expertise in der
-                    Energietechnik. Wir beraten Sie gerne zu all Ihren Fragen
-                    rund um nachhaltige Energieversorgung.
-                  </p>
-                  <CustomButton
-                    text="Kontaktformular öffnen"
+                {/* Contact button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="md:ml-8"
+                >
+                  <NavbarButton
+                    text="Kontakt"
                     href="/kontakt"
-                    iconSize={22}
+                    iconSize={24}
                     size="lg"
-                    className="bg-emerald-700 w-full justify-center"
+                    className="bg-emerald-700 text-white"
                   />
-                </div>
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </motion.div>

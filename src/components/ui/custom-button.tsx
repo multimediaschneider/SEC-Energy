@@ -17,6 +17,7 @@ interface CustomButtonProps {
     | "ghost"
     | "link";
   size?: "default" | "sm" | "lg" | "icon";
+  onGreenBackground?: boolean;
 }
 
 const CustomButton = ({
@@ -26,14 +27,21 @@ const CustomButton = ({
   iconSize = 16,
   variant = "default",
   size = "default",
+  onGreenBackground = false,
 }: CustomButtonProps) => {
+  // Define hover classes based on background
+  const hoverClasses = onGreenBackground
+    ? "hover:bg-emerald-800 hover:text-white hover:border-emerald-800" // Better contrast on green backgrounds
+    : "hover:text-emerald-700 hover:bg-emerald-50"; // Original hover for white backgrounds
+
   return (
     <Link href={href} className="inline-block max-w-full">
       <Button
         variant={variant}
         size={size}
         className={cn(
-          "bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:text-emerald-700 hover:bg-emerald-50 hover:shadow-lg hover:shadow-zinc-200 transition-all",
+          "bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:shadow-lg hover:shadow-zinc-200 transition-all",
+          hoverClasses,
           "max-w-full flex-nowrap whitespace-nowrap overflow-hidden",
           className
         )}

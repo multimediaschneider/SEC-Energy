@@ -114,6 +114,7 @@ const ProjectColumn = ({
                     iconSize={16}
                     size="sm"
                     className="bg-emerald-700 text-sm w-full"
+                    onGreenBackground={false}
                   />
                 </div>
               </div>
@@ -217,13 +218,14 @@ const ProjectSection = () => {
           horizontalSpacing="md"
         />
 
-        <div className="mt-8 mb-12">
+        <div className="text-center mt-8 mb-12">
           <CustomButton
             text="Alle Projekte ansehen"
             href="/projekte"
             iconSize={24}
             size="lg"
             className="bg-emerald-700"
+            onGreenBackground={false}
           />
         </div>
 

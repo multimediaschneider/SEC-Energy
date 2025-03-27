@@ -233,7 +233,7 @@ export function ContactForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:text-emerald-700 hover:bg-emerald-50 hover:shadow-lg hover:shadow-zinc-200 transition-all"
+          className="w-full bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:bg-emerald-800 hover:text-white hover:border-emerald-800 hover:shadow-lg hover:shadow-zinc-200 transition-all"
         >
           {isSubmitting ? (
             <>

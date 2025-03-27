@@ -12,6 +12,7 @@ import {
 import { client } from "@/sanity/client";
 import PageLayout from "@/components/page-layout";
 import { ContactForm } from "@/components/ui/contact-form";
+import ContactSection from "@/components/sections/contact-section";
 
 interface ContactDetails {
   label: string;
@@ -154,6 +155,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Add the ContactSection with currentPage="contact" */}
+      <ContactSection currentPage="contact" />
     </PageLayout>
   );
 }
