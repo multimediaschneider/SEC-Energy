@@ -157,7 +157,7 @@ export default function ContactPage() {
       </section>
 
       {/* Add the ContactSection with currentPage="contact" */}
-      <ContactSection currentPage="contact" />
+      <ContactSection />
     </PageLayout>
   );
 }

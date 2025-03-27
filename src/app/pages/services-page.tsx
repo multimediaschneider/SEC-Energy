@@ -337,49 +337,6 @@ export default function ServicesPage() {
                   })}
                 </div>
               </motion.div>
-
-              {/* Display the Benefits section only once after the first category */}
-              {catIndex === 0 && (
-                <div className="border-t border-emerald-100 pt-16">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="text-center p-6">
-                      <div className="mx-auto h-16 w-16 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-4">
-                        <Scale className="w-8 h-8 text-emerald-700" />
-                      </div>
-                      <h4 className="text-xl font-medium text-emerald-700 mb-2">
-                        Wirtschaftlichkeit
-                      </h4>
-                      <p className="text-gray-600">
-                        Optimale Balance aus Investitions- und Betriebskosten
-                      </p>
-                    </div>
-
-                    <div className="text-center p-6">
-                      <div className="mx-auto h-16 w-16 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-4">
-                        <Leaf className="w-8 h-8 text-emerald-700" />
-                      </div>
-                      <h4 className="text-xl font-medium text-emerald-700 mb-2">
-                        Nachhaltigkeit
-                      </h4>
-                      <p className="text-gray-600">
-                        Ressourcenschonende Lösungen für eine grüne Zukunft
-                      </p>
-                    </div>
-
-                    <div className="text-center p-6">
-                      <div className="mx-auto h-16 w-16 rounded-full bg-emerald-700 bg-opacity-10 flex items-center justify-center mb-4">
-                        <Wrench className="w-8 h-8 text-emerald-700" />
-                      </div>
-                      <h4 className="text-xl font-medium text-emerald-700 mb-2">
-                        Technische Exzellenz
-                      </h4>
-                      <p className="text-gray-600">
-                        Höchste Standards in Planung und Umsetzung
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
             </Container>
           </section>
         ))}

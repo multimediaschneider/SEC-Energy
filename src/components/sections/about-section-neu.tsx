@@ -32,11 +32,11 @@ const AboutSection = () => {
               {/* Button with proper spacing */}
               <div className="mt-8">
                 <CustomButton
-                  text="Persönliches Gespräch vereinbaren"
+                  text="Kontakt aufnehmen"
                   href="/kontakt"
                   iconSize={24}
                   size="lg"
-                  className="bg-emerald-700"
+                  variant="primary"
                 />
               </div>
             </motion.div>

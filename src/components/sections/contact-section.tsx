@@ -52,9 +52,24 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="overflow-hidden rounded-xl shadow-xl bg-white"
         >
-          {/* Top Section - Green Header with larger image and text */}
-          <div className="bg-emerald-700 p-8 md:p-12 text-white">
-            <div className="flex flex-col items-center">
+          {/* Top Section - Green Header with larger image and text - matching services page hero */}
+          <div className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 p-8 md:p-12 text-white">
+            {/* Animated blur circles */}
+            <div className="absolute inset-0">
+              <div className="blur-container">
+                <div className="blur-circle blur-circle-1" />
+                <div className="blur-circle blur-circle-2" />
+                <div className="blur-circle blur-circle-3" />
+                <div className="blur-circle blur-circle-4" />
+              </div>
+            </div>
+
+            {/* White noise overlay for texture */}
+            <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay">
+              <div className="noise-texture" />
+            </div>
+
+            <div className="flex flex-col items-center relative z-10">
               <h2 className="text-4xl md:text-5xl font-medium mb-8 text-center max-w-4xl">
                 Innovative Energielösungen für Ihre Anforderungen
               </h2>

@@ -9,7 +9,6 @@ export default function LeistungenPage() {
     <PageLayout>
       <div className="w-full">
         <ServicesPage />
-        <ContactSection currentPage="services" />
       </div>
     </PageLayout>
   );
