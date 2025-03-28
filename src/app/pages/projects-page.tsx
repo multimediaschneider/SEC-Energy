@@ -32,6 +32,7 @@ import ContactSection from "@/components/sections/contact-section";
 import Container from "@/components/ui/container";
 import TextBlock from "@/components/ui/text-block";
 import CustomButton from "@/components/ui/custom-button";
+import NavbarButton from "@/components/ui/navbar-button";
 
 type ProjectKey = keyof typeof projectsFallbackData.projects;
 
@@ -181,7 +182,21 @@ export default function ProjectsPage() {
             >
               {projectsData.projectsPage.introduction}
             </motion.p>
-
+            {/* CTA button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="mt-8"
+            >
+              <NavbarButton
+                text="Kontakt aufnehmen"
+                href="/kontakt"
+                iconSize={24}
+                size="lg"
+                className="bg-emerald-100 text-emerald-700"
+              />
+            </motion.div>
             {/* Scroll indicator */}
             <motion.div
               className="absolute bottom-12 left-1/2 transform -translate-x-1/2"

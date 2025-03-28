@@ -21,6 +21,7 @@ import { ServiceCard } from "@/components/ui/base-card";
 import ContactSection from "@/components/sections/contact-section";
 import CustomButton from "@/components/ui/custom-button";
 import Container from "@/components/ui/container";
+import NavbarButton from "@/components/ui/navbar-button";
 
 interface ServiceArea {
   title: string;
@@ -192,12 +193,12 @@ export default function ServicesPage() {
               transition={{ delay: 0.3 }}
               className="mt-8"
             >
-              <CustomButton
-                text="Beratungsgespräch anfordern"
+              <NavbarButton
+                text="Kontakt aufnehmen"
                 href="/kontakt"
                 iconSize={24}
                 size="lg"
-                className="bg-white text-emerald-700 hover:bg-emerald-50"
+                className="bg-emerald-100 text-emerald-700"
               />
             </motion.div>
 

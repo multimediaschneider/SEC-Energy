@@ -43,7 +43,7 @@ export default function Navbar() {
             >
               <div className="flex-col py-2">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-normal">
-                  SEC Energieconsulting
+                  SEC Consulting
                 </h2>
                 <p className="text-base sm:text-lg md:text-xl font-extralight">
                   Schneider Engineering Consulting

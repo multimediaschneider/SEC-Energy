@@ -110,7 +110,7 @@ export default function ExpertiseCompetenceSection() {
   const data = expertiseData || fallbackData;
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50 relative">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
       <Container>
         <GridLayout>
           {/* Textblock with button container - fixing the overflow */}
@@ -129,12 +129,11 @@ export default function ExpertiseCompetenceSection() {
           {/* Button in a centered container */}
           <div className="mt-8 mb-12 flex justify-center w-full">
             <CustomButton
-              text="Beratungsgespräch anfordern"
+              text="Kontakt aufnehmen"
               href="/kontakt"
               iconSize={24}
               size="lg"
               className="bg-emerald-700"
-              onGreenBackground={false}
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 md:gap-8 mt-8 lg:mt-0">

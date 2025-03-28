@@ -22,6 +22,7 @@ import CustomButton from "@/components/ui/custom-button";
 import { ExpertiseCard } from "@/components/ui/base-card";
 import { client } from "@/sanity/client";
 import ContactSection from "@/components/sections/contact-section";
+import NavbarButton from "@/components/ui/navbar-button";
 
 interface AboutPageData {
   headline: string;
@@ -208,21 +209,19 @@ export default function AboutPage() {
                   {data.introduction}
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <CustomButton
-                    text="Leistungen entdecken"
+                  <NavbarButton
+                    text="Unsere Leistungen"
                     href="/leistungen"
-                    iconSize={20}
+                    iconSize={24}
                     size="lg"
-                    className="bg-white text-emerald-700 hover:bg-emerald-50"
-                    onGreenBackground={true}
+                    className="bg-emerald-100 text-emerald-700"
                   />
-                  <CustomButton
-                    text="Projekte ansehen"
+                  <NavbarButton
+                    text="Unsere Projekte"
                     href="/projekte"
-                    iconSize={20}
+                    iconSize={24}
                     size="lg"
-                    className="bg-emerald-600 border-emerald-600"
-                    onGreenBackground={true}
+                    className="bg-emerald-100 text-emerald-700"
                   />
                 </div>
               </motion.div>
@@ -308,7 +307,6 @@ export default function AboutPage() {
                     iconSize={20}
                     size="lg"
                     className="bg-emerald-700"
-                    onGreenBackground={false}
                   />
                 </div>
               </div>
@@ -330,13 +328,13 @@ export default function AboutPage() {
                   <h3 className="text-2xl font-medium text-emerald-700 mb-6 border-b pb-4 border-emerald-200">
                     Unternehmensgeschichte
                   </h3>
-
                   <div className="space-y-6">
                     {/* Timeline-Einträge mit Flexbox */}
                     <div className="flex">
                       <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
                         2000
                       </div>
+
                       <div>
                         <h4 className="font-medium">Gründung SEC Consulting</h4>
                         <p className="text-gray-600">
@@ -430,7 +428,6 @@ export default function AboutPage() {
               iconSize={20}
               size="lg"
               className="bg-emerald-700"
-              onGreenBackground={true}
             />
           </div>
         </Container>
@@ -471,7 +468,6 @@ export default function AboutPage() {
               iconSize={20}
               size="lg"
               className="bg-emerald-700"
-              onGreenBackground={false}
             />
           </div>
         </Container>

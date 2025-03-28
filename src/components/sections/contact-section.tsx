@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
-import NavbarButton from "../ui/navbar-button";
 import Container from "../ui/container";
 import Link from "next/link";
+import CustomButton from "../ui/custom-button";
 
 // Slider data
 const slides = [
@@ -80,7 +80,7 @@ export default function ContactSection() {
               </p>
 
               {/* Interactive Slider without manual navigation arrows */}
-              <div className="w-full max-w-4xl h-80 md:h-96 rounded-lg overflow-hidden shadow-xl">
+              <div className="w-full max-w-4xl h-80 md:h-96 rounded-lg overflow-hidden">
                 {/* Slide Content */}
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -138,83 +138,82 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Bottom Section - Centered contact info and button */}
+          {/* Bottom Section - Improved contact info and button layout */}
           <div className="p-8 md:p-12 bg-white">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-              <div className="flex flex-col md:flex-row items-center gap-8 max-w-3xl">
-                {/* Dierk's info */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="flex flex-col md:flex-row items-center gap-8"
-                >
-                  {/* Larger image */}
-                  <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
-                    <div className="w-full h-full relative flex items-center justify-center">
-                      {/* Background decorations using flexbox */}
-                      <div className="w-full h-full rounded-full bg-emerald-100 absolute transform -rotate-6"></div>
-                      <div className="w-full h-full rounded-full bg-emerald-50 absolute transform rotate-6"></div>
-                      <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-lg z-10 relative">
-                        <Image
-                          src="/dierk.jpg"
-                          alt="Dipl.-Ing. Dierk Schneider"
-                          fill
-                          sizes="(max-width: 768px) 128px, 160px"
-                          className="object-cover"
-                          style={{ objectPosition: "50% 20%" }}
-                        />
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
+              {/* Single flex container for all contact info */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col md:flex-row items-center gap-6 md:gap-8"
+              >
+                {/* Dierk's photo */}
+                <div className="w-32 h-32 md:w-36 md:h-36 flex-shrink-0">
+                  <div className="w-full h-full relative flex items-center justify-center">
+                    {/* Background decorations */}
+                    <div className="w-full h-full rounded-full bg-emerald-100 absolute transform -rotate-6"></div>
+                    <div className="w-full h-full rounded-full bg-emerald-50 absolute transform rotate-6"></div>
+                    <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-lg z-10 relative">
+                      <Image
+                        src="/dierk.jpg"
+                        alt="Dipl.-Ing. Dierk Schneider"
+                        fill
+                        sizes="(max-width: 768px) 128px, 144px"
+                        className="object-cover"
+                        style={{ objectPosition: "50% 20%" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contact info container */}
+                <div className="text-center md:text-left">
+                  <h4 className="text-2xl md:text-3xl font-semibold text-emerald-700">
+                    Dipl.-Ing. Dierk Schneider
+                  </h4>
+                  <p className="text-xl text-emerald-700 mb-4">
+                    Geschäftsführung
+                  </p>
+                  <div className="space-y-3">
+                    <a
+                      href="mailto:Dierk.Schneider@sec-energy.de"
+                      className="flex items-center gap-3 text-gray-700 hover:text-emerald-700 transition-colors group"
+                    >
+                      <div className="w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                        <Mail className="w-4 h-4 text-emerald-700" />
                       </div>
-                    </div>
+                      <span>Dierk.Schneider@sec-energy.de</span>
+                    </a>
+                    <a
+                      href="tel:0511 - 169 91 162"
+                      className="flex items-center gap-3 text-gray-700 hover:text-emerald-700 transition-colors group"
+                    >
+                      <div className="w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
+                        <Phone className="w-4 h-4 text-emerald-700" />
+                      </div>
+                      <span>0511 - 169 91 162</span>
+                    </a>
                   </div>
+                </div>
+              </motion.div>
 
-                  <div className="text-center md:text-left">
-                    <h4 className="text-2xl md:text-3xl font-semibold text-emerald-700">
-                      Dipl.-Ing. Dierk Schneider
-                    </h4>
-                    <p className="text-xl text-emerald-700 mb-4">
-                      Geschäftsführung
-                    </p>
-                    <div className="space-y-3">
-                      <a
-                        href="mailto:Dierk.Schneider@sec-energy.de"
-                        className="flex items-center gap-3 text-gray-700 hover:text-emerald-700 transition-colors group"
-                      >
-                        <div className="w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
-                          <Mail className="w-4 h-4 text-emerald-700" />
-                        </div>
-                        <span>Dierk.Schneider@sec-energy.de</span>
-                      </a>
-                      <a
-                        href="tel:0511 - 169 91 162"
-                        className="flex items-center gap-3 text-gray-700 hover:text-emerald-700 transition-colors group"
-                      >
-                        <div className="w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center group-hover:bg-emerald-100 transition-colors">
-                          <Phone className="w-4 h-4 text-emerald-700" />
-                        </div>
-                        <span>0511 - 169 91 162</span>
-                      </a>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Contact button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                  className="md:ml-8"
-                >
-                  <NavbarButton
-                    text="Kontakt"
-                    href="/kontakt"
-                    iconSize={24}
-                    size="lg"
-                    className="bg-emerald-700 text-white"
-                  />
-                </motion.div>
-              </div>
+              {/* Contact button - now with proper spacing on all screen sizes */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="mt-4 md:mt-0 lg:ml-8"
+              >
+                <CustomButton
+                  text="Kontakt aufnehmen"
+                  href="/kontakt"
+                  iconSize={24}
+                  size="lg"
+                  className="bg-emerald-700 whitespace-nowrap"
+                />
+              </motion.div>
             </div>
           </div>
         </motion.div>
