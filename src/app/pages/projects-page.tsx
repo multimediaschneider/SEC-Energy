@@ -170,18 +170,11 @@ export default function ProjectsPage() {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-light mb-8"
+              className="text-4xl md:text-7xl font-light mb-8"
             >
               {projectsData.projectsPage.headline}
             </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl font-light max-w-3xl mx-auto"
-            >
-              {projectsData.projectsPage.introduction}
-            </motion.p>
+
             {/* CTA button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -241,7 +234,22 @@ export default function ProjectsPage() {
           </div>
         </Container>
       </div>
-
+      {/* Intro Section */}
+      <section className="py-12 bg-white">
+        <Container>
+          <div className="mb-16">
+            <TextBlock
+              headline="Nachhaltige Energielösungen in der Praxis"
+              introduction="Entdecken Sie unsere vielfältigen Referenzprojekte, die unsere technische Expertise und Innovationskraft unter Beweis stellen. Von effizienten BHKW-Anlagen über innovative Nahwärmekonzepte bis hin zu regenerativen Energiesystemen – jedes Projekt spiegelt unseren Anspruch an höchste Qualität und wirtschaftliche Effizienz wider."
+              guidance="Wählen Sie eine Kategorie, um bestimmte Projekttypen zu erkunden, oder stöbern Sie durch unsere gesamte Projektpalette, um einen umfassenden Einblick in unser Leistungsspektrum zu erhalten."
+              headlineSize="lg"
+              textSize="lg"
+              verticalSpacing="lg"
+              horizontalSpacing="md"
+            />
+          </div>
+        </Container>
+      </section>
       {/* Projects Grid Section */}
       <section className="py-12 overflow-visible">
         <Container>

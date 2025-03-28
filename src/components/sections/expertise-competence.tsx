@@ -127,7 +127,14 @@ export default function ExpertiseCompetenceSection() {
             </div>
           </div>
           {/* Button in a centered container */}
-          <div className="mt-8 mb-12 flex justify-center w-full">
+          <div className="mt-8 mb-12 gap-4 flex justify-center w-full">
+            <CustomButton
+              text="Über SEC"
+              href="/kontakt"
+              iconSize={24}
+              size="lg"
+              className="bg-emerald-700"
+            />
             <CustomButton
               text="Kontakt aufnehmen"
               href="/kontakt"

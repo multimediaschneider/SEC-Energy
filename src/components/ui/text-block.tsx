@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 interface TextBlockProps {
   headline: string;
   introduction: string;
+  guidance?: string; // New optional property for guidance text
   buttonText?: string;
   buttonHref?: string;
   className?: string;
@@ -20,6 +21,7 @@ interface TextBlockProps {
 const TextBlock = ({
   headline,
   introduction,
+  guidance,
   buttonText,
   buttonHref,
   className = "",
@@ -71,6 +73,14 @@ const TextBlock = ({
         >
           {introduction}
         </p>
+        {/* Add the new guidance text if provided */}
+        {guidance && (
+          <p
+            className={`font-light text-gray-700 leading-relaxed mt-4 ${textSizeClasses}`}
+          >
+            {guidance}
+          </p>
+        )}
         {children}
       </div>
     </motion.div>

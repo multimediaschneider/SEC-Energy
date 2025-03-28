@@ -22,6 +22,7 @@ import ContactSection from "@/components/sections/contact-section";
 import CustomButton from "@/components/ui/custom-button";
 import Container from "@/components/ui/container";
 import NavbarButton from "@/components/ui/navbar-button";
+import TextBlock from "@/components/ui/text-block";
 
 interface ServiceArea {
   title: string;
@@ -173,18 +174,10 @@ export default function ServicesPage() {
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-light mb-8 drop-shadow-lg"
+              className="text-4xl md:text-7xl font-light mb-8"
             >
               {data.headline}
             </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl md:text-2xl font-light max-w-3xl mx-auto px-4 drop-shadow-lg"
-            >
-              {data.introduction}
-            </motion.p>
 
             {/* CTA button */}
             <motion.div
@@ -246,7 +239,22 @@ export default function ServicesPage() {
           />
         )}
       </div>
-
+      {/* Intro */}
+      <section className="py-12 bg-white">
+        <Container>
+          <div className="mb-16">
+            <TextBlock
+              headline="Maßgeschneiderte Lösungen für Ihre Anforderungen"
+              introduction="Wir bieten Ihnen ein umfassendes Portfolio an Ingenieurdienstleistungen im Bereich der technischen Gebäudeausrüstung und Energietechnik. Unser erfahrenes Team entwickelt innovative Konzepte, die sowohl wirtschaftliche Effizienz als auch ökologische Nachhaltigkeit in den Fokus stellen."
+              guidance="Entdecken Sie unser Leistungsspektrum in den verschiedenen Fachbereichen und erfahren Sie, wie wir Sie bei Ihrem Projekt von der ersten Idee bis zur erfolgreichen Umsetzung begleiten können."
+              headlineSize="lg"
+              textSize="lg"
+              verticalSpacing="lg"
+              horizontalSpacing="md"
+            />
+          </div>
+        </Container>
+      </section>
       {/* Main Content */}
       <main className="py-12">
         {data.categories.map((category, catIndex) => (
@@ -298,7 +306,7 @@ export default function ServicesPage() {
                     {/* Content overlay using flexbox for centering */}
                     <div className="absolute inset-0 z-20 flex flex-col items-center justify-center">
                       <div className="text-white text-center p-6">
-                        <h2 className="text-4xl font-light text-white mb-6 max-w-3xl drop-shadow-lg">
+                        <h2 className="text-5xl text-shadow-black font-light text-white mb-6 max-w-3xl drop-shadow-lg">
                           {category.title}
                         </h2>
 
