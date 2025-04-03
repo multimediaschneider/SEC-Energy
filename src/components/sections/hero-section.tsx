@@ -3,12 +3,15 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import Container from "../ui/container";
+import { cn } from "@/lib/utils";
+import CustomButton from "../ui/custom-button";
+import { scrollToElement } from "@/lib/utils";
 
-interface TrustIndicators {
-  emissions: string;
-  projects: string;
-  savings: string;
+interface TrustIndicator {
+  value: string;
+  label: string;
 }
 
 interface HeroImage {
@@ -20,11 +23,11 @@ interface HeroImage {
   };
 }
 
-const trustIndicators: TrustIndicators = {
-  emissions: "25%",
-  projects: "50+",
-  savings: "30%",
-};
+const trustIndicators: TrustIndicator[] = [
+  { value: "25%", label: "Emissionseinsparung" },
+  { value: "50+", label: "Großprojekte" },
+  { value: "30%", label: "Kosteneinsparung" },
+];
 
 const heroImages: HeroImage[] = [
   {
@@ -77,9 +80,20 @@ export default function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleScrollDown = () => {
+    const expertiseSection = document.getElementById("expertise-section");
+    if (expertiseSection) {
+      const targetPosition = expertiseSection.offsetTop - 100;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="relative">
-      <div className="relative w-full h-screen overflow-hidden">
+      <div className="relative w-full min-h-screen overflow-hidden">
         {/* Image Container */}
         <div className="absolute inset-0">
           <AnimatePresence mode="wait">
@@ -129,14 +143,14 @@ export default function HeroSection() {
 
         {/* Content */}
         <Container>
-          <div className="relative z-10 flex flex-col justify-center items-center h-screen">
+          <div className="relative z-10 flex flex-col justify-center items-center min-h-screen pt-24 pb-16">
             <div className="w-full lg:w-4/5 max-w-4xl mx-auto text-center px-4">
-              <div className="border-b-4 border-emerald-700 mb-8">
+              <div className="border-b-4 border-primary-700 mb-8">
                 <motion.h1
                   initial={{ color: "#047857" }}
                   animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4 font-light"
                 >
                   Nachhaltige Energielösungen durch Expertise im Contracting
                 </motion.h1>
@@ -154,8 +168,8 @@ export default function HeroSection() {
 
               {/* Trust Indicators */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4">
-                {Object.entries(trustIndicators).map(([key, value]) => (
-                  <div key={key} className="text-center">
+                {trustIndicators.map((indicator, index) => (
+                  <div key={index} className="text-center">
                     <motion.span
                       initial={{ color: "#047857" }}
                       animate={{
@@ -164,7 +178,7 @@ export default function HeroSection() {
                       transition={{ duration: 1.5, ease: "easeInOut" }}
                       className="block text-3xl md:text-5xl font-bold mb-2"
                     >
-                      {value}
+                      {indicator.value}
                     </motion.span>
                     <motion.span
                       initial={{ color: "#047857" }}
@@ -174,15 +188,44 @@ export default function HeroSection() {
                       transition={{ duration: 1.5, ease: "easeInOut" }}
                       className="text-sm sm:text-base"
                     >
-                      {key === "emissions"
-                        ? "Emissionseinsparung"
-                        : key === "projects"
-                          ? "Großprojekte"
-                          : "Kosteneinsparung"}
+                      {indicator.label}
                     </motion.span>
                   </div>
                 ))}
               </div>
+
+              {/* Scroll indicator */}
+              <motion.button
+                onClick={handleScrollDown}
+                className="mt-12 inline-flex flex-col items-center justify-center cursor-pointer"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1, duration: 0.5 }}
+              >
+                <motion.span
+                  initial={{ color: "#047857" }}
+                  animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
+                  transition={{ duration: 1.5, ease: "easeInOut" }}
+                  className="text-sm mb-2"
+                >
+                  Mehr entdecken
+                </motion.span>
+                <motion.div
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                  }}
+                >
+                  <ChevronDown
+                    className={cn(
+                      "w-8 h-8 transition-colors duration-1000",
+                      isImageVisible ? "text-white" : "text-primary-700"
+                    )}
+                  />
+                </motion.div>
+              </motion.button>
             </div>
           </div>
         </Container>

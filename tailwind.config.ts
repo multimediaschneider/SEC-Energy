@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { tokens } from "./src/styles/design-tokens";
 
 const config: Config = {
   darkMode: ["class"],
@@ -9,32 +10,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-      fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: tokens.colors.primary[700],
+          50: tokens.colors.primary[50],
+          100: tokens.colors.primary[100],
+          200: tokens.colors.primary[200],
+          300: tokens.colors.primary[300],
+          400: tokens.colors.primary[400],
+          500: tokens.colors.primary[500],
+          600: tokens.colors.primary[600],
+          700: tokens.colors.primary[700],
+          800: tokens.colors.primary[800],
+          900: tokens.colors.primary[900],
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -56,35 +46,28 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
       },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
+      fontFamily: {
+        sans: [tokens.typography.fontFamily.sans],
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+      fontSize: tokens.typography.fontSize,
+      lineHeight: tokens.typography.lineHeight,
+      borderRadius: {
+        ...tokens.borderRadius,
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      spacing: tokens.spacing,
+      boxShadow: tokens.shadows,
+      transitionDuration: tokens.transitions.duration,
+      transitionTimingFunction: tokens.transitions.timing,
+      screens: tokens.screens,
+      zIndex: tokens.zIndex,
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },

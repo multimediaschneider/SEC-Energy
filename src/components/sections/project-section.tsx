@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Plus, Building, MapPin } from "lucide-react";
+import { Plus, Building, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { projectsFallbackData } from "@/app/constants/data/projects-fallback-data";
 import TextBlock from "../ui/text-block";
 import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { client } from "@/sanity/client";
+import { cn } from "@/lib/utils";
 
+// Horizontal layout component for desktop
 const ProjectColumn = ({
   project,
   isExpanded,
@@ -24,14 +28,15 @@ const ProjectColumn = ({
 
   return (
     <div
-      className={`relative transition-all duration-300 h-full overflow-hidden border-r border-emerald-800 last:border-r-0 ${
+      className={cn(
+        "relative transition-all duration-300 h-full overflow-hidden border-r border-primary-800 last:border-r-0",
         isExpanded ? "flex-[2]" : "flex-[0.5]"
-      }`}
+      )}
       onClick={onToggle}
     >
       {/* Collapsed state - vertical title bar */}
       {!isExpanded && (
-        <div className="h-full flex flex-col justify-between bg-emerald-700 text-white cursor-pointer">
+        <div className="h-full flex flex-col justify-between bg-primary-700 text-white cursor-pointer">
           {/* Title section - top */}
           <div className="h-full flex items-center justify-center p-4">
             <span className="transform -rotate-90 whitespace-nowrap text-lg font-medium">
@@ -42,7 +47,7 @@ const ProjectColumn = ({
           {/* Plus button - bottom */}
           <div className="p-4 flex justify-center">
             <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
-              <Plus className="w-4 h-4 text-emerald-700" />
+              <Plus className="w-4 h-4 text-primary-700" />
             </div>
           </div>
         </div>
@@ -113,7 +118,8 @@ const ProjectColumn = ({
                     href={`/projekte?project=${project.key || index}`}
                     iconSize={16}
                     size="sm"
-                    className="bg-emerald-700 text-sm w-full"
+                    variant="primary"
+                    className="w-full"
                   />
                 </div>
               </div>
@@ -125,10 +131,114 @@ const ProjectColumn = ({
   );
 };
 
-const ProjectSection = () => {
+// Vertical layout component for mobile
+const ProjectRow = ({
+  project,
+  isExpanded,
+  onToggle,
+  index,
+}: {
+  project: any;
+  isExpanded: boolean;
+  onToggle: () => void;
+  index: number;
+}) => {
+  // Image src with fallback
+  const imageSrc = project.images?.[0] || "/pipes.jpg";
+
+  return (
+    <div className="w-full mb-4 border border-primary-800 rounded-lg overflow-hidden shadow-md">
+      {/* Header bar - always visible */}
+      <div
+        className="bg-primary-700 text-white p-4 flex justify-between items-center cursor-pointer"
+        onClick={onToggle}
+      >
+        <h3 className="text-lg font-medium">{project.title}</h3>
+        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
+          {isExpanded ? (
+            <ChevronUp className="w-4 h-4 text-primary-700" />
+          ) : (
+            <Plus className="w-4 h-4 text-primary-700" />
+          )}
+        </div>
+      </div>
+
+      {/* Expandable content */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white overflow-hidden"
+          >
+            {/* Image container */}
+            <div className="relative w-full h-56">
+              <Image
+                src={imageSrc}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+            </div>
+
+            {/* Content section */}
+            <div className="p-4">
+              <div className="text-rose-600 font-medium mb-2">
+                {project.location.city}
+              </div>
+
+              <p className="text-gray-700 mb-4">{project.shortDescription}</p>
+
+              <div className="mb-4">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <Building size={18} className="flex-shrink-0" />
+                  <span>{project.technicalData.type}</span>
+                </div>
+
+                {project.technicalData.powerOutput && (
+                  <div className="text-gray-600 mt-1 pl-6">
+                    {project.technicalData.powerOutput}
+                  </div>
+                )}
+              </div>
+
+              <CustomButton
+                text="Details ansehen"
+                href={`/projekte?project=${project.key || index}`}
+                iconSize={16}
+                size="sm"
+                variant="primary"
+                className="w-full"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default function ProjectSection() {
   const [projectsData, setProjectsData] = useState(projectsFallbackData);
   const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [windowWidth, setWindowWidth] = useState(0);
 
+  // Update window width on client side
+  useEffect(() => {
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Fetch projects data
   useEffect(() => {
     const fetchProjectsData = async () => {
       try {
@@ -205,6 +315,9 @@ const ProjectSection = () => {
     setExpandedProject(expandedProject === projectKey ? null : projectKey);
   };
 
+  // Determine if we should use mobile layout
+  const isMobile = windowWidth < 768;
+
   return (
     <section id="projekte" className="py-16 bg-gray-50">
       <Container>
@@ -217,21 +330,22 @@ const ProjectSection = () => {
           horizontalSpacing="md"
         />
 
-        <div className="mt-8 mb-12 flex justify-center w-full">
+        <div className="mt-6 mb-10 flex justify-center w-full">
           <CustomButton
             text="Alle Projekte ansehen"
             href="/projekte"
-            iconSize={24}
+            iconSize={20}
             size="lg"
-            className="bg-emerald-700"
+            variant="primary"
           />
         </div>
 
-        {/* Project accordion that fills the entire container width */}
-        <div className="mt-12 mb-8">
-          <div className="flex w-full h-[600px] border border-emerald-800 shadow-md overflow-hidden">
-            {projectsArray.slice(0, 7).map((project, index) => (
-              <ProjectColumn
+        {/* Responsive Project Display */}
+        {isMobile ? (
+          // Mobile Vertical Layout
+          <div className="mt-8">
+            {projectsArray.slice(0, 4).map((project, index) => (
+              <ProjectRow
                 key={project.key}
                 project={project}
                 isExpanded={expandedProject === project.key}
@@ -240,10 +354,23 @@ const ProjectSection = () => {
               />
             ))}
           </div>
-        </div>
+        ) : (
+          // Desktop Horizontal Layout
+          <div className="mt-8">
+            <div className="flex w-full h-[600px] border border-primary-800 shadow-md overflow-hidden rounded-lg">
+              {projectsArray.slice(0, 4).map((project, index) => (
+                <ProjectColumn
+                  key={project.key}
+                  project={project}
+                  isExpanded={expandedProject === project.key}
+                  onToggle={() => toggleProject(project.key)}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   );
-};
-
-export default ProjectSection;
+}

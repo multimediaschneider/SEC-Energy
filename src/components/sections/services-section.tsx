@@ -94,46 +94,46 @@ const allServices: ServiceCategory[] = [
 
 export default function ServicesSection() {
   return (
-    <section className="py-16 bg-emerald-700 bg-opacity-20">
+    <section className="py-16 bg-primary-50">
       <Container>
         {/* Headline and Introduction */}
         <div className="mb-12">
           <TextBlock
             headline="Unsere Leistungen – Effiziente Lösungen für die Gebäudetechnik"
-            introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten.
-
-Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Zukunft."
+            introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten."
+            guidance="Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Zukunft."
             headlineSize="lg"
             textSize="lg"
             verticalSpacing="lg"
             horizontalSpacing="md"
           />
 
-          {/* Button mit konsistentem Abstand und zentriert */}
-          <div className="mt-8 mb-12 flex justify-center w-full">
+          {/* Button with consistent spacing and centered */}
+          <div className="mt-6 mb-10 flex justify-center w-full">
             <CustomButton
               text="Detaillierte Leistungsübersicht"
               href="/leistungen"
-              iconSize={24}
+              iconSize={20}
               size="lg"
-              className="bg-emerald-700"
+              variant="primary"
             />
           </div>
         </div>
 
-        {/* Service Cards Grid mit konsistenten Abständen */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Service Cards Grid with consistent styling */}
+        <GridLayout columns={2} gap="md">
           {allServices.map((service, index) => (
             <ExpertiseCard
               key={index}
-              icon={icons[service.icon]}
+              icon={icons[service.icon] || Wrench}
               title={service.title}
               description={service.description}
               highlights={[]}
               index={index}
+              variant="default" // All cards with white background
             />
           ))}
-        </div>
+        </GridLayout>
       </Container>
     </section>
   );

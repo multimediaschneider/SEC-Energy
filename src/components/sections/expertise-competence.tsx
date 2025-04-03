@@ -8,6 +8,7 @@ import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
 import { ExpertiseCard } from "../ui/base-card";
+import { cn } from "@/lib/utils";
 
 interface ExpertiseArea {
   icon: string;
@@ -110,48 +111,53 @@ export default function ExpertiseCompetenceSection() {
   const data = expertiseData || fallbackData;
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
+    <section
+      id="expertise-section"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50"
+    >
       <Container>
         <GridLayout>
-          {/* Textblock with button container - fixing the overflow */}
-          <div className="w-full overflow-hidden">
-            <div className="">
-              <TextBlock
-                headline={data.headline}
-                introduction={data.introduction}
-                headlineSize="lg"
-                textSize="lg"
-                verticalSpacing="lg"
-                horizontalSpacing="md"
-              />
-            </div>
+          {/* Textblock with introduction */}
+          <div className="w-full">
+            <TextBlock
+              headline={data.headline}
+              introduction={data.introduction}
+              headlineSize="lg"
+              textSize="lg"
+              verticalSpacing="lg"
+              horizontalSpacing="md"
+            />
           </div>
-          {/* Button in a centered container */}
-          <div className="mt-8 mb-12 gap-4 flex justify-center w-full">
+
+          {/* Call to action buttons - adjusted spacing */}
+          <div className="mt-6 mb-10 gap-4 flex flex-col sm:flex-row justify-center w-full">
             <CustomButton
               text="Über SEC"
-              href="/kontakt"
-              iconSize={24}
+              href="/about"
+              iconSize={20}
               size="lg"
-              className="bg-emerald-700"
+              variant="primary"
             />
             <CustomButton
               text="Kontakt aufnehmen"
               href="/kontakt"
-              iconSize={24}
+              iconSize={20}
               size="lg"
-              className="bg-emerald-700"
+              variant="primary"
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:gap-8 mt-8 lg:mt-0">
+
+          {/* Expertise cards grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 mt-6">
             {data.expertiseAreas.map((area, index) => (
               <ExpertiseCard
                 key={index}
-                icon={icons[area.icon]}
+                icon={icons[area.icon] || Building2}
                 title={area.title}
                 description={area.description}
                 highlights={area.highlights}
                 index={index}
+                variant="primary"
               />
             ))}
           </div>

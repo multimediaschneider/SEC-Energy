@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { Card, CardHeader, CardContent } from "./card";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface BaseCardProps {
   icon: LucideIcon;
@@ -8,6 +9,8 @@ interface BaseCardProps {
   description: string;
   index: number;
   children?: React.ReactNode;
+  className?: string;
+  variant?: "default" | "primary" | "outline" | "ghost";
 }
 
 export function BaseCard({
@@ -16,7 +19,39 @@ export function BaseCard({
   description,
   index,
   children,
+  className,
+  variant = "default",
 }: BaseCardProps) {
+  // Style variants
+  const variants = {
+    default: {
+      card: "bg-white",
+      icon: "text-primary-600",
+      title: "text-primary-700",
+      description: "text-gray-700",
+    },
+    primary: {
+      card: "bg-primary-50",
+      icon: "text-primary-600",
+      title: "text-primary-700",
+      description: "text-primary-900/70",
+    },
+    outline: {
+      card: "bg-white border-2 border-primary-100",
+      icon: "text-primary-600",
+      title: "text-primary-700",
+      description: "text-gray-700",
+    },
+    ghost: {
+      card: "bg-transparent",
+      icon: "text-primary-600",
+      title: "text-primary-700",
+      description: "text-gray-700",
+    },
+  };
+
+  const selectedVariant = variants[variant];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -25,18 +60,30 @@ export function BaseCard({
       transition={{ delay: index * 0.1 }}
       className="h-full"
     >
-      <Card className="flex flex-col w-full h-full">
+      <Card
+        className={cn(
+          "flex flex-col w-full h-full shadow-sm",
+          selectedVariant.card,
+          className
+        )}
+      >
         <CardHeader className="space-y-2 pb-4 relative">
-          <div className="absolute top-0 left-0">
-            <div className="relative -top-4 -left-4 bg-opacity-20 p-2 rounded-full">
-              <Icon className="w-8 h-8 sm:w-5 sm:h-5 md:w-8 md:h-8 text-emerald-600" />
-            </div>
+          <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mb-4">
+            <Icon className={cn("w-6 h-6", selectedVariant.icon)} />
           </div>
-          <div className="space-y-1.5 pb-3">
-            <h3 className="text-lg font-extrabold text-emerald-700 pb-2 border-b border-gray-300">
+
+          <div className="space-y-2 pb-3">
+            <h3
+              className={cn(
+                "text-lg font-semibold pb-2 border-b border-gray-200",
+                selectedVariant.title
+              )}
+            >
               {title}
             </h3>
-            <p className="text-lg text-emerald-900/70">{description}</p>
+            <p className={cn("text-base", selectedVariant.description)}>
+              {description}
+            </p>
           </div>
         </CardHeader>
         <CardContent className="flex-1">{children}</CardContent>
@@ -51,9 +98,18 @@ export function ServiceCard({
   description,
   index,
   children,
+  className,
+  variant = "default",
 }: BaseCardProps) {
   return (
-    <BaseCard icon={icon} title={title} description={description} index={index}>
+    <BaseCard
+      icon={icon}
+      title={title}
+      description={description}
+      index={index}
+      className={className}
+      variant={variant}
+    >
       {children}
     </BaseCard>
   );
@@ -68,12 +124,9 @@ export function ExpertiseCard({ highlights, ...props }: ExpertiseCardProps) {
     <BaseCard {...props}>
       <ul className="space-y-2">
         {highlights.map((highlight, i) => (
-          <li
-            key={i}
-            className="flex items-center gap-2 text-sm text-emerald-900/70"
-          >
-            <span className="w-1 h-1 bg-emerald-600 rounded-full" />
-            <span className="flex-1 text-lg">{highlight}</span>
+          <li key={i} className="flex items-start gap-2 text-gray-700">
+            <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0" />
+            <span className="flex-1">{highlight}</span>
           </li>
         ))}
       </ul>

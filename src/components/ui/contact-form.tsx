@@ -63,7 +63,7 @@ export function ContactForm() {
         },
         body: JSON.stringify({
           ...values,
-          to: "schneider-sven@posteo.de",
+          to: "kontakt@sec-energy.de",
         }),
       });
 
@@ -94,12 +94,9 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 min-h-screen"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-emerald-700">
+          <h2 className="text-2xl font-semibold text-primary-700">
             Benötigen Sie weitere Informationen?
           </h2>
           <p className="text-gray-600">
@@ -109,7 +106,9 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold">Persönliche Angaben</h3>
+          <h3 className="text-xl font-semibold text-gray-800">
+            Persönliche Angaben
+          </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FormField
@@ -121,7 +120,8 @@ export function ContactForm() {
                     <Input
                       placeholder="Vorname"
                       {...field}
-                      className="w-full text-base"
+                      className="w-full"
+                      error={!!form.formState.errors.firstName}
                     />
                   </FormControl>
                   <FormMessage />
@@ -137,7 +137,8 @@ export function ContactForm() {
                     <Input
                       placeholder="Nachname"
                       {...field}
-                      className="w-full text-base"
+                      className="w-full"
+                      error={!!form.formState.errors.lastName}
                     />
                   </FormControl>
                   <FormMessage />
@@ -155,7 +156,7 @@ export function ContactForm() {
                   <Input
                     placeholder="Firma (optional)"
                     {...field}
-                    className="w-full text-base"
+                    className="w-full"
                   />
                 </FormControl>
                 <FormMessage />
@@ -165,7 +166,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold">
+          <h3 className="text-xl font-semibold text-gray-800">
             Wie dürfen wir Sie kontaktieren?
           </h3>
 
@@ -180,7 +181,8 @@ export function ContactForm() {
                       placeholder="E-Mail-Adresse"
                       type="email"
                       {...field}
-                      className="w-full text-base"
+                      className="w-full"
+                      error={!!form.formState.errors.email}
                     />
                   </FormControl>
                   <FormMessage />
@@ -197,7 +199,7 @@ export function ContactForm() {
                       placeholder="Telefonnummer (optional)"
                       type="tel"
                       {...field}
-                      className="w-full text-base"
+                      className="w-full"
                     />
                   </FormControl>
                   <FormMessage />
@@ -208,7 +210,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-6">
-          <h3 className="text-xl font-semibold">
+          <h3 className="text-xl font-semibold text-gray-800">
             Teilen Sie uns Ihr Anliegen mit.
           </h3>
 
@@ -221,7 +223,7 @@ export function ContactForm() {
                   <Textarea
                     placeholder="Ihr Anliegen (optional)"
                     {...field}
-                    className="w-full text-base min-h-[150px]"
+                    className="w-full min-h-[150px]"
                   />
                 </FormControl>
                 <FormMessage />
@@ -233,7 +235,9 @@ export function ContactForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-emerald-700 text-lg font-normal text-white border-emerald-700 border-2 shadow-md shadow-zinc-600 hover:bg-emerald-800 hover:text-white hover:border-emerald-800 hover:shadow-lg hover:shadow-zinc-200 transition-all"
+          variant="primary"
+          size="lg"
+          className="w-full"
         >
           {isSubmitting ? (
             <>

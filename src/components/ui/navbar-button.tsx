@@ -4,37 +4,31 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-interface CustomButtonProps {
+interface NavbarButtonProps {
   text: string;
   href: string;
   className?: string;
   iconSize?: number;
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-  size?: "default" | "sm" | "lg" | "icon";
+  variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white";
+  size?: "default" | "sm" | "lg" | "xl";
 }
 
-const CustomButton = ({
+const NavbarButton = ({
   text,
   href,
   className,
   iconSize = 16,
-  variant = "default",
+  variant = "white",
   size = "default",
-}: CustomButtonProps) => {
+}: NavbarButtonProps) => {
   return (
     <Link href={href} className="relative z-10 inline-block">
       <Button
         variant={variant}
         size={size}
         className={cn(
-          "text-lg font-normal text-white border-2 border-emerald-100 shadow-sm shadow-zinc-600 hover:text-white hover:bg-emerald-700 hover:shadow-sm hover:shadow-zinc-800 transition-all",
-          "relative [&_svg]:w-auto [&_svg]:h-auto", // Override shadcn's default SVG constraints
+          "text-lg font-normal transition-all",
+          "relative [&_svg]:w-auto [&_svg]:h-auto", // Override SVG constraints
           className
         )}
       >
@@ -47,11 +41,11 @@ const CustomButton = ({
             minWidth: iconSize, // Prevent SVG from shrinking
             minHeight: iconSize,
           }}
-          className="ml-2"
+          className="ml-2 flex-shrink-0"
         />
       </Button>
     </Link>
   );
 };
 
-export default CustomButton;
+export default NavbarButton;
