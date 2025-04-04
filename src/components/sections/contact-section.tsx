@@ -54,7 +54,7 @@ export default function ContactSection({ currentPage }: ContactSectionProps) {
   }, [filteredSlides.length]);
 
   return (
-    <section className="py-20 bg-primary-50">
+    <section className="py-16 md:py-20 lg:py-24 bg-primary-50">
       <Container>
         {/* Main contact card */}
         <motion.div
@@ -229,7 +229,7 @@ export default function ContactSection({ currentPage }: ContactSectionProps) {
                   href="/kontakt"
                   iconSize={20}
                   size="lg"
-                  variant="primary"
+                  variant="gradient"
                   className="whitespace-nowrap"
                 />
               </motion.div>

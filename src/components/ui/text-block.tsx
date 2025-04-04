@@ -53,9 +53,9 @@ const TextBlock = ({
   }[textSize];
 
   const verticalSpacingClasses = {
-    sm: "space-y-3",
-    md: "space-y-6",
-    lg: "space-y-8",
+    sm: "space-y-3 mb-6",
+    md: "space-y-6 mb-8",
+    lg: "space-y-8 mb-10",
   }[verticalSpacing];
 
   const horizontalSpacingClasses = {
@@ -90,7 +90,6 @@ const TextBlock = ({
       className={cn(
         "flex flex-col justify-center w-full h-full",
         horizontalSpacingClasses,
-        verticalSpacingClasses,
         textAlignClasses,
         className
       )}

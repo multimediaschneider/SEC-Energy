@@ -10,6 +10,7 @@ import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { client } from "@/sanity/client";
 import { cn } from "@/lib/utils";
+import { SectionContainer, ButtonContainer } from "../ui/section-container";
 
 // Horizontal layout component for desktop
 const ProjectColumn = ({
@@ -223,7 +224,7 @@ const ProjectRow = ({
 
 export default function ProjectSection() {
   const [projectsData, setProjectsData] = useState(projectsFallbackData);
-  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [expandedProject, setExpandedProject] = useState<string | null>('');
   const [windowWidth, setWindowWidth] = useState(0);
 
   // Update window width on client side
@@ -291,16 +292,15 @@ export default function ProjectSection() {
     fetchProjectsData();
   }, []);
 
-  // Set the first project as expanded by default when data is loaded
+  // Ensure initial state is empty when data is loaded
   useEffect(() => {
     if (
       projectsData &&
-      Object.keys(projectsData.projects).length > 0 &&
-      !expandedProject
+      Object.keys(projectsData.projects).length > 0
     ) {
-      setExpandedProject(Object.keys(projectsData.projects)[0]);
+      setExpandedProject('');
     }
-  }, [projectsData, expandedProject]);
+  }, [projectsData]);
 
   // Convert projects object to array with keys
   const projectsArray = Object.entries(projectsData.projects).map(
@@ -312,40 +312,56 @@ export default function ProjectSection() {
 
   // Toggle expanded project
   const toggleProject = (projectKey: string) => {
-    setExpandedProject(expandedProject === projectKey ? null : projectKey);
+    setExpandedProject(expandedProject === projectKey ? '' : projectKey);
   };
 
   // Determine if we should use mobile layout
   const isMobile = windowWidth < 768;
 
   return (
-    <section id="projekte" className="py-16 bg-gray-50">
-      <Container>
-        <TextBlock
-          headline={projectsData.projectsPage.headline}
-          introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
-          headlineSize="lg"
-          textSize="lg"
-          verticalSpacing="lg"
-          horizontalSpacing="md"
+    <SectionContainer
+      id="projekte"
+      bgColor="bg-gray-50"
+    >
+      <TextBlock
+        headline={projectsData.projectsPage.headline}
+        introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
+        headlineSize="lg"
+        textSize="lg"
+        verticalSpacing="lg"
+        horizontalSpacing="md"
+      />
+
+      <ButtonContainer>
+        <CustomButton
+          text="Alle Projekte ansehen"
+          href="/projekte"
+          iconSize={20}
+          size="lg"
+          variant="gradient"
         />
+      </ButtonContainer>
 
-        <div className="mt-6 mb-10 flex justify-center w-full">
-          <CustomButton
-            text="Alle Projekte ansehen"
-            href="/projekte"
-            iconSize={20}
-            size="lg"
-            variant="primary"
-          />
+      {/* Responsive Project Display */}
+      {isMobile ? (
+        // Mobile Vertical Layout
+        <div>
+          {projectsArray.slice(0, 7).map((project, index) => (
+            <ProjectRow
+              key={project.key}
+              project={project}
+              isExpanded={expandedProject === project.key}
+              onToggle={() => toggleProject(project.key)}
+              index={index}
+            />
+          ))}
         </div>
-
-        {/* Responsive Project Display */}
-        {isMobile ? (
-          // Mobile Vertical Layout
-          <div className="mt-8">
-            {projectsArray.slice(0, 4).map((project, index) => (
-              <ProjectRow
+      ) : (
+        // Desktop Horizontal Layout
+        <div>
+          <div className="flex w-full h-[600px] border border-primary-800 shadow-md overflow-hidden rounded-lg">
+            {projectsArray.slice(0, 7).map((project, index) => (
+              <ProjectColumn
                 key={project.key}
                 project={project}
                 isExpanded={expandedProject === project.key}
@@ -354,23 +370,8 @@ export default function ProjectSection() {
               />
             ))}
           </div>
-        ) : (
-          // Desktop Horizontal Layout
-          <div className="mt-8">
-            <div className="flex w-full h-[600px] border border-primary-800 shadow-md overflow-hidden rounded-lg">
-              {projectsArray.slice(0, 4).map((project, index) => (
-                <ProjectColumn
-                  key={project.key}
-                  project={project}
-                  isExpanded={expandedProject === project.key}
-                  onToggle={() => toggleProject(project.key)}
-                  index={index}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-      </Container>
-    </section>
+        </div>
+      )}
+    </SectionContainer>
   );
 }

@@ -310,7 +310,7 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative overflow-hidden pt-32 pb-16 flex items-center justify-center bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800"
+        className="relative overflow-hidden h-screen flex items-center bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800"
       >
         {/* Animated blur circles */}
         <div className="absolute inset-0">
@@ -323,22 +323,21 @@ export default function ServicesPage() {
         </div>
 
         <Container>
-          <div className="text-center text-white z-10 px-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-3xl md:text-5xl font-light mb-6"
-            >
-              {data.headline}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-lg md:text-xl font-light max-w-3xl mx-auto"
-            >
-              {data.introduction}
-            </motion.p>
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="w-full md:w-1/2 z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-white"
+              >
+                <h1 className="text-4xl md:text-6xl font-light mb-8 border-b border-white pb-4">
+                  {data.headline}
+                </h1>
+                <p className="text-xl md:text-2xl font-light mb-8">
+                  {data.introduction}
+                </p>
+              </motion.div>
+            </div>
           </div>
         </Container>
       </section>

@@ -19,6 +19,7 @@ import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
 import { ExpertiseCard } from "../ui/base-card";
+import { SectionContainer, ButtonContainer } from "../ui/section-container";
 
 interface ServiceCategory {
   icon: string;
@@ -94,47 +95,45 @@ const allServices: ServiceCategory[] = [
 
 export default function ServicesSection() {
   return (
-    <section className="py-16 bg-primary-50">
-      <Container>
-        {/* Headline and Introduction */}
-        <div className="mb-12">
-          <TextBlock
-            headline="Unsere Leistungen – Effiziente Lösungen für die Gebäudetechnik"
-            introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten."
-            guidance="Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Zukunft."
-            headlineSize="lg"
-            textSize="lg"
-            verticalSpacing="lg"
-            horizontalSpacing="md"
+    <SectionContainer
+      bgColor="bg-primary-50"
+    >
+      {/* Headline and Introduction */}
+      <TextBlock
+        headline="Unsere Leistungen – Effiziente Lösungen für die Gebäudetechnik"
+        introduction="Als Ingenieurdienstleister für technische Gebäudeausrüstung bieten wir Ihnen maßgeschneiderte, zukunftsorientierte Lösungen. Von der ersten Planung bis zur finalen Umsetzung begleiten wir Sie mit technischer Expertise, wirtschaftlichem Weitblick und praxisnahen Konzepten."
+        guidance="Setzen Sie auf nachhaltige Effizienz – wir machen Ihre Gebäude fit für die Zukunft."
+        headlineSize="lg"
+        textSize="lg"
+        verticalSpacing="lg"
+        horizontalSpacing="md"
+      />
+
+      {/* Button container */}
+      <ButtonContainer>
+        <CustomButton
+          text="Detaillierte Leistungsübersicht"
+          href="/leistungen"
+          iconSize={20}
+          size="lg"
+          variant="gradient"
+        />
+      </ButtonContainer>
+
+      {/* Service Cards Grid with consistent styling */}
+      <GridLayout columns={2} gap="md">
+        {allServices.map((service, index) => (
+          <ExpertiseCard
+            key={index}
+            icon={icons[service.icon] || Wrench}
+            title={service.title}
+            description={service.description}
+            highlights={[]}
+            index={index}
+            variant="default" // All cards with white background
           />
-
-          {/* Button with consistent spacing and centered */}
-          <div className="mt-6 mb-10 flex justify-center w-full">
-            <CustomButton
-              text="Detaillierte Leistungsübersicht"
-              href="/leistungen"
-              iconSize={20}
-              size="lg"
-              variant="primary"
-            />
-          </div>
-        </div>
-
-        {/* Service Cards Grid with consistent styling */}
-        <GridLayout columns={2} gap="md">
-          {allServices.map((service, index) => (
-            <ExpertiseCard
-              key={index}
-              icon={icons[service.icon] || Wrench}
-              title={service.title}
-              description={service.description}
-              highlights={[]}
-              index={index}
-              variant="default" // All cards with white background
-            />
-          ))}
-        </GridLayout>
-      </Container>
-    </section>
+        ))}
+      </GridLayout>
+    </SectionContainer>
   );
 }

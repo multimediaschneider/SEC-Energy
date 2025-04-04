@@ -92,7 +92,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative">
+    <section className="relative py-0">{/* Hero has no padding by design */}
       <div className="relative w-full min-h-screen overflow-hidden">
         {/* Image Container */}
         <div className="absolute inset-0">

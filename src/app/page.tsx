@@ -7,8 +7,8 @@ import ProjectSection from "@/components/sections/project-section";
 import ServicesSection from "@/components/sections/services-section";
 import ExpertiseCompetenceSection from "@/components/sections/expertise-competence";
 import ContactSection from "@/components/sections/contact-section";
-import CarouselAccordion from "@/components/ui/carousel-accordion";
 import PageLayout from "../components/page-layout";
+import { SectionContainer, ButtonContainer } from "@/components/ui/section-container";
 
 export default function LandingPage() {
   useEffect(() => {
@@ -106,6 +106,27 @@ export default function LandingPage() {
       <ServicesSection />
       <ProjectSection />
       <ContactSection />
+      {/* Example of how to use the new SectionContainer for future sections 
+      <SectionContainer id="example-section" bgColor="bg-gray-50">
+        <TextBlock
+          headline="Example Section"
+          introduction="This is an example of how to use the new SectionContainer component."
+          headlineSize="lg"
+          textSize="lg"
+          verticalSpacing="lg"
+          horizontalSpacing="md"
+        />
+        <ButtonContainer>
+          <CustomButton
+            text="Primary Action"
+            href="/example"
+            iconSize={20}
+            size="lg"
+            variant="primary"
+          />
+        </ButtonContainer>
+      </SectionContainer>
+      */}
     </PageLayout>
   );
 }

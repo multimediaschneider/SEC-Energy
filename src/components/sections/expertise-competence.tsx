@@ -8,7 +8,7 @@ import CustomButton from "../ui/custom-button";
 import Container from "../ui/container";
 import { GridLayout } from "../layouts/grid-layout";
 import { ExpertiseCard } from "../ui/base-card";
-import { cn } from "@/lib/utils";
+import { SectionContainer, ButtonContainer } from "../ui/section-container";
 
 interface ExpertiseArea {
   icon: string;
@@ -111,58 +111,53 @@ export default function ExpertiseCompetenceSection() {
   const data = expertiseData || fallbackData;
 
   return (
-    <section
+    <SectionContainer
       id="expertise-section"
-      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50"
+      bgColor="bg-gray-50"
     >
-      <Container>
-        <GridLayout>
-          {/* Textblock with introduction */}
-          <div className="w-full">
-            <TextBlock
-              headline={data.headline}
-              introduction={data.introduction}
-              headlineSize="lg"
-              textSize="lg"
-              verticalSpacing="lg"
-              horizontalSpacing="md"
-            />
-          </div>
-
-          {/* Call to action buttons - adjusted spacing */}
-          <div className="mt-6 mb-10 gap-4 flex flex-col sm:flex-row justify-center w-full">
-            <CustomButton
-              text="Über SEC"
-              href="/about"
-              iconSize={20}
-              size="lg"
-              variant="primary"
-            />
-            <CustomButton
-              text="Kontakt aufnehmen"
-              href="/kontakt"
-              iconSize={20}
-              size="lg"
-              variant="primary"
-            />
-          </div>
-
-          {/* Expertise cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 mt-6">
-            {data.expertiseAreas.map((area, index) => (
-              <ExpertiseCard
-                key={index}
-                icon={icons[area.icon] || Building2}
-                title={area.title}
-                description={area.description}
-                highlights={area.highlights}
-                index={index}
-                variant="primary"
-              />
-            ))}
-          </div>
-        </GridLayout>
-      </Container>
-    </section>
+      {/* Text Block */}
+      <TextBlock
+        headline={data.headline}
+        introduction={data.introduction}
+        guidance="Entdecken Sie unser Leistungsspektrum in den verschiedenen Fachbereichen und erfahren Sie, wie wir Sie bei Ihrem Projekt von der ersten Idee bis zur erfolgreichen Umsetzung begleiten können."
+        headlineSize="lg"
+        textSize="lg"
+        verticalSpacing="lg"
+        horizontalSpacing="md"
+      />
+      
+      {/* Call to action buttons */}
+      <ButtonContainer>
+        <CustomButton
+          text="Über SEC"
+          href="/about"
+          iconSize={20}
+          size="lg"
+          variant="gradient"
+        />
+        <CustomButton
+          text="Kontakt aufnehmen"
+          href="/kontakt"
+          iconSize={20}
+          size="lg"
+          variant="gradient"
+        />
+      </ButtonContainer>
+      
+      {/* Expertise cards grid */}
+      <GridLayout columns={3} gap="md">
+        {data.expertiseAreas.map((area, index) => (
+          <ExpertiseCard
+            key={index}
+            icon={icons[area.icon] || Building2}
+            title={area.title}
+            description={area.description}
+            highlights={area.highlights}
+            index={index}
+            variant="primary"
+          />
+        ))}
+      </GridLayout>
+    </SectionContainer>
   );
 }

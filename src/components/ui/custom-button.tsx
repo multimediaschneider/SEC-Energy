@@ -9,7 +9,7 @@ interface CustomButtonProps {
   href: string;
   className?: string;
   iconSize?: number;
-  variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white";
+  variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white" | "gradient";
   size?: "default" | "sm" | "lg" | "xl";
   onClick?: () => void;
 }
@@ -28,7 +28,7 @@ const CustomButton = ({
       variant={variant}
       size={size}
       className={cn(
-        "font-normal transition-all",
+        "font-normal transition-all shadow-md hover:shadow-lg",
         "relative [&_svg]:w-auto [&_svg]:h-auto", // Override SVG constraints
         className
       )}

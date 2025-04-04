@@ -20,6 +20,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         primary:
           "bg-primary-700 text-white border-primary-700 hover:bg-primary-600 shadow-sm",
+        gradient:
+          "bg-primary-200 text-primary-700 border border-primary-700 hover:bg-primary-700 hover:text-primary-100 hover:border-primary-200 transition-colors shadow-sm",
         primaryOutline:
           "bg-transparent text-primary-700 border border-primary-700 hover:bg-primary-50",
         white:

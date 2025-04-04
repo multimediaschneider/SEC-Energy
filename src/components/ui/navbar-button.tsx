@@ -9,7 +9,7 @@ interface NavbarButtonProps {
   href: string;
   className?: string;
   iconSize?: number;
-  variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white";
+  variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white" | "gradient";
   size?: "default" | "sm" | "lg" | "xl";
 }
 

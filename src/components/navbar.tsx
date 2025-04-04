@@ -109,7 +109,7 @@ export default function Navbar() {
               href="/kontakt"
               iconSize={20}
               size="default"
-              variant="white"
+              variant="gradient"
             />
           </ul>
 
@@ -166,7 +166,7 @@ export default function Navbar() {
                 href="/kontakt"
                 iconSize={20}
                 size="default"
-                variant="white"
+                variant="gradient"
                 className="w-full mt-2"
               />
             </motion.li>
