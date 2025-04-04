@@ -10,6 +10,7 @@ interface SectionContainerProps {
   noPadding?: boolean;
   className?: string;
   children: React.ReactNode;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 /**
@@ -26,6 +27,7 @@ export function SectionContainer({
   noPadding = false,
   className,
   children,
+  onClick,
 }: SectionContainerProps) {
   return (
     <section
@@ -35,6 +37,7 @@ export function SectionContainer({
         bgColor,
         className
       )}
+      onClick={onClick}
     >
       <Container>{children}</Container>
     </section>
@@ -61,7 +64,7 @@ export function ButtonContainer({
   return (
     <div
       className={cn(
-        " mb-24 flex flex-col sm:flex-row items-center justify-center w-full gap-4",
+        "mt-10 mb-24 flex flex-col sm:flex-row items-center justify-center w-full gap-4",
         className
       )}
     >

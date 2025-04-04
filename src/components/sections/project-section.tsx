@@ -27,13 +27,20 @@ const ProjectColumn = ({
   // Image src with fallback
   const imageSrc = project.images?.[0] || "/pipes.jpg";
 
+  // Handle column click without triggering navigation
+  const handleColumnClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent any default behavior
+    e.stopPropagation(); // Stop event from bubbling up
+    onToggle();
+  };
+
   return (
     <div
       className={cn(
         "relative transition-all duration-300 h-full overflow-hidden border-r border-primary-800 last:border-r-0",
         isExpanded ? "flex-[2]" : "flex-[0.5]"
       )}
-      onClick={onToggle}
+      onClick={handleColumnClick}
     >
       {/* Collapsed state - vertical title bar */}
       {!isExpanded && (
@@ -62,7 +69,7 @@ const ProjectColumn = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col h-full bg-white cursor-pointer"
+            className="flex flex-col h-full bg-white"
           >
             {/* Image container */}
             <div className="relative w-full h-2/5">
@@ -113,7 +120,14 @@ const ProjectColumn = ({
                   )}
                 </div>
 
-                <div className="mt-auto">
+                {/* Button with explicit event handling */}
+                <div
+                  className="mt-auto"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
                   <CustomButton
                     text="Details ansehen"
                     href={`/projekte?project=${project.key || index}`}
@@ -147,12 +161,19 @@ const ProjectRow = ({
   // Image src with fallback
   const imageSrc = project.images?.[0] || "/pipes.jpg";
 
+  // Handler for header click with explicit prevention
+  const handleHeaderClick = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent any default behavior
+    e.stopPropagation(); // Stop event bubbling
+    onToggle();
+  };
+
   return (
     <div className="w-full mb-4 border border-primary-800 rounded-lg overflow-hidden shadow-md">
       {/* Header bar - always visible */}
       <div
         className="bg-primary-700 text-white p-4 flex justify-between items-center cursor-pointer"
-        onClick={onToggle}
+        onClick={handleHeaderClick}
       >
         <h3 className="text-lg font-medium">{project.title}</h3>
         <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
@@ -173,6 +194,10 @@ const ProjectRow = ({
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="bg-white overflow-hidden"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
           >
             {/* Image container */}
             <div className="relative w-full h-56">
@@ -206,14 +231,22 @@ const ProjectRow = ({
                 )}
               </div>
 
-              <CustomButton
-                text="Details ansehen"
-                href={`/projekte?project=${project.key || index}`}
-                iconSize={16}
-                size="sm"
-                variant="primary"
-                className="w-full"
-              />
+              {/* Button wrapper with explicit event handling */}
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
+                <CustomButton
+                  text="Details ansehen"
+                  href={`/projekte?project=${project.key || index}`}
+                  iconSize={16}
+                  size="sm"
+                  variant="primary"
+                  className="w-full"
+                />
+              </div>
             </div>
           </motion.div>
         )}
@@ -224,7 +257,7 @@ const ProjectRow = ({
 
 export default function ProjectSection() {
   const [projectsData, setProjectsData] = useState(projectsFallbackData);
-  const [expandedProject, setExpandedProject] = useState<string | null>('');
+  const [expandedProject, setExpandedProject] = useState<string | null>("");
   const [windowWidth, setWindowWidth] = useState(0);
 
   // Update window width on client side
@@ -294,11 +327,8 @@ export default function ProjectSection() {
 
   // Ensure initial state is empty when data is loaded
   useEffect(() => {
-    if (
-      projectsData &&
-      Object.keys(projectsData.projects).length > 0
-    ) {
-      setExpandedProject('');
+    if (projectsData && Object.keys(projectsData.projects).length > 0) {
+      setExpandedProject("");
     }
   }, [projectsData]);
 
@@ -310,42 +340,50 @@ export default function ProjectSection() {
     })
   );
 
-  // Toggle expanded project
+  // Toggle expanded project with explicit event handling
   const toggleProject = (projectKey: string) => {
-    setExpandedProject(expandedProject === projectKey ? '' : projectKey);
+    setExpandedProject(expandedProject === projectKey ? "" : projectKey);
   };
 
   // Determine if we should use mobile layout
   const isMobile = windowWidth < 768;
 
+  // Function to handle section clicks and prevent propagation
+  const handleSectionClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
     <SectionContainer
       id="projekte"
       bgColor="bg-gray-50"
+      onClick={handleSectionClick}
     >
-      <TextBlock
-        headline={projectsData.projectsPage.headline}
-        introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
-        headlineSize="lg"
-        textSize="lg"
-        verticalSpacing="lg"
-        horizontalSpacing="md"
-      />
-
-      <ButtonContainer>
-        <CustomButton
-          text="Alle Projekte ansehen"
-          href="/projekte"
-          iconSize={20}
-          size="lg"
-          variant="gradient"
+      <div onClick={(e) => e.stopPropagation()}>
+        <TextBlock
+          headline={projectsData.projectsPage.headline}
+          introduction="SEC Energieconsulting steht für über zwei Jahrzehnte erfolgreiche Projektrealisierung im Energiesektor. Von Blockheizkraftwerken über Holzfeuerungsanlagen bis hin zu innovativen Nahwärmekonzepten - unsere Referenzprojekte zeigen die ganze Bandbreite unserer technischen Expertise und Planungskompetenz."
+          headlineSize="lg"
+          textSize="lg"
+          verticalSpacing="lg"
+          horizontalSpacing="md"
         />
-      </ButtonContainer>
+
+        <ButtonContainer>
+          <CustomButton
+            text="Alle Projekte ansehen"
+            href="/projekte"
+            iconSize={20}
+            size="lg"
+            variant="gradient"
+          />
+        </ButtonContainer>
+      </div>
 
       {/* Responsive Project Display */}
       {isMobile ? (
         // Mobile Vertical Layout
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
           {projectsArray.slice(0, 7).map((project, index) => (
             <ProjectRow
               key={project.key}
@@ -358,7 +396,7 @@ export default function ProjectSection() {
         </div>
       ) : (
         // Desktop Horizontal Layout
-        <div>
+        <div onClick={(e) => e.stopPropagation()}>
           <div className="flex w-full h-[600px] border border-primary-800 shadow-md overflow-hidden rounded-lg">
             {projectsArray.slice(0, 7).map((project, index) => (
               <ProjectColumn

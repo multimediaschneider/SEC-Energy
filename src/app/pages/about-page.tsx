@@ -22,7 +22,7 @@ import CustomButton from "@/components/ui/custom-button";
 import { ExpertiseCard } from "@/components/ui/base-card";
 import { client } from "@/sanity/client";
 import ContactSection from "@/components/sections/contact-section";
-import NavbarButton from "@/components/ui/navbar-button";
+import { SectionContainer, ButtonContainer } from "@/components/ui/section-container";
 
 interface AboutPageData {
   headline: string;
@@ -209,19 +209,19 @@ export default function AboutPage() {
                   {data.introduction}
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <NavbarButton
+                  <CustomButton
                     text="Unsere Leistungen"
                     href="/leistungen"
                     iconSize={24}
                     size="lg"
-                    className="bg-emerald-100 text-emerald-700"
+                    variant="gradient"
                   />
-                  <NavbarButton
+                  <CustomButton
                     text="Unsere Projekte"
                     href="/projekte"
                     iconSize={24}
                     size="lg"
-                    className="bg-emerald-100 text-emerald-700"
+                    variant="gradient"
                   />
                 </div>
               </motion.div>
@@ -271,7 +271,9 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Section - Optimiert mit Flexbox */}
-      <section className="py-20 bg-white">
+      <SectionContainer
+        bgColor="bg-white"
+      >
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="lg:order-2">
@@ -306,7 +308,7 @@ export default function AboutPage() {
                     href="/kontakt"
                     iconSize={20}
                     size="lg"
-                    className="bg-emerald-700"
+                    variant="gradient"
                   />
                 </div>
               </div>
@@ -390,10 +392,12 @@ export default function AboutPage() {
             </div>
           </div>
         </Container>
-      </section>
+      </SectionContainer>
 
       {/* Company Philosophy Section */}
-      <section className="py-20 bg-emerald-700 bg-opacity-10">
+      <SectionContainer
+        bgColor="bg-emerald-700 bg-opacity-10"
+      >
         <Container>
           <div className="text-center mb-16">
             <h2 className="text-4xl font-medium text-emerald-700 mb-4">
@@ -422,19 +426,23 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-16 text-center">
-            <CustomButton
-              text="Leistungen im Detail"
-              href="/leistungen"
-              iconSize={20}
-              size="lg"
-              className="bg-emerald-700"
-            />
+            <ButtonContainer>
+              <CustomButton
+                text="Leistungen im Detail"
+                href="/leistungen"
+                iconSize={20}
+                size="lg"
+                variant="gradient"
+              />
+            </ButtonContainer>
           </div>
         </Container>
-      </section>
+      </SectionContainer>
 
       {/* Expertise Grid Section - Optimiert mit Flexbox und konsistenten Karten */}
-      <section className="py-20 bg-white">
+      <SectionContainer
+        bgColor="bg-white"
+      >
         <Container>
           <TextBlock
             headline="Expertise & Kompetenzen"
@@ -462,16 +470,18 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-16 text-center">
-            <CustomButton
-              text="Projekte entdecken"
-              href="/projekte"
-              iconSize={20}
-              size="lg"
-              className="bg-emerald-700"
-            />
+            <ButtonContainer>
+              <CustomButton
+                text="Projekte entdecken"
+                href="/projekte"
+                iconSize={20}
+                size="lg"
+                variant="gradient"
+              />
+            </ButtonContainer>
           </div>
         </Container>
-      </section>
+      </SectionContainer>
 
       {/* Contact Section Component */}
       <ContactSection />

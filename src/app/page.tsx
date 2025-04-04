@@ -46,7 +46,15 @@ export default function LandingPage() {
 
     const handleClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
-      if (target && target.hash) {
+      
+      // Skip handling if inside the project section
+      const isInsideProjectSection = (e.target as HTMLElement).closest('#projekte');
+      if (isInsideProjectSection) {
+        return;
+      }
+      
+      // Only handle hash links for smooth scrolling
+      if (target && target.hash && target.pathname === window.location.pathname) {
         e.preventDefault();
         smoothScroll(target.hash);
       }
@@ -56,16 +64,6 @@ export default function LandingPage() {
 
     return () => document.removeEventListener("click", handleClick);
   }, []);
-
-  const handleSchwerpunkteClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    smoothScroll("#schwerpunkte");
-  };
-
-  const handleProjectsClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    smoothScroll("#projekte");
-  };
 
   const smoothScroll = (target: string) => {
     const element = document.querySelector(target);
@@ -106,27 +104,6 @@ export default function LandingPage() {
       <ServicesSection />
       <ProjectSection />
       <ContactSection />
-      {/* Example of how to use the new SectionContainer for future sections 
-      <SectionContainer id="example-section" bgColor="bg-gray-50">
-        <TextBlock
-          headline="Example Section"
-          introduction="This is an example of how to use the new SectionContainer component."
-          headlineSize="lg"
-          textSize="lg"
-          verticalSpacing="lg"
-          horizontalSpacing="md"
-        />
-        <ButtonContainer>
-          <CustomButton
-            text="Primary Action"
-            href="/example"
-            iconSize={20}
-            size="lg"
-            variant="primary"
-          />
-        </ButtonContainer>
-      </SectionContainer>
-      */}
     </PageLayout>
   );
 }

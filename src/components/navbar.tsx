@@ -9,6 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import NavbarButton from "./ui/navbar-button";
 import Container from "./ui/container";
 import { cn } from "@/lib/utils";
+import FooterContainer from "./ui/footer-container";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function Navbar() {
           : "bg-primary-700 py-3"
       )}
     >
-      <Container>
+      <FooterContainer>
         <div className="flex justify-between items-center text-white">
           {/* Logo Area with Progress Line */}
           <div className="relative">
@@ -109,7 +110,7 @@ export default function Navbar() {
               href="/kontakt"
               iconSize={20}
               size="default"
-              variant="gradient"
+              variant="white"
             />
           </ul>
 
@@ -166,13 +167,13 @@ export default function Navbar() {
                 href="/kontakt"
                 iconSize={20}
                 size="default"
-                variant="gradient"
+                variant="white"
                 className="w-full mt-2"
               />
             </motion.li>
           </ul>
         </motion.div>
-      </Container>
+      </FooterContainer>
     </nav>
   );
 }

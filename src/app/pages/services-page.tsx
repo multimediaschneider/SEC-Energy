@@ -20,6 +20,10 @@ import {
 import { fallbackData } from "../constants/data/services-fallback-data";
 import { ServiceCard } from "@/components/ui/base-card";
 import ContactSection from "@/components/sections/contact-section";
+import {
+  SectionContainer,
+  ButtonContainer,
+} from "@/components/ui/section-container";
 import CustomButton from "@/components/ui/custom-button";
 import Container from "@/components/ui/container";
 import TextBlock from "@/components/ui/text-block";
@@ -367,7 +371,7 @@ export default function ServicesPage() {
       )}
 
       {/* Intro Section for any device */}
-      <section className="py-12 bg-white">
+      <SectionContainer bgColor="bg-white">
         <Container>
           <div className="mb-10">
             <TextBlock
@@ -381,10 +385,10 @@ export default function ServicesPage() {
             />
           </div>
         </Container>
-      </section>
+      </SectionContainer>
 
       {/* Main Content */}
-      <main className="py-8 md:py-12">
+      <SectionContainer bgColor="bg-gray-50">
         <Container>
           {isMobile ? (
             // Mobile Layout with Collapsible Cards
@@ -493,10 +497,10 @@ export default function ServicesPage() {
             </section>
           )}
         </Container>
-      </main>
+      </SectionContainer>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-white">
+      <SectionContainer bgColor="bg-white">
         <Container>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-light text-primary-700 mb-4">
@@ -558,16 +562,18 @@ export default function ServicesPage() {
           </div>
 
           <div className="text-center mt-12">
-            <CustomButton
-              text="Weitere Fragen? Kontaktieren Sie uns"
-              href="/kontakt"
-              iconSize={20}
-              size="lg"
-              variant="primary"
-            />
+            <ButtonContainer>
+              <CustomButton
+                text="Weitere Fragen? Kontaktieren Sie uns"
+                href="/kontakt"
+                iconSize={20}
+                size="lg"
+                variant="gradient"
+              />
+            </ButtonContainer>
           </div>
         </Container>
-      </section>
+      </SectionContainer>
 
       {/* Contact Section Component */}
       <ContactSection currentPage="leistungen" />
