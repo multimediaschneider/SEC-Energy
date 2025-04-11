@@ -10,6 +10,7 @@ import NavbarButton from "./ui/navbar-button";
 import Container from "./ui/container";
 import { cn } from "@/lib/utils";
 import FooterContainer from "./ui/footer-container";
+import CustomButton from "./ui/custom-button";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -105,12 +106,12 @@ export default function Navbar() {
                 Projekte
               </Link>
             </li>
-            <NavbarButton
+            <CustomButton
               text="Kontakt"
               href="/kontakt"
               iconSize={20}
-              size="default"
-              variant="white"
+              size="lg"
+              variant="gradient"
             />
           </ul>
 
