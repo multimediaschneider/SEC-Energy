@@ -18,6 +18,7 @@ import { Badge } from "../../ui/badge";
 
 // Import sub-components
 import ProjectRow from "./ProjectRow";
+import Image from "next/image";
 
 // Type definitions for improved TypeScript support
 type ProjectKey = keyof typeof projectsFallbackData.projects;
@@ -209,7 +210,7 @@ export default function EnhancedProjectCarousel() {
                 {/* Header with image */}
                 <div className="relative h-64 w-full rounded-xl overflow-hidden shadow-md mb-6">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70 z-10" />
-                  <img
+                  <Image
                     src={currentProject.images?.[0] || "/pipes.jpg"}
                     alt={currentProject.title}
                     className="w-full h-full object-cover"

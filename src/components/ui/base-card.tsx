@@ -124,7 +124,7 @@ export function ExpertiseCard({ highlights, ...props }: ExpertiseCardProps) {
     <BaseCard {...props}>
       <ul className="space-y-2">
         {highlights.map((highlight, i) => (
-          <li key={i} className="flex items-start gap-2 text-gray-700">
+          <li key={i} className="flex items-center gap-2 text-gray-700">
             <span className="w-1.5 h-1.5 bg-primary-600 rounded-full flex-shrink-0" />
             <span className="flex-1">{highlight}</span>
           </li>

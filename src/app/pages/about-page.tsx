@@ -22,7 +22,10 @@ import CustomButton from "@/components/ui/custom-button";
 import { ExpertiseCard } from "@/components/ui/base-card";
 import { client } from "@/sanity/client";
 import ContactSection from "@/components/sections/contact-section";
-import { SectionContainer, ButtonContainer } from "@/components/ui/section-container";
+import {
+  SectionContainer,
+  ButtonContainer,
+} from "@/components/ui/section-container";
 
 interface AboutPageData {
   headline: string;
@@ -196,7 +199,7 @@ export default function AboutPage() {
 
         <Container>
           <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="w-full md:w-1/2 z-10">
+            <div className="md:w-1/2 z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -271,133 +274,124 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Section - Optimiert mit Flexbox */}
-      <SectionContainer
-        bgColor="bg-white"
-      >
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="lg:order-2">
-              <TextBlock
-                headline="Geschäftsführung"
-                introduction="Dipl.-Ing. Dierk Schneider verbindet als Gründer und Geschäftsführer über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise. Seine Leidenschaft für nachhaltige Energielösungen und sein tiefgreifendes technisches Verständnis prägen die Unternehmensphilosophie und garantieren höchste Qualität in allen Projekten."
-                headlineSize="lg"
-                textSize="lg"
-                verticalSpacing="lg"
-                horizontalSpacing="md"
-              />
+      <SectionContainer bgColor="bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="lg:order-2">
+            <TextBlock
+              headline="Geschäftsführung"
+              introduction="Dipl.-Ing. Dierk Schneider verbindet als Gründer und Geschäftsführer über drei Jahrzehnte praktische Erfahrung mit akademischer Expertise. Seine Leidenschaft für nachhaltige Energielösungen und sein tiefgreifendes technisches Verständnis prägen die Unternehmensphilosophie und garantieren höchste Qualität in allen Projekten."
+              headlineSize="lg"
+              textSize="lg"
+              verticalSpacing="lg"
+              horizontalSpacing="md"
+            />
 
-              <div className="mt-8 space-y-4">
-                <div className="flex items-center gap-3 text-emerald-700">
-                  <MailOpen className="w-5 h-5" />
-                  <a
-                    href="mailto:Dierk.Schneider@sec-energy.de"
-                    className="hover:underline"
-                  >
-                    Dierk.Schneider@sec-energy.de
-                  </a>
-                </div>
-
-                <div className="flex items-center gap-3 text-emerald-700">
-                  <FileText className="w-5 h-5" />
-                  <span>Dozent (FH des Mittelstands)</span>
-                </div>
-
-                <div className="flex gap-4 mt-8">
-                  <CustomButton
-                    text="Kontakt aufnehmen"
-                    href="/kontakt"
-                    iconSize={20}
-                    size="lg"
-                    variant="gradient"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:order-1 relative">
-              {/* Dekorative Elemente als separate, absolut positionierte Elemente */}
-              <div className="absolute -left-4 top-1/4 w-24 h-24 rounded-full bg-emerald-100 opacity-70 z-0"></div>
-              <div className="absolute -right-8 bottom-1/4 w-32 h-32 rounded-full bg-emerald-200 opacity-50 z-0"></div>
-
-              {/* Main content container */}
-              <div className="relative flex items-center justify-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="relative bg-white rounded-lg shadow-xl p-10 z-10 w-full"
+            <div className="mt-8 space-y-4">
+              <div className="flex items-center gap-3 text-emerald-700">
+                <MailOpen className="w-5 h-5" />
+                <a
+                  href="mailto:Dierk.Schneider@sec-energy.de"
+                  className="hover:underline"
                 >
-                  <h3 className="text-2xl font-medium text-emerald-700 mb-6 border-b pb-4 border-emerald-200">
-                    Unternehmensgeschichte
-                  </h3>
-                  <div className="space-y-6">
-                    {/* Timeline-Einträge mit Flexbox */}
-                    <div className="flex">
-                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                        2000
-                      </div>
+                  Dierk.Schneider@sec-energy.de
+                </a>
+              </div>
 
-                      <div>
-                        <h4 className="font-medium">Gründung SEC Consulting</h4>
-                        <p className="text-gray-600">
-                          Start als spezialisierte Energieberatung
-                        </p>
-                      </div>
-                    </div>
+              <div className="flex items-center gap-3 text-emerald-700">
+                <FileText className="w-5 h-5" />
+                <span>Dozent (FH des Mittelstands)</span>
+              </div>
 
-                    <div className="flex">
-                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                        2005
-                      </div>
-                      <div>
-                        <h4 className="font-medium">
-                          Erweiterung Geschäftsfelder
-                        </h4>
-                        <p className="text-gray-600">
-                          Fokus auf TGA-Fachplanung und Contracting
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                        2010
-                      </div>
-                      <div>
-                        <h4 className="font-medium">20+ Referenzprojekte</h4>
-                        <p className="text-gray-600">
-                          Etablierung als Experte für nachhaltige
-                          Energielösungen
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex">
-                      <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
-                        Heute
-                      </div>
-                      <div>
-                        <h4 className="font-medium">
-                          Marktführer in der Region
-                        </h4>
-                        <p className="text-gray-600">
-                          Über 50 erfolgreiche Großprojekte und kontinuierliches
-                          Wachstum
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+              <div className="flex gap-4 mt-8">
+                <CustomButton
+                  text="Kontakt aufnehmen"
+                  href="/kontakt"
+                  iconSize={20}
+                  size="lg"
+                  variant="gradient"
+                />
               </div>
             </div>
           </div>
-        </Container>
+
+          <div className="lg:order-1 relative">
+            {/* Dekorative Elemente als separate, absolut positionierte Elemente */}
+            <div className="absolute -left-4 top-1/4 w-24 h-24 rounded-full bg-emerald-100 opacity-70 z-0"></div>
+            <div className="absolute -right-8 bottom-1/4 w-32 h-32 rounded-full bg-emerald-200 opacity-50 z-0"></div>
+
+            {/* Main content container */}
+            <div className="relative flex items-center justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="relative bg-white rounded-lg shadow-xl p-10 z-10 w-full"
+              >
+                <h3 className="text-2xl font-medium text-emerald-700 mb-6 border-b pb-4 border-emerald-200">
+                  Unternehmensgeschichte
+                </h3>
+                <div className="space-y-6">
+                  {/* Timeline-Einträge mit Flexbox */}
+                  <div className="flex">
+                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                      2000
+                    </div>
+
+                    <div>
+                      <h4 className="font-medium">Gründung SEC Consulting</h4>
+                      <p className="text-gray-600">
+                        Start als spezialisierte Energieberatung
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                      2005
+                    </div>
+                    <div>
+                      <h4 className="font-medium">
+                        Erweiterung Geschäftsfelder
+                      </h4>
+                      <p className="text-gray-600">
+                        Fokus auf TGA-Fachplanung und Contracting
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                      2010
+                    </div>
+                    <div>
+                      <h4 className="font-medium">20+ Referenzprojekte</h4>
+                      <p className="text-gray-600">
+                        Etablierung als Experte für nachhaltige Energielösungen
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="flex-shrink-0 w-20 font-bold text-emerald-700">
+                      Heute
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Marktführer in der Region</h4>
+                      <p className="text-gray-600">
+                        Über 50 erfolgreiche Großprojekte und kontinuierliches
+                        Wachstum
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
       </SectionContainer>
 
       {/* Company Philosophy Section */}
-      <SectionContainer
-        bgColor="bg-emerald-700 bg-opacity-10"
-      >
+      <SectionContainer bgColor="bg-emerald-700 bg-opacity-10">
         <Container>
           <div className="text-center mb-16">
             <h2 className="text-4xl font-medium text-emerald-700 mb-4">
@@ -409,7 +403,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
             {aboutSections.map((section, index) => {
               const Icon = icons[section.icon];
               return (
@@ -440,9 +434,7 @@ export default function AboutPage() {
       </SectionContainer>
 
       {/* Expertise Grid Section - Optimiert mit Flexbox und konsistenten Karten */}
-      <SectionContainer
-        bgColor="bg-white"
-      >
+      <SectionContainer bgColor="bg-white">
         <Container>
           <TextBlock
             headline="Expertise & Kompetenzen"

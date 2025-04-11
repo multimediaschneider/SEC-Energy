@@ -33,7 +33,7 @@ export function SectionContainer({
     <section
       id={id}
       className={cn(
-        noPadding ? "py-0" : "py-16 md:py-20 lg:py-24",
+        noPadding ? "py-0" : "py-12 md:py-12 lg:py-16",
         bgColor,
         className
       )}

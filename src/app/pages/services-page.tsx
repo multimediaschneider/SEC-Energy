@@ -70,7 +70,6 @@ export default function ServicesPage() {
     null
   );
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
-  const [visibleMobileCount, setVisibleMobileCount] = useState(3);
   const [selectedService, setSelectedService] = useState<{
     category: ServiceCategory;
     area: ServiceArea;
@@ -120,9 +119,6 @@ export default function ServicesPage() {
   };
 
   // Show more categories on mobile
-  const showMoreCategories = () => {
-    setVisibleMobileCount((prev) => Math.min(prev + 3, data.categories.length));
-  };
 
   // Handle service selection for detailed view
   const handleServiceSelect = (
@@ -148,8 +144,15 @@ export default function ServicesPage() {
     }
   };
 
+  // Ensure body overflow is reset when component unmounts
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative overflow-hidden h-screen flex items-center bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800">
         {/* Animated blur circles */}
@@ -170,12 +173,9 @@ export default function ServicesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-white"
               >
-                <h1 className="text-4xl md:text-6xl font-light mb-8 border-b border-white pb-4">
+                <h1 className="text-4xl md:text-6xl font-light border-b border-white">
                   {data.headline}
                 </h1>
-                <p className="text-xl md:text-2xl font-light mb-8">
-                  {data.introduction}
-                </p>
               </motion.div>
             </div>
           </div>
@@ -184,231 +184,209 @@ export default function ServicesPage() {
 
       {/* Intro Section */}
       <SectionContainer bgColor="bg-white">
-        <Container>
-          <div className="mb-10">
-            <TextBlock
-              headline="Maßgeschneiderte Lösungen für Ihre Anforderungen"
-              introduction="Wir bieten Ihnen ein umfassendes Portfolio an Ingenieurdienstleistungen im Bereich der technischen Gebäudeausrüstung und Energietechnik. Unser erfahrenes Team entwickelt innovative Konzepte, die sowohl wirtschaftliche Effizienz als auch ökologische Nachhaltigkeit in den Fokus stellen."
-              guidance="Entdecken Sie unser Leistungsspektrum in den verschiedenen Fachbereichen und erfahren Sie, wie wir Sie bei Ihrem Projekt von der ersten Idee bis zur erfolgreichen Umsetzung begleiten können."
-              headlineSize="lg"
-              textSize="lg"
-              verticalSpacing="lg"
-              horizontalSpacing="md"
-            />
-          </div>
-        </Container>
+        <div className="">
+          <TextBlock
+            headline="Maßgeschneiderte Lösungen für Ihre Anforderungen"
+            introduction="Wir bieten Ihnen ein umfassendes Portfolio an Ingenieurdienstleistungen im Bereich der technischen Gebäudeausrüstung und Energietechnik. Unser erfahrenes Team entwickelt innovative Konzepte, die sowohl wirtschaftliche Effizienz als auch ökologische Nachhaltigkeit in den Fokus stellen."
+            guidance="Entdecken Sie unser Leistungsspektrum in den verschiedenen Fachbereichen und erfahren Sie, wie wir Sie bei Ihrem Projekt von der ersten Idee bis zur erfolgreichen Umsetzung begleiten können."
+            headlineSize="lg"
+            textSize="lg"
+            verticalSpacing="lg"
+            horizontalSpacing="md"
+          />
+        </div>
       </SectionContainer>
 
       {/* Main Content - Unified Vertical Layout */}
       <SectionContainer bgColor="bg-gray-50">
-        <Container>
-          <div className="mb-8 space-y-4">
-            {data.categories.map((category, index) => {
-              // Only show items that are within the visible count on mobile
-              if (
-                index >= visibleMobileCount &&
-                !expandedCategories.includes(index)
-              )
-                return null;
+        <div className=" space-y-4">
+          {data.categories.map((category, index) => {
+            // Only show items that are within the visible count on mobile
 
-              const Icon = icons[category.areas[0]?.icon] || Lightbulb;
-              const isExpanded = expandedCategories.includes(index);
+            const Icon = icons[category.areas[0]?.icon] || Lightbulb;
+            const isExpanded = expandedCategories.includes(index);
 
-              return (
+            return (
+              <div
+                key={index}
+                className="border border-gray-200 rounded-lg overflow-hidden shadow-sm"
+              >
+                {/* Header - Always visible */}
                 <div
-                  key={index}
-                  className="border border-gray-200 rounded-lg overflow-hidden shadow-sm"
+                  className={cn(
+                    "p-4 flex justify-between items-center cursor-pointer",
+                    isExpanded
+                      ? "bg-primary-700 text-white"
+                      : "bg-primary-50 text-primary-700"
+                  )}
+                  onClick={() => toggleCategory(index)}
                 >
-                  {/* Header - Always visible */}
-                  <div
-                    className={cn(
-                      "p-4 flex justify-between items-center cursor-pointer",
-                      isExpanded
-                        ? "bg-primary-700 text-white"
-                        : "bg-primary-50 text-primary-700"
-                    )}
-                    onClick={() => toggleCategory(index)}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={cn(
-                          "w-10 h-10 rounded-full flex items-center justify-center",
-                          isExpanded ? "bg-white/20" : "bg-primary-100"
-                        )}
-                      >
-                        <Icon
-                          className={cn(
-                            "w-5 h-5",
-                            isExpanded ? "text-white" : "text-primary-600"
-                          )}
-                        />
-                      </div>
-                      <h3 className="text-lg font-medium">
-                        {category.shortTitle}
-                      </h3>
-                    </div>
+                  <div className="flex items-center gap-3">
                     <div
                       className={cn(
-                        "w-8 h-8 rounded-full flex items-center justify-center",
-                        isExpanded ? "bg-white/20" : "bg-white"
+                        "w-10 h-10 rounded-full flex items-center justify-center",
+                        isExpanded ? "bg-white/20" : "bg-primary-100"
                       )}
                     >
-                      {isExpanded ? (
-                        <ChevronUp
-                          className={cn(
-                            "w-4 h-4",
-                            isExpanded ? "text-white" : "text-primary-700"
-                          )}
-                        />
-                      ) : (
-                        <Plus className="w-4 h-4 text-primary-700" />
-                      )}
+                      <Icon
+                        className={cn(
+                          "w-5 h-5",
+                          isExpanded ? "text-white" : "text-primary-600"
+                        )}
+                      />
                     </div>
+                    <h3 className="text-lg font-medium">
+                      {category.shortTitle}
+                    </h3>
                   </div>
-
-                  {/* Expandable content */}
-                  <AnimatePresence>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="bg-white"
-                      >
-                        <div className="p-4">
-                          <h4 className="text-xl font-semibold text-primary-700 mb-3">
-                            {category.title}
-                          </h4>
-                          <p className="text-gray-700 mb-6">
-                            {category.description}
-                          </p>
-
-                          {/* Service Areas */}
-                          <div className="space-y-4">
-                            {category.areas.map((area, areaIndex) => {
-                              const AreaIcon = icons[area.icon] || Lightbulb;
-                              return (
-                                <div
-                                  key={areaIndex}
-                                  className="p-4 bg-primary-50 rounded-md cursor-pointer hover:bg-primary-100 transition-colors"
-                                  onClick={() =>
-                                    handleServiceSelect(category, area)
-                                  }
-                                >
-                                  <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-                                      <AreaIcon className="w-5 h-5 text-primary-600" />
-                                    </div>
-                                    <h5 className="text-lg font-medium text-primary-700">
-                                      {area.title}
-                                    </h5>
-                                  </div>
-                                  <p className="text-gray-700 mb-4">
-                                    {area.description}
-                                  </p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      </motion.div>
+                  <div
+                    className={cn(
+                      "w-8 h-8 rounded-full flex items-center justify-center",
+                      isExpanded ? "bg-white/20" : "bg-white"
                     )}
-                  </AnimatePresence>
+                  >
+                    {isExpanded ? (
+                      <ChevronUp
+                        className={cn(
+                          "w-4 h-4",
+                          isExpanded ? "text-white" : "text-primary-700"
+                        )}
+                      />
+                    ) : (
+                      <Plus className="w-4 h-4 text-primary-700" />
+                    )}
+                  </div>
                 </div>
-              );
-            })}
 
-            {/* Show more button if there are hidden categories */}
-            {visibleMobileCount < data.categories.length && (
-              <div className="flex justify-center mt-6">
-                <button
-                  onClick={showMoreCategories}
-                  className="flex items-center gap-2 px-6 py-3 bg-primary-50 hover:bg-primary-100 text-primary-700 rounded-md font-medium transition-colors"
-                >
-                  <span>Mehr anzeigen</span>
-                  <ChevronDown className="w-4 h-4" />
-                </button>
+                {/* Expandable content */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-white"
+                    >
+                      <div className="p-4">
+                        <h4 className="text-xl font-semibold text-primary-700 mb-3">
+                          {category.title}
+                        </h4>
+                        <p className="text-gray-700 mb-6">
+                          {category.description}
+                        </p>
+
+                        {/* Service Areas */}
+                        <div className="space-y-4">
+                          {category.areas.map((area, areaIndex) => {
+                            const AreaIcon = icons[area.icon] || Lightbulb;
+                            return (
+                              <div
+                                key={areaIndex}
+                                className="p-4 bg-primary-50 rounded-md cursor-pointer hover:bg-primary-100 transition-colors"
+                                onClick={() =>
+                                  handleServiceSelect(category, area)
+                                }
+                              >
+                                <div className="flex items-center gap-3 mb-3">
+                                  <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <AreaIcon className="w-5 h-5 text-primary-600" />
+                                  </div>
+                                  <h5 className="text-lg font-medium text-primary-700">
+                                    {area.title}
+                                  </h5>
+                                </div>
+                                <p className="text-gray-700 mb-4">
+                                  {area.description}
+                                </p>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-            )}
-          </div>
-        </Container>
+            );
+          })}
+
+          {/* Show more button if there are hidden categories */}
+        </div>
       </SectionContainer>
 
       {/* FAQ Section */}
       <SectionContainer bgColor="bg-white">
-        <Container>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-light text-primary-700 mb-4">
-              Häufig gestellte Fragen
-            </h2>
-            <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto">
-              Antworten auf die wichtigsten Fragen zu unseren Leistungen
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-light text-primary-700 mb-4">
+            Häufig gestellte Fragen
+          </h2>
+          <p className="text-xl font-light text-gray-600 max-w-2xl mx-auto">
+            Antworten auf die wichtigsten Fragen zu unseren Leistungen
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="bg-primary-50 p-6 rounded-lg">
+            <h3 className="text-xl font-medium text-primary-700 mb-3">
+              Welche Vorteile bietet Contracting?
+            </h3>
+            <p className="text-gray-700">
+              Contracting ermöglicht es Ihnen, moderne Energietechnik ohne
+              eigene Investition zu nutzen. Sie profitieren von
+              Kostensicherheit, professionellem Anlagenbetrieb und
+              nachhaltigeren Lösungen ohne Kapitalbindung.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-primary-50 p-6 rounded-lg">
-              <h3 className="text-xl font-medium text-primary-700 mb-3">
-                Welche Vorteile bietet Contracting?
-              </h3>
-              <p className="text-gray-700">
-                Contracting ermöglicht es Ihnen, moderne Energietechnik ohne
-                eigene Investition zu nutzen. Sie profitieren von
-                Kostensicherheit, professionellem Anlagenbetrieb und
-                nachhaltigeren Lösungen ohne Kapitalbindung.
-              </p>
-            </div>
-
-            <div className="bg-primary-50 p-6 rounded-lg">
-              <h3 className="text-xl font-medium text-primary-700 mb-3">
-                Wie lange dauert eine typische Projektplanung?
-              </h3>
-              <p className="text-gray-700">
-                Die Dauer variiert je nach Komplexität. Von der ersten Beratung
-                bis zur Umsetzungsreife vergehen in der Regel 2-6 Monate, wobei
-                wir großen Wert auf eine gründliche Analyse und maßgeschneiderte
-                Lösung legen.
-              </p>
-            </div>
-
-            <div className="bg-primary-50 p-6 rounded-lg">
-              <h3 className="text-xl font-medium text-primary-700 mb-3">
-                Für welche Gebäudetypen bieten Sie Lösungen?
-              </h3>
-              <p className="text-gray-700">
-                Wir entwickeln Lösungen für eine Vielzahl von Gebäuden:
-                Wohngebäude, Büroimmobilien, öffentliche Einrichtungen,
-                Pflegeheime, Industriebetriebe und komplette Quartierslösungen -
-                jedes Projekt erhält ein individuelles Konzept.
-              </p>
-            </div>
-
-            <div className="bg-primary-50 p-6 rounded-lg">
-              <h3 className="text-xl font-medium text-primary-700 mb-3">
-                Wie wird die Wirtschaftlichkeit berechnet?
-              </h3>
-              <p className="text-gray-700">
-                Wir führen detaillierte Analysen nach VDI 2067 durch und
-                berücksichtigen alle relevanten Faktoren: Investitionskosten,
-                Energiekosten, Betriebskosten, Fördermittel und
-                Preisentwicklungen für eine realistische Kalkulation.
-              </p>
-            </div>
+          <div className="bg-primary-50 p-6 rounded-lg">
+            <h3 className="text-xl font-medium text-primary-700 mb-3">
+              Wie lange dauert eine typische Projektplanung?
+            </h3>
+            <p className="text-gray-700">
+              Die Dauer variiert je nach Komplexität. Von der ersten Beratung
+              bis zur Umsetzungsreife vergehen in der Regel 2-6 Monate, wobei
+              wir großen Wert auf eine gründliche Analyse und maßgeschneiderte
+              Lösung legen.
+            </p>
           </div>
 
-          <div className="text-center mt-12">
-            <ButtonContainer>
-              <CustomButton
-                text="Weitere Fragen? Kontaktieren Sie uns"
-                href="/kontakt"
-                iconSize={20}
-                size="lg"
-                variant="gradient"
-              />
-            </ButtonContainer>
+          <div className="bg-primary-50 p-6 rounded-lg">
+            <h3 className="text-xl font-medium text-primary-700 mb-3">
+              Für welche Gebäudetypen bieten Sie Lösungen?
+            </h3>
+            <p className="text-gray-700">
+              Wir entwickeln Lösungen für eine Vielzahl von Gebäuden:
+              Wohngebäude, Büroimmobilien, öffentliche Einrichtungen,
+              Pflegeheime, Industriebetriebe und komplette Quartierslösungen -
+              jedes Projekt erhält ein individuelles Konzept.
+            </p>
           </div>
-        </Container>
+
+          <div className="bg-primary-50 p-6 rounded-lg">
+            <h3 className="text-xl font-medium text-primary-700 mb-3">
+              Wie wird die Wirtschaftlichkeit berechnet?
+            </h3>
+            <p className="text-gray-700">
+              Wir führen detaillierte Analysen nach VDI 2067 durch und
+              berücksichtigen alle relevanten Faktoren: Investitionskosten,
+              Energiekosten, Betriebskosten, Fördermittel und Preisentwicklungen
+              für eine realistische Kalkulation.
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center mt-12">
+          <ButtonContainer>
+            <CustomButton
+              text="Kontaktieren Sie uns"
+              href="/kontakt"
+              iconSize={20}
+              size="lg"
+              variant="gradient"
+            />
+          </ButtonContainer>
+        </div>
       </SectionContainer>
 
       {/* Contact Section Component */}
@@ -423,7 +401,7 @@ export default function ServicesPage() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm overflow-y-auto"
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm overflow-y-auto overscroll-none"
             onClick={handleOverlayClick}
           >
             <motion.div
@@ -431,7 +409,7 @@ export default function ServicesPage() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-xl"
+              className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-xl max-h-[90vh] overflow-y-auto"
             >
               {/* Close button */}
               <div className="sticky top-0 z-10 bg-white p-4 flex justify-end border-b border-gray-200">
