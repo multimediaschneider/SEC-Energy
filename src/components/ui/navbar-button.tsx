@@ -9,8 +9,15 @@ interface NavbarButtonProps {
   href: string;
   className?: string;
   iconSize?: number;
-  variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white" | "gradient";
+  variant?:
+    | "default"
+    | "primary"
+    | "primaryOutline"
+    | "secondary"
+    | "white"
+    | "gradient";
   size?: "default" | "sm" | "lg" | "xl";
+  disabled?: boolean;
 }
 
 const NavbarButton = ({
@@ -20,12 +27,20 @@ const NavbarButton = ({
   iconSize = 16,
   variant = "white",
   size = "default",
+  disabled = false,
 }: NavbarButtonProps) => {
   return (
-    <Link href={href} className="relative z-10 inline-block">
+    <Link
+      href={href}
+      className={cn(
+        "relative z-10 inline-block",
+        disabled && "pointer-events-none opacity-50"
+      )}
+    >
       <Button
         variant={variant}
         size={size}
+        disabled={disabled}
         className={cn(
           "text-lg font-normal transition-all",
           "relative [&_svg]:w-auto [&_svg]:h-auto", // Override SVG constraints

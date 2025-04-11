@@ -129,7 +129,10 @@ export default function Navbar() {
         <motion.div
           className="md:hidden"
           initial={false}
-          animate={{ height: isMenuOpen ? "auto" : 0 }}
+          animate={{
+            height: isMenuOpen ? "auto" : 0,
+            display: isMenuOpen ? "block" : "none",
+          }}
           transition={{ duration: 0.3 }}
         >
           <ul className="pt-2 pb-3 space-y-1 overflow-hidden">
@@ -144,12 +147,16 @@ export default function Navbar() {
                 animate={{
                   opacity: isMenuOpen ? 1 : 0,
                   x: isMenuOpen ? 0 : -20,
+                  pointerEvents: isMenuOpen ? "auto" : "none",
                 }}
                 transition={{ delay: i * 0.1 }}
               >
                 <Link
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-primary-600 transition-colors duration-300"
+                  className={cn(
+                    "block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-primary-600 transition-colors duration-300",
+                    !isMenuOpen && "pointer-events-none opacity-50"
+                  )}
                 >
                   {item.title}
                 </Link>
@@ -160,6 +167,7 @@ export default function Navbar() {
               animate={{
                 opacity: isMenuOpen ? 1 : 0,
                 x: isMenuOpen ? 0 : -20,
+                pointerEvents: isMenuOpen ? "auto" : "none",
               }}
               transition={{ delay: 0.3 }}
             >
@@ -170,6 +178,7 @@ export default function Navbar() {
                 size="default"
                 variant="white"
                 className="w-full mt-2"
+                disabled={!isMenuOpen}
               />
             </motion.li>
           </ul>
