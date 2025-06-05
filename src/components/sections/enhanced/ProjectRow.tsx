@@ -100,10 +100,7 @@ const ProjectRow = ({
               >
                 <CustomButton
                   text="Details ansehen"
-                  onClick={(e) => {
-                    e?.preventDefault();
-                    onClick();
-                  }}
+                  onClick={() => onClick()}
                   iconSize={16}
                   size="sm"
                   variant="primary"
