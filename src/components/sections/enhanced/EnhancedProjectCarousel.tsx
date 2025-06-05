@@ -142,7 +142,7 @@ export default function EnhancedProjectCarousel() {
           {/* Loading State */}
           {isLoading ? (
             <div className="py-8 flex justify-center items-center">
-              <div className="w-12 h-12 border-4 border-primary-200 border-t-primary-700 rounded-full animate-spin"></div>
+              <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-700 rounded-full animate-spin"></div>
             </div>
           ) : allProjects.length === 0 ? (
             // Empty State
@@ -213,7 +213,9 @@ export default function EnhancedProjectCarousel() {
                   <Image
                     src={currentProject.images?.[0] || "/pipes.jpg"}
                     alt={currentProject.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                   />
                   <div className="absolute bottom-0 left-0 p-6 z-20">
                     <Badge
@@ -235,7 +237,7 @@ export default function EnhancedProjectCarousel() {
                   </div>
 
                   <div className="flex items-center gap-2 text-gray-600">
-                    <span className="p-1 rounded-full bg-primary-100">
+                    <span className="p-1 rounded-full bg-emerald-100">
                       <Building2 size={16} className="flex-shrink-0" />
                     </span>
                     <span>{currentProject.technicalData.type}</span>
@@ -257,10 +259,10 @@ export default function EnhancedProjectCarousel() {
                   {/* Technical Data */}
                   <div className="bg-gray-50 rounded-xl p-5">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="bg-primary-100 p-2 rounded-full">
-                        <Settings className="w-5 h-5 text-primary-600" />
+                      <div className="bg-emerald-100 p-2 rounded-full">
+                        <Settings className="w-5 h-5 text-emerald-600" />
                       </div>
-                      <h4 className="text-lg font-medium text-primary-700">
+                      <h4 className="text-lg font-medium text-emerald-700">
                         Technische Daten
                       </h4>
                     </div>
@@ -269,7 +271,7 @@ export default function EnhancedProjectCarousel() {
                       currentProject.technicalData.additionalMetrics.map(
                         (metric: any, index: number) => (
                           <div key={index} className="mb-3 last:mb-0">
-                            <p className="text-sm font-medium text-primary-700 mb-1">
+                            <p className="text-sm font-medium text-emerald-700 mb-1">
                               {metric.label}
                             </p>
                             <p className="text-gray-700">{metric.value}</p>
@@ -281,10 +283,10 @@ export default function EnhancedProjectCarousel() {
                   {/* Scope */}
                   <div className="bg-gray-50 rounded-xl p-5">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="bg-primary-100 p-2 rounded-full">
-                        <ChevronDown className="w-5 h-5 text-primary-600" />
+                      <div className="bg-emerald-100 p-2 rounded-full">
+                        <ChevronDown className="w-5 h-5 text-emerald-600" />
                       </div>
-                      <h4 className="text-lg font-medium text-primary-700">
+                      <h4 className="text-lg font-medium text-emerald-700">
                         Leistungsumfang
                       </h4>
                     </div>
@@ -296,7 +298,7 @@ export default function EnhancedProjectCarousel() {
                             key={index}
                             className="flex items-start gap-2 text-gray-700"
                           >
-                            <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0" />
+                            <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
                             <span>{item}</span>
                           </li>
                         )
@@ -307,10 +309,10 @@ export default function EnhancedProjectCarousel() {
                   {/* Results */}
                   <div className="bg-gray-50 rounded-xl p-5">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="bg-primary-100 p-2 rounded-full">
-                        <Target className="w-5 h-5 text-primary-600" />
+                      <div className="bg-emerald-100 p-2 rounded-full">
+                        <Target className="w-5 h-5 text-emerald-600" />
                       </div>
-                      <h4 className="text-lg font-medium text-primary-700">
+                      <h4 className="text-lg font-medium text-emerald-700">
                         Ergebnisse
                       </h4>
                     </div>
@@ -323,7 +325,7 @@ export default function EnhancedProjectCarousel() {
                               key={index}
                               className="flex items-start gap-2 text-gray-700"
                             >
-                              <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mt-2 flex-shrink-0" />
+                              <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full mt-2 flex-shrink-0" />
                               <span>{result}</span>
                             </li>
                           )

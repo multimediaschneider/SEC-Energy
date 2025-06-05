@@ -63,7 +63,7 @@ export function ContactForm() {
         },
         body: JSON.stringify({
           ...values,
-          to: "kontakt@sec-energy.de",
+          to: "schneider-sven@posteo.de",
         }),
       });
 

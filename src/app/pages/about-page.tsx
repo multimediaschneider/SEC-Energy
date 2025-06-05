@@ -185,10 +185,10 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section - Optimiert mit Flexbox */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-800 h-screen flex items-center">
         <div className="absolute inset-0">
-          {/* Animated blur circles for visual interest */}
+          {/* Animated blur circles */}
           <div className="blur-container">
             <div className="blur-circle blur-circle-1" />
             <div className="blur-circle blur-circle-2" />

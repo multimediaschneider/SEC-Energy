@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface CustomButtonProps {
   text: string;
-  href: string;
+  href?: string;
   className?: string;
   iconSize?: number;
   variant?: "default" | "primary" | "primaryOutline" | "secondary" | "white" | "gradient";
@@ -49,6 +49,11 @@ const CustomButton = ({
 
   // If there's an onClick handler, don't wrap in Link
   if (onClick) {
+    return buttonContent;
+  }
+
+  // If no href provided, return button without Link wrapper
+  if (!href) {
     return buttonContent;
   }
 

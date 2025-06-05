@@ -92,7 +92,8 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative py-0">{/* Hero has no padding by design */}
+    <section className="relative py-0">
+      {/* Hero has no padding by design */}
       <div className="relative w-full min-h-screen overflow-hidden">
         {/* Image Container */}
         <div className="absolute inset-0">
@@ -150,7 +151,7 @@ export default function HeroSection() {
                   initial={{ color: "#047857" }}
                   animate={{ color: isImageVisible ? "#ffffff" : "#047857" }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4 font-light"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-4 font-semibold"
                 >
                   Nachhaltige Energielösungen durch Expertise im Contracting
                 </motion.h1>

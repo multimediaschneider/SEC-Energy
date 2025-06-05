@@ -29,18 +29,18 @@ const ProjectRow = ({
   };
 
   return (
-    <div className="w-full mb-4 border border-primary-800 rounded-lg overflow-hidden shadow-md">
+    <div className="w-full mb-4 border border-emerald-800 rounded-lg overflow-hidden shadow-md">
       {/* Header bar - always visible */}
       <div
-        className="bg-primary-700 text-white p-4 flex justify-between items-center cursor-pointer"
+        className="bg-emerald-700 text-white p-4 flex justify-between items-center cursor-pointer"
         onClick={handleHeaderClick}
       >
         <h3 className="text-lg font-medium">{project.title}</h3>
         <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md">
           {isExpanded ? (
-            <ChevronUp className="w-4 h-4 text-primary-700" />
+            <ChevronUp className="w-4 h-4 text-emerald-700" />
           ) : (
-            <Plus className="w-4 h-4 text-primary-700" />
+            <Plus className="w-4 h-4 text-emerald-700" />
           )}
         </div>
       </div>
@@ -100,7 +100,10 @@ const ProjectRow = ({
               >
                 <CustomButton
                   text="Details ansehen"
-                  onClick={onClick}
+                  onClick={(e) => {
+                    e?.preventDefault();
+                    onClick();
+                  }}
                   iconSize={16}
                   size="sm"
                   variant="primary"

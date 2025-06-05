@@ -9,7 +9,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-white hover:bg-primary-600 shadow-sm",
+        default: "bg-emerald-700 text-white hover:bg-emerald-600 shadow-sm",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -17,15 +17,15 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-emerald-700 underline-offset-4 hover:underline",
         primary:
-          "bg-primary-700 text-white border-primary-700 hover:bg-primary-600 shadow-sm",
+          "bg-emerald-700 text-white border-emerald-700 hover:bg-emerald-600 shadow-sm",
         gradient:
-          "bg-primary-200 text-primary-700 border border-primary-700 hover:bg-primary-700 hover:text-primary-100 hover:border-primary-200 transition-colors shadow-sm",
+          "bg-emerald-200 text-emerald-700 border border-emerald-700 hover:bg-emerald-700 hover:text-emerald-100 hover:border-emerald-200 transition-colors shadow-sm",
         primaryOutline:
-          "bg-transparent text-primary-700 border border-primary-700 hover:bg-primary-50",
+          "bg-transparent text-emerald-700 border border-emerald-700 hover:bg-emerald-50",
         white:
-          "bg-white text-primary-700 border border-white hover:bg-gray-50 shadow-sm",
+          "bg-white text-emerald-700 border border-white hover:bg-gray-50 shadow-sm",
       },
       size: {
         default: "h-10 px-4 py-2",

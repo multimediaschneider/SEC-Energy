@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Container from "@/components/ui/container";
 import ContactSection from "@/components/sections/contact-section";
 import EnhancedProjectCarousel from "@/components/sections/enhanced/EnhancedProjectCarousel";
+import { ChevronDown } from "lucide-react";
 
 export default function EnhancedProjectsPage() {
   return (
@@ -35,6 +36,15 @@ export default function EnhancedProjectsPage() {
               </motion.div>
             </div>
           </div>
+          {/* Scroll indicator arrow */}
+          <motion.div
+            className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ delay: 0.5, duration: 1.5, repeat: Infinity }}
+          >
+            <ChevronDown className="w-10 h-10 text-white" />
+          </motion.div>
         </Container>
       </section>
 
