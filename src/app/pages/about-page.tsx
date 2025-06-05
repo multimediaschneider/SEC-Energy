@@ -290,10 +290,10 @@ export default function AboutPage() {
               <div className="flex items-center gap-3 text-emerald-700">
                 <MailOpen className="w-5 h-5" />
                 <a
-                  href="mailto:Dierk.Schneider@sec-energy.de"
+                  href="mailto:muster-mail@muster.de"
                   className="hover:underline"
                 >
-                  Dierk.Schneider@sec-energy.de
+                  muster-mail@muster.de
                 </a>
               </div>
 

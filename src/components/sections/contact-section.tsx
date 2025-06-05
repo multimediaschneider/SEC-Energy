@@ -193,15 +193,13 @@ export default function ContactSection({ currentPage }: ContactSectionProps) {
                   </p>
                   <div className="space-y-3">
                     <a
-                      href="mailto:Dierk.Schneider@sec-energy.de"
+                      href="mailto:muster-mail@muster.de"
                       className="flex items-center gap-3 text-gray-700 hover:text-primary-700 transition-colors group truncate"
                     >
                       <div className="w-8 h-8 bg-primary-50 rounded-full flex items-center justify-center group-hover:bg-primary-100 transition-colors flex-shrink-0">
                         <Mail className="w-4 h-4 text-primary-700" />
                       </div>
-                      <span className="truncate">
-                        Dierk.Schneider@sec-energy.de
-                      </span>
+                      <span className="truncate">muster-mail@muster.de</span>
                     </a>
                     <a
                       href="tel:0511 - 169 91 162"
